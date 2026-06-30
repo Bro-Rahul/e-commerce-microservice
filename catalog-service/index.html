@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>Product</h2>
+
+    <input id="title" placeholder="Title"><br><br>
+    <input id="description" placeholder="Description"><br><br>
+    <input id="price" type="number" placeholder="Price"><br><br>
+    <input id="category" placeholder="Category"><br><br>
+    <input id="aboutItem" placeholder="About Item"><br><br>
+
+    <hr>
+
+    <h3>Images</h3>
+
+    <div id="imageContainer"></div>
+
+    <button onclick="addImage()">Add Image</button>
+
+    <br><br>
+
+    <button onclick="submitProduct()">Submit</button>
+
+    <script>
+
+        function addImage() {
+
+            const div = document.createElement("div");
+
+            div.className = "imageRow";
+
+            div.innerHTML = `
+        <input type="file" class="imageFile">
+
+        <input
+            type="text"
+            class="imageName"
+            placeholder="Image Name">
+
+        Cover
+        <input
+            type="checkbox"
+            class="coverImage">
+
+        <hr>
+    `;
+
+            document.getElementById("imageContainer")
+                .appendChild(div);
+        }
+
+        addImage();
+
+        async function submitProduct() {
+
+            const product = {
+                title: document.getElementById("title").value || "this is title",
+                description: document.getElementById("description").value || "this is title",
+                price: Number(document.getElementById("price").value) || 45,
+                metaDetail: {
+                    phone: "Phone",
+                    color: "red"
+                },
+                category: document.getElementById("category").value || "this is title",
+                aboutItem: document.getElementById("aboutItem").value || "this is title"
+            };
+
+            const formData = new FormData();
+
+            formData.append(
+                "productBase",
+                new Blob(
+                    [JSON.stringify(product)],
+                    { type: "application/json" }
+                )
+            );
+
+            const metadata = [];
+
+            document.querySelectorAll(".imageRow").forEach(row => {
+
+                const file = row.querySelector(".imageFile").files[0];
+
+                if (file) {
+
+                    formData.append("images", file);
+
+                    metadata.push({
+                        name: row.querySelector(".imageName").value,
+                        isCoverImage: row.querySelector(".coverImage").checked
+                    });
+
+                }
+
+            });
+
+            formData.append(
+                "productImage",
+                new Blob(
+                    [JSON.stringify(metadata)],
+                    { type: "application/json" }
+                )
+            );
+
+            formData.append(
+                "productImage",
+
+                new Blob(
+                    [JSON.stringify("")], {
+                    type: "application/json"
+                }
+                )
+            );
+
+            const response = await fetch(
+                "http://localhost:8081/catalog/product",
+                {
+                    method: "POST",
+                    body: formData
+                });
+
+            console.log(await response.text());
+
+        }
+
+    </script>
+
+</body>
+
+</html>

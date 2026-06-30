@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Poco M8 5G Frost Silver - ShopDirect</title>
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style data-purpose="custom-typography">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+    }
+  </style>
+  <style data-purpose="component-styling">
+    .offer-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 140px;
+      transition: all 0.2s ease;
+    }
+
+    .offer-card:hover {
+      border-color: #2563eb;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .variant-chip {
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .variant-chip.active {
+      border-color: #2563eb;
+      background-color: #eff6ff;
+      border-width: 2px;
+    }
+
+    .accordion-item {
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .buy-box {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 16px;
+      background: white;
+    }
+  </style>
+</head>
+
+<body class="text-gray-900">
+  <!-- BEGIN: MainHeader -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <h1 class="text-2xl font-bold text-blue-700 tracking-tight" data-purpose="brand-logo">ShopDirect</h1>
+        <div class="hidden md:flex items-center bg-gray-100 rounded-md px-3 py-2 w-96">
+          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2"></path>
+          </svg>
+          <input class="bg-transparent border-none focus:ring-0 text-sm w-full"
+            placeholder="Search for products, brands and more" type="text" />
+        </div>
+      </div>
+      <nav class="flex items-center gap-6 text-sm font-medium">
+        <a class="hover:text-blue-600" href="#">Home</a>
+        <a class="hover:text-blue-600" href="#">Electronics</a>
+        <a class="hover:text-blue-600" href="#">Mobiles</a>
+        <div class="h-6 w-px bg-gray-300"></div>
+        <button class="relative">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+          <span
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <!-- END: MainHeader -->
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <!-- BEGIN: TopProductSection -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+      <!-- Left: Product Gallery -->
+      <div class="lg:col-span-5 flex gap-4">
+        <div class="flex flex-col gap-2">
+          <!-- Thumbnail list -->
+          <div class="w-14 h-14 border border-blue-500 rounded p-1 cursor-pointer">
+            <img alt="Thumb 1" class="w-full h-full object-contain"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-xeq4gsoXBFKNJhk53GqvoNuJfQSj5Lepn-a4ezpjOhB3ScbFy92d278O0VcgUPbPYpYD11f55v1ANR4N1JFPTzjZdGex340H39qH402pGQP5MtbqINTwdiejSdFJN2W92KSyMGPq7YARwk3pa6G4OJ8Hf5Yymz_gngGBu6XWyonjxZaHq1AnEo-g8UzXmZlTkTzLw5gTeLTLrRmAPdCWcBH4KVgKx4z0VyeyhLrQ-7GRdoMTrTzuyOlzim1RHfQTySlsptV1K48v" />
+          </div>
+          <!-- Additional placeholders for interaction demo -->
+          <div class="w-14 h-14 border border-gray-200 rounded p-1 cursor-pointer hover:border-blue-500">
+            <div class="w-full h-full bg-gray-100 flex items-center justify-center text-[8px] text-center">SIDE VIEW
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 bg-white rounded-lg p-4 flex items-center justify-center relative group">
+          <img alt="Poco M8 5G" class="max-h-[600px] object-contain" id="main-product-image"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-xeq4gsoXBFKNJhk53GqvoNuJfQSj5Lepn-a4ezpjOhB3ScbFy92d278O0VcgUPbPYpYD11f55v1ANR4N1JFPTzjZdGex340H39qH402pGQP5MtbqINTwdiejSdFJN2W92KSyMGPq7YARwk3pa6G4OJ8Hf5Yymz_gngGBu6XWyonjxZaHq1AnEo-g8UzXmZlTkTzLw5gTeLTLrRmAPdCWcBH4KVgKx4z0VyeyhLrQ-7GRdoMTrTzuyOlzim1RHfQTySlsptV1K48v" />
+          <button class="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path
+                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Center: Product Details -->
+      <div class="lg:col-span-4 space-y-4">
+        <div>
+          <h2 class="text-2xl font-medium leading-tight">Poco M8 5G Frost Silver 8GB RAM 128GB ROM</h2>
+          <p class="text-blue-600 text-sm mt-1 font-medium">Brand: POCO</p>
+          <div class="flex items-center gap-2 mt-2">
+            <div class="flex text-orange-400">
+              <svg class="w-4 h-4 fill-current" viewbox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
+              <!-- 4 more stars -->
+              <svg class="w-4 h-4 fill-current" viewbox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
+              <svg class="w-4 h-4 fill-current" viewbox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
+              <svg class="w-4 h-4 fill-current" viewbox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
+              <svg class="w-4 h-4 text-gray-300 fill-current" viewbox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
+            </div>
+            <span class="text-blue-600 text-sm">(143)</span>
+          </div>
+          <div class="inline-block bg-black text-white text-[10px] px-2 py-0.5 mt-2 rounded-sm">Amazon's Choice</div>
+          <p class="text-xs text-gray-600 mt-1">50+ bought in past month</p>
+        </div>
+        <div class="border-t border-gray-100 pt-4">
+          <div class="flex items-baseline gap-2">
+            <span class="text-red-500 text-3xl font-light">-13%</span>
+            <span class="text-3xl font-medium">₹21,863</span>
+          </div>
+          <p class="text-xs text-gray-500">M.R.P.: <span class="line-through">₹24,999</span></p>
+          <p class="text-sm font-medium mt-1">Inclusive of all taxes</p>
+          <p class="text-sm mt-1">EMI starts at ₹769. No Cost EMI available <a class="text-blue-600" href="#">EMI
+              options</a></p>
+        </div>
+        <!-- Offers Section -->
+        <div data-purpose="offers">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path
+                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="font-bold text-sm">Offers</span>
+          </div>
+          <div class="flex gap-3 overflow-x-auto pb-2">
+            <div class="offer-card flex flex-col justify-between">
+              <p class="text-xs font-bold">Cashback</p>
+              <p class="text-[11px] text-gray-600 mt-1">Upto ₹655.00 cashback as Amazon Pay Balance when...</p>
+              <a class="text-blue-600 text-[11px] mt-2 block" href="#">1 offer &gt;</a>
+            </div>
+            <div class="offer-card flex flex-col justify-between">
+              <p class="text-xs font-bold">No Cost EMI</p>
+              <p class="text-[11px] text-gray-600 mt-1">Upto ₹569.95 EMI interest savings on Amazon Pay ICICI...</p>
+              <a class="text-blue-600 text-[11px] mt-2 block" href="#">1 offer &gt;</a>
+            </div>
+            <div class="offer-card flex flex-col justify-between">
+              <p class="text-xs font-bold">Bank Offer</p>
+              <p class="text-[11px] text-gray-600 mt-1">Upto ₹1,093 discount on Bank Credit...</p>
+              <a class="text-blue-600 text-[11px] mt-2 block" href="#">1 offer &gt;</a>
+            </div>
+          </div>
+        </div>
+        <!-- Trust Badges -->
+        <div class="grid grid-cols-4 gap-2 border-y border-gray-100 py-4 text-center">
+          <div class="space-y-1">
+            <div class="flex justify-center"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg></div>
+            <p class="text-[10px] text-blue-600 leading-tight">10 days Service Centre Replacement</p>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-center"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg></div>
+            <p class="text-[10px] text-blue-600 leading-tight">Free Delivery</p>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-center"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg></div>
+            <p class="text-[10px] text-blue-600 leading-tight">1 Year Warranty</p>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-center"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor"
+                viewbox="0 0 24 24">
+                <path
+                  d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg></div>
+            <p class="text-[10px] text-blue-600 leading-tight">Pay on Delivery</p>
+          </div>
+        </div>
+        <!-- Variants Selection -->
+        <div class="pt-4">
+          <p class="text-xs font-bold mb-3">Set name: <span class="font-normal">Poco M8 5G (Frost Silver, 8GB RAM),
+              (128GB ROM)</span></p>
+          <div class="grid grid-cols-4 gap-2">
+            <div class="variant-chip active">
+              <p class="font-bold">Poco M8 5G (Frost Sil...</p>
+              <p class="text-gray-500">₹21,863.00</p>
+              <p class="text-gray-400 line-through">₹24,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Carbon...</p>
+              <p class="text-gray-500">₹21,860.00</p>
+              <p class="text-gray-400 line-through">₹24,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Carbon...</p>
+              <p class="text-gray-500">₹23,970.00</p>
+              <p class="text-gray-400 line-through">₹29,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Carbon...</p>
+              <p class="text-gray-500">₹19,990.00</p>
+              <p class="text-gray-400 line-through">₹21,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Frost Sil...</p>
+              <p class="text-gray-500">₹20,270.00</p>
+              <p class="text-gray-400 line-through">₹23,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Glacial...</p>
+              <p class="text-gray-500">₹20,290.00</p>
+              <p class="text-gray-400 line-through">₹21,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Glacial...</p>
+              <p class="text-gray-500">₹21,949.00</p>
+              <p class="text-gray-400 line-through">₹27,999.00</p>
+            </div>
+            <div class="variant-chip">
+              <p class="font-bold">Poco M8 5G (Frost Sil...</p>
+              <p class="text-gray-500">₹23,725.00</p>
+              <p class="text-gray-400 line-through">₹24,999.00</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 pt-6 border-t border-gray-100">
+          <h3 class="text-sm font-bold mb-3">About this item</h3>
+          <ul class="list-disc list-inside text-xs space-y-1 text-gray-800">
+            <li><span class="font-bold">Brand:</span> POCO</li>
+            <li><span class="font-bold">Operating System:</span> Android 15, Xiaomi HyperOS</li>
+            <li><span class="font-bold">RAM Memory Installed Size:</span> 8 GB</li>
+            <li><span class="font-bold">CPU Model:</span> Snapdragon</li>
+            <li><span class="font-bold">CPU Speed:</span> 2.4 GHz</li>
+          </ul>
+          <a class="text-blue-600 text-xs mt-3 inline-block hover:underline" href="#">See more product details</a>
+          <div class="mt-6 flex items-center gap-2 text-gray-600 cursor-pointer hover:text-blue-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-xs font-medium">Report an issue with this product</span>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Sidebar/Buy Box -->
+      <div class="lg:col-span-3">
+        <div class="buy-box space-y-4">
+          <div class="p-3 bg-blue-50 rounded-md border border-blue-100">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-blue-700 font-bold text-lg italic">prime</span>
+            </div>
+            <p class="text-xs">Enjoy <b>Unlimited FREE Same day/1-day delivery</b>, Prime offers everyday and more</p>
+            <a class="text-blue-600 text-xs font-medium mt-2 inline-block" href="#">Join Prime &gt;&gt;</a>
+          </div>
+          <div class="space-y-3">
+            <label class="flex items-start gap-3 p-2 border rounded border-gray-200 cursor-pointer">
+              <input class="mt-1" name="purchase-type" type="radio" />
+              <div>
+                <span class="text-sm font-bold block">With Exchange</span>
+                <span class="text-xs text-red-600">Up to ₹ 20,750.00 off</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 p-2 border rounded border-blue-600 bg-blue-50 cursor-pointer">
+              <input checked="" class="mt-1 text-blue-600" name="purchase-type" type="radio" />
+              <div>
+                <span class="text-sm font-bold block">Without Exchange</span>
+                <span class="text-sm text-red-600 font-bold">₹ 21,863.00</span>
+                <span class="text-xs text-gray-400 line-through ml-1">₹ 24,999.00</span>
+              </div>
+            </label>
+          </div>
+          <div class="text-xs space-y-1">
+            <p>FREE delivery <b>Friday, 3 July</b>.</p>
+            <p>Order within <span class="text-green-700">10 hrs 36 mins.</span> <a class="text-blue-600"
+                href="#">Details</a></p>
+            <p class="flex items-center gap-1 mt-2 text-blue-600">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"></path>
+              </svg>
+              Delivering to Mumbai 400017 - Update location
+            </p>
+          </div>
+          <div class="text-green-700 font-bold text-lg">In stock</div>
+          <div class="space-y-3">
+            <select class="w-full border-gray-300 rounded-md text-sm py-1.5 focus:ring-blue-500 focus:border-blue-500">
+              <option>Quantity: 1</option>
+              <option>Quantity: 2</option>
+            </select>
+            <button
+              class="w-full bg-yellow-400 hover:bg-yellow-500 py-2 rounded-full text-sm font-medium transition-colors">Add
+              to cart</button>
+            <button
+              class="w-full bg-orange-400 hover:bg-orange-500 py-2 rounded-full text-sm font-medium transition-colors">Buy
+              Now</button>
+          </div>
+          <div class="text-[11px] text-gray-600 grid grid-cols-2 gap-y-1 border-t border-gray-100 pt-3">
+            <span>Ships from</span> <span class="text-gray-900">Amazon</span>
+            <span>Sold by</span> <span class="text-blue-600">Vardhman_Tele.</span>
+            <span>Payment</span> <span class="text-blue-600">Secure transaction</span>
+            <span>Gift options</span> <span class="text-blue-600">Available at checkout</span>
+          </div>
+          <div class="border-t border-gray-100 pt-3">
+            <p class="text-sm font-bold">Add a Protection Plan:</p>
+            <label class="flex items-center gap-2 mt-2 cursor-pointer">
+              <input class="rounded text-blue-600" type="checkbox" />
+              <span class="text-xs"><span class="text-blue-600">1 Year Extended Warranty</span> by OneAssist for <span
+                  class="text-red-700 font-bold">₹649.00</span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END: TopProductSection -->
+    <!-- BEGIN: ProductInformationSection -->
+    <section class="border-t border-gray-300 pt-10">
+      <h3 class="text-lg font-bold mb-6">Poco M8 5G Frost Silver 8GB RAM 128GB ROM Mobile Phone Information</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0">
+        <!-- Left Column Info -->
+        <div class="space-y-px">
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Additional details</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Camera</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Battery</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Measurements</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div
+            class="accordion-item border-b border-gray-200 flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Video</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+        </div>
+        <!-- Right Column Info -->
+        <div class="space-y-px">
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Display</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Connectivity</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Item details</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div class="accordion-item flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Battery Life</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <div
+            class="accordion-item border-b border-gray-200 flex justify-between items-center py-3 cursor-pointer group">
+            <span class="font-bold text-sm">Navigation</span>
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <p class="text-xs text-gray-600">Feedback</p>
+        <button class="text-xs text-blue-600 hover:underline flex items-center gap-1">
+          Would you like to tell us about a lower price?
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </button>
+      </div>
+    </section>
+    <!-- END: ProductInformationSection -->
+    <!-- BEGIN: DescriptionSection -->
+    <section class="border-t border-gray-300 mt-12 pt-8">
+      <h3 class="text-lg font-bold mb-4">Product description</h3>
+      <p class="text-sm text-gray-800">POCO M8 5G Frost Silver 8GB RAM 128GB ROM</p>
+      <div class="mt-8 flex flex-col gap-4">
+        <div class="flex items-center gap-2">
+          <span class="bg-gray-700 text-white text-[10px] px-2 py-0.5 rounded-sm font-bold uppercase">Top Brand</span>
+          <span class="text-xl font-bold italic tracking-tight">POCO</span>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-5 h-5 bg-green-100 text-green-700 rounded-full flex items-center justify-center">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+              </svg>
+            </div>
+            <span class="text-sm text-gray-700">86% positive ratings from 50K+ customers</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-5 h-5 bg-green-100 text-green-700 rounded-full flex items-center justify-center">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+              </svg>
+            </div>
+            <span class="text-sm text-gray-700">50K+ recent orders from this brand</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-5 h-5 bg-green-100 text-green-700 rounded-full flex items-center justify-center">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+              </svg>
+            </div>
+            <span class="text-sm text-gray-700">7+ years on ShopDirect</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END: DescriptionSection -->
+    <!-- BEGIN: BoxContentSection -->
+    <section class="border-t border-gray-300 mt-12 pt-8 mb-20">
+      <h3 class="text-lg font-bold mb-4">What is in the box?</h3>
+      <ul class="list-disc list-inside text-sm text-gray-800 space-y-1 ml-1">
+        <li>Charger, cable, SIM eject tool, Warranty card, User guide, Protective case</li>
+      </ul>
+    </section>
+    <section class="border-t border-gray-300 mt-12 pt-8 mb-20">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-bold">Customers who viewed this item also viewed</h3>
+        <span class="text-xs text-gray-500">Page 1 of 4</span>
+      </div>
+      <div class="relative group">
+        <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+          <div class="min-w-[180px] flex-shrink-0 space-y-2">
+            <div class="bg-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-colors">
+              <img alt="Redmi Note 13 Pro" class="w-full h-40 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-xeq4gsoXBFKNJhk53GqvoNuJfQSj5Lepn-a4ezpjOhB3ScbFy92d278O0VcgUPbPYpYD11f55v1ANR4N1JFPTzjZdGex340H39qH402pGQP5MtbqINTwdiejSdFJN2W92KSyMGPq7YARwk3pa6G4OJ8Hf5Yymz_gngGBu6XWyonjxZaHq1AnEo-g8UzXmZlTkTzLw5gTeLTLrRmAPdCWcBH4KVgKx4z0VyeyhLrQ-7GRdoMTrTzuyOlzim1RHfQTySlsptV1K48v" />
+            </div>
+            <p class="text-xs text-blue-600 hover:underline cursor-pointer line-clamp-2">Redmi Note 13 Pro 5G (Arctic
+              White, 8GB RAM, 128GB Storage)</p>
+          </div>
+          <div class="min-w-[180px] flex-shrink-0 space-y-2">
+            <div class="bg-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-colors">
+              <img alt="POCO M7 Plus" class="w-full h-40 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-xeq4gsoXBFKNJhk53GqvoNuJfQSj5Lepn-a4ezpjOhB3ScbFy92d278O0VcgUPbPYpYD11f55v1ANR4N1JFPTzjZdGex340H39qH402pGQP5MtbqINTwdiejSdFJN2W92KSyMGPq7YARwk3pa6G4OJ8Hf5Yymz_gngGBu6XWyonjxZaHq1AnEo-g8UzXmZlTkTzLw5gTeLTLrRmAPdCWcBH4KVgKx4z0VyeyhLrQ-7GRdoMTrTzuyOlzim1RHfQTySlsptV1K48v" />
+            </div>
+            <p class="text-xs text-blue-600 hover:underline cursor-pointer line-clamp-2">POCO M7 Plus 5G (Power Black,
+              6GB RAM, 128GB Storage)</p>
+          </div>
+          <div class="min-w-[180px] flex-shrink-0 space-y-2">
+            <div class="bg-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-colors">
+              <img alt="OnePlus Nord CE3 Lite" class="w-full h-40 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-xeq4gsoXBFKNJhk53GqvoNuJfQSj5Lepn-a4ezpjOhB3ScbFy92d278O0VcgUPbPYpYD11f55v1ANR4N1JFPTzjZdGex340H39qH402pGQP5MtbqINTwdiejSdFJN2W92KSyMGPq7YARwk3pa6G4OJ8Hf5Yymz_gngGBu6XWyonjxZaHq1AnEo-g8UzXmZlTkTzLw5gTeLTLrRmAPdCWcBH4KVgKx4z0VyeyhLrQ-7GRdoMTrTzuyOlzim1RHfQTySlsptV1K48v" />
+            </div>
+            <p class="text-xs text-blue-600 hover:underline cursor-pointer line-clamp-2">OnePlus Nord CE3 Lite 5G
+              (Pastel Lime, 8GB RAM, 128GB Storage)</p>
+          </div>
+          <div class="min-w-[180px] flex-shrink-0 space-y-2">
+            <div class="bg-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-colors">
+              <img alt="Realme Narzo 60" class="w-full h-40 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-xeq4gsoXBFKNJhk53GqvoNuJfQSj5Lepn-a4ezpjOhB3ScbFy92d278O0VcgUPbPYpYD11f55v1ANR4N1JFPTzjZdGex340H39qH402pGQP5MtbqINTwdiejSdFJN2W92KSyMGPq7YARwk3pa6G4OJ8Hf5Yymz_gngGBu6XWyonjxZaHq1AnEo-g8UzXmZlTkTzLw5gTeLTLrRmAPdCWcBH4KVgKx4z0VyeyhLrQ-7GRdoMTrTzuyOlzim1RHfQTySlsptV1K48v" />
+            </div>
+            <p class="text-xs text-blue-600 hover:underline cursor-pointer line-clamp-2">Realme Narzo 60 5G (Mars
+              Orange, 8GB RAM, 128GB Storage)</p>
+          </div>
+        </div>
+        <button
+          class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md border border-gray-200 hover:bg-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </button>
+        <button
+          class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md border border-gray-200 hover:bg-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </button>
+      </div>
+    </section>
+    <!-- END: BoxContentSection -->
+  </main>
+  <!-- BEGIN: Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-4 gap-8">
+      <div>
+        <h4 class="font-bold mb-4">Get to Know Us</h4>
+        <ul class="text-sm text-gray-400 space-y-2">
+          <li><a class="hover:underline" href="#">About ShopDirect</a></li>
+          <li><a class="hover:underline" href="#">Careers</a></li>
+          <li><a class="hover:underline" href="#">Press Releases</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Connect with Us</h4>
+        <ul class="text-sm text-gray-400 space-y-2">
+          <li><a class="hover:underline" href="#">Facebook</a></li>
+          <li><a class="hover:underline" href="#">Twitter</a></li>
+          <li><a class="hover:underline" href="#">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Make Money with Us</h4>
+        <ul class="text-sm text-gray-400 space-y-2">
+          <li><a class="hover:underline" href="#">Sell on ShopDirect</a></li>
+          <li><a class="hover:underline" href="#">Supply to ShopDirect</a></li>
+          <li><a class="hover:underline" href="#">Become an Affiliate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Let Us Help You</h4>
+        <ul class="text-sm text-gray-400 space-y-2">
+          <li><a class="hover:underline" href="#">Your Account</a></li>
+          <li><a class="hover:underline" href="#">Returns Centre</a></li>
+          <li><a class="hover:underline" href="#">Help</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+      © 1996-2026, ShopDirect.com, Inc. or its affiliates
+    </div>
+  </footer>
+  <!-- END: Footer -->
+</body>
+
+</html>

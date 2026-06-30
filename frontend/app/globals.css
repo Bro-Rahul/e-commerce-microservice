@@ -1,0 +1,358 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+* {
+  box-sizing: border-box;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* SellerCentral semantic palette (from code.html) */
+  --color-surface: var(--seller-surface);
+  --color-surface-container-low: var(--seller-surface-container-low);
+  --color-surface-container-lowest: var(--seller-surface-container-lowest);
+  --color-surface-container: var(--seller-surface-container);
+  --color-surface-container-high: var(--seller-surface-container-high);
+  --color-surface-container-highest: var(--seller-surface-container-highest);
+  --color-primary-container: var(--seller-primary-container);
+  --color-secondary-container: var(--seller-secondary-container);
+  --color-outline-variant: var(--seller-outline-variant);
+  --color-outline: var(--seller-outline);
+  --color-on-surface: var(--seller-on-surface);
+  --color-on-surface-variant: var(--seller-on-surface-variant);
+  --color-on-primary: var(--seller-on-primary);
+  --color-on-primary-container: var(--seller-on-primary-container);
+  --color-on-secondary-container: var(--seller-on-secondary-container);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Core */
+  --background: #f9f9f9;
+  --foreground: #1a1c1c;
+
+  /* Cards */
+  --card: #ffffff;
+  --card-foreground: #1a1c1c;
+
+  /* Popover */
+  --popover: #ffffff;
+  --popover-foreground: #1a1c1c;
+
+  /* Primary = Deep Navy */
+  --primary: #232f3e;
+  --primary-foreground: #ffffff;
+
+  /* Secondary = Action Orange */
+  --secondary: #ff9900;
+  --secondary-foreground: #000000;
+
+  /* Muted Surfaces */
+  --muted: #f3f3f3;
+  --muted-foreground: #44474c;
+
+  /* Accent */
+  --accent: #eeeeee;
+  --accent-foreground: #1a1c1c;
+
+  /* Danger */
+  --destructive: #ba1a1a;
+  --destructive-foreground: #ffffff;
+
+  /* Borders */
+  --border: #dddddd;
+  --input: #dddddd;
+  --ring: #ff9900;
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Commerce Specific */
+  --navy: #232f3e;
+  --orange: #ff9900;
+  --orange-light: #ffd814;
+  --price: #b12704;
+  --link: #007185;
+  --surface: #ffffff;
+  --surface-muted: #f3f3f3;
+  --best-seller: #e47911;
+  --success: #067d62;
+
+  /* Seller workspace */
+  --seller-navy: #232f3e;
+  --seller-orange: #ff9900;
+  --seller-orange-dark: #8a5100;
+  --seller-page: #f9f9f9;
+  --seller-surface: #f9f9f9;
+  --seller-surface-container-low: #f3f3f3;
+  --seller-surface-container-lowest: #ffffff;
+  --seller-surface-container: #eeeeee;
+  --seller-surface-container-high: #e8e8e8;
+  --seller-surface-container-highest: #e2e2e2;
+  --seller-primary-container: #232f3e;
+  --seller-secondary-container: #fe9800;
+  --seller-outline-variant: #c5c6cc;
+  --seller-outline: #75777c;
+  --seller-on-surface: #1a1c1c;
+  --seller-on-surface-variant: #44474c;
+  --seller-on-primary: #ffffff;
+  --seller-on-primary-container: #bbc7db;
+  --seller-on-secondary-container: #643900;
+
+  /* Charts */
+  --chart-1: #232f3e;
+  --chart-2: #ff9900;
+  --chart-3: #007185;
+  --chart-4: #b12704;
+  --chart-5: #44474c;
+
+  /* Sidebar */
+  --sidebar: #232f3e;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff9900;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #314155;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #44505f;
+  --sidebar-ring: #ff9900;
+}
+
+.dark {
+  --background: #131921;
+  --foreground: #ffffff;
+
+  --card: #232f3e;
+  --card-foreground: #ffffff;
+
+  --popover: #232f3e;
+  --popover-foreground: #ffffff;
+
+  --primary: #ff9900;
+  --primary-foreground: #000000;
+
+  --secondary: #314155;
+  --secondary-foreground: #ffffff;
+
+  --muted: #1f2937;
+  --muted-foreground: #cbd5e1;
+
+  --accent: #314155;
+  --accent-foreground: #ffffff;
+
+  --border: #374151;
+  --input: #374151;
+  --ring: #ff9900;
+
+  --sidebar: #131921;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff9900;
+}
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .text-price {
+    color: var(--price);
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 21px;
+  }
+
+  .text-product-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  .text-link {
+    color: var(--link);
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .text-low-stock {
+    color: var(--price);
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  .commerce-container {
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  .commerce-section {
+    padding-block: 20px;
+  }
+  
+  .fieldClassName{
+    @apply w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 py-2 text-sm outline-none transition focus:border-secondary-container focus:ring-1 focus:ring-secondary-container
+  }
+
+  .commerce-card {
+    @apply bg-card rounded-lg border transition-all;
+  }
+
+  .commerce-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-card {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .product-image {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+  }
+}
+
+@layer components {
+  .btn-buy-now {
+    background: var(--orange);
+    color: black;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .btn-buy-now:hover {
+    filter: brightness(0.95);
+  }
+
+  .btn-add-cart {
+    background: var(--orange-light);
+    color: black;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .btn-outline-commerce {
+    background: white;
+    border: 1px solid #d5d9d9;
+    color: black;
+    border-radius: 8px;
+  }
+}
+
+@layer components {
+  .nav-primary {
+    background: var(--navy);
+    color: white;
+  }
+
+  .nav-link {
+    color: white;
+    opacity: 0.9;
+  }
+
+  .nav-link:hover {
+    opacity: 1;
+  }
+}
+
+@layer components {
+  .search-commerce {
+    @apply bg-white rounded-lg border border-border;
+  }
+
+  .search-commerce:focus-within {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.25);
+  }
+
+  .search-button {
+    background: var(--orange);
+    color: black;
+  }
+}
+
+@layer components {
+  .badge-best-seller {
+    background: var(--best-seller);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 2px;
+  }
+
+  .badge-prime {
+    background: #e8f6ff;
+    color: var(--navy);
+    border: 1px solid #bde0ff;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
