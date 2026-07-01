@@ -3,9 +3,11 @@ import BreadCrumbList from '@/components/seller/reviewAndSubmit/breadCrumbList'
 import ProductRenderer from '@/components/seller/reviewAndSubmit/ProductRenderer'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { Button } from '@/components/ui/button'
+import useAddProductData from '@/hooks/useAddProductData'
 import useProductRequestData from '@/hooks/useProductRequestData'
 import useAddProduct from '@/store/useAddProduct'
 import { AvailableCategory } from '@/types/seller'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
@@ -19,17 +21,12 @@ const ProductReviewPage = () => {
     const { slug } = useParams<{ slug: AvailableCategory }>();
     const { getProductRequestValidator } = useProductRequestData(slug);
     const data = useAddProduct((state) => state.products)
+    const { createProduct } = useAddProductData(slug);
+    const { data: sessionData } = useSession();
 
     const onClick = async () => {
-        const body = getProductRequestValidator();
-
-        await fetch("http://localhost:8081/catalog/create-product/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        });
+        const str = await createProduct(sessionData?.user.token!);
+        console.log(str)
     }
 
     return (

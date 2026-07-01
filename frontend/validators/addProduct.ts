@@ -104,10 +104,9 @@ export const productValidatorMapping = {
 
 export const getProductRequestValidator = (catagory: AvailableCategory) => {
     const schema = z.object({
-        productBase: baseInventoryValidator,
+        productBase: baseValidator,
         productMetaDetail: productValidatorMapping[catagory],
         productStocks: productInventoryValidator,
-        userId: z.number()
     })
 
     return schema;
