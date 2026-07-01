@@ -3,12 +3,13 @@ package com.e_commerce.catalog_service.service.product;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.e_commerce.catalog_service.dto.product.ProductCreationRequest;
+import com.e_commerce.catalog_service.dto.product.ProductBaseRequest;
 import com.e_commerce.catalog_service.dto.product.ProductImageData;
 import com.e_commerce.catalog_service.mappers.product.ProductMapper;
 import com.e_commerce.catalog_service.model.Products;
@@ -26,18 +27,18 @@ public class ProductService {
     // private final ProductRepo productRepo;
 
     public ResponseEntity<?> createProduct(
-            ProductCreationRequest productRequest,
+            ProductBaseRequest productRequest,
             List<ProductImageData> productImages,
-            List<MultipartFile> files) {
+            List<MultipartFile> productImage) {
 
         Map<String, Object> map = objectMapper.convertValue(
                 productRequest.getMetaDetail(),
                 new TypeReference<Map<String, Object>>() {
                 });
 
-        for (int i = 0; i < files.size(); i++) {
-            MultipartFile file = files.get(i);
-            String relative = "/uploads/" + file.getOriginalFilename();
+        for (int i = 0; i < productImage.size(); i++) {
+            MultipartFile file = productImage.get(i);
+            String relative = "/uploads/" + UUID.randomUUID().toString();
             String filePath = System.getProperty("user.dir") + relative;
             try {
                 file.transferTo(new File(filePath));
