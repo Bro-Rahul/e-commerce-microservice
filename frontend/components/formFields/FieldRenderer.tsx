@@ -7,22 +7,25 @@ const FieldRenderer = ({ fieldsData }: { fieldsData: FormFieldSchema[] }) => {
     return fieldsData.map(field => {
         switch (field.type) {
             case "text":
-                return <fieldRegistry.text textField={field} key={field.name} />;
+                return <fieldRegistry.text schema={field} key={field.name} />;
 
             case "select":
-                return <fieldRegistry.select selectField={field} key={field.name} />;
+                return <fieldRegistry.select schema={field} key={field.name} />;
 
             case 'number':
-                return <fieldRegistry.numeric numericField={field} key={field.name} />
+                return <fieldRegistry.number schema={field} key={field.name} />
 
             case 'textarea':
-                return <fieldRegistry.textArea textAreaField={field} key={field.name} />
+                return <fieldRegistry.textarea schema={field} key={field.name} />
 
             case 'date':
-                return <fieldRegistry.date dateField={field} key={field.name} />
+                return <fieldRegistry.date schema={field} key={field.name} />
 
             case 'file':
-                return <fieldRegistry.file fileField={field} key={field.name} />
+                return <fieldRegistry.file schema={field} key={field.name} />
+
+            case 'array':
+                return <fieldRegistry.array schema={field} key={field.name} />
 
         }
     });

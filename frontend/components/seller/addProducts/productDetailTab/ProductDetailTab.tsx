@@ -50,10 +50,9 @@ const ProductDetails = ({ category }: { category: AvailableCategory }) => {
             duration: 5000
         })
     }
-
     return (
         <FormProvider {...method}>
-            <form onSubmit={method.handleSubmit(onSubmit)}>
+            <form onSubmit={method.handleSubmit(onSubmit, (err) => console.log(err))}>
                 <div className="space-y-6">
                     <section className='rounded-lg border border-outline-variant bg-surface-container-lowest p-6 shadow-sm'>
                         <SectionHeading>
@@ -80,7 +79,7 @@ const ProductDetails = ({ category }: { category: AvailableCategory }) => {
                         <SectionHeading>
                             <ReceiptText className="size-5 text-primary" />2. {category} Metadata (Required)
                         </SectionHeading>
-                        <div className="grid gap-x-6 gap-y-5 md:grid-cols-2">
+                        <div className="grid gap-x-6 gap-y-5 md:grid-cols-2 ">
 
                             <FieldRenderer fieldsData={productFields[category as keyof typeof productFields]} />
                         </div>

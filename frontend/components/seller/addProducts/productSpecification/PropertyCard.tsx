@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CircleX } from "lucide-react";
 import { Controller, useFormContext } from "react-hook-form";
 
 interface Props {

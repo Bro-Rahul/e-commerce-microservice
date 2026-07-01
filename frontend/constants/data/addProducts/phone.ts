@@ -66,6 +66,16 @@ export const phoneFields: FormFieldSchema[] = [
         label: "CPU Speed",
         placeholder: "Enter CPU Speed.."
     },
+    {
+        type: "array",
+        name: "insideBox",
+        label: "What is in the box?",
+        childrenFieldType: {
+            type: "text",
+            name: "inside",
+            label: "Item"
+        }
+    },
 ];
 
 export const phoneDefaults: PhoneValidatorSchema = {
@@ -75,4 +85,5 @@ export const phoneDefaults: PhoneValidatorSchema = {
     cpuSpeed: "",
     operatingSystem: "",
     ram: "",
+    insideBox: []
 }

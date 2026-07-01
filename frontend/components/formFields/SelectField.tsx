@@ -10,22 +10,22 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 
 type SelectFieldProps = {
-    selectField: SelectFieldSchema;
+    schema: SelectFieldSchema;
 };
 
 const SelectField = ({
-    selectField,
+    schema,
 }: SelectFieldProps) => {
     const { control } = useFormContext();
     return (
         <Controller
-            name={selectField.name}
+            name={schema.name}
             control={control}
 
             render={({ field: { name, value, onChange }, fieldState: { error } }) =>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor={selectField.name} className="text-sm font-bold">
-                        {selectField.label}
+                    <Label htmlFor={schema.name} className="text-sm font-bold">
+                        {schema.label}
                     </Label>
 
                     <Select
@@ -33,16 +33,16 @@ const SelectField = ({
                         onValueChange={e => onChange(e)}
                     >
                         <SelectTrigger
-                            id={selectField.name}
+                            id={schema.name}
                             className="w-full"
                         >
                             <SelectValue
-                                placeholder={`Select ${selectField.label}`}
+                                placeholder={`Select ${schema.label}`}
                             />
                         </SelectTrigger>
 
                         <SelectContent>
-                            {selectField.options.map((option) => (
+                            {schema.options.map((option) => (
                                 <SelectItem
                                     key={option.label}
                                     value={option.value}

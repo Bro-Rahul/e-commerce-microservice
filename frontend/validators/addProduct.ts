@@ -14,7 +14,8 @@ export const phoneValidator = baseValidator.extend({
     operatingSystem: z.string(),
     ram: z.string(),
     cpuModel: z.string(),
-    cpuSpeed: z.string()
+    cpuSpeed: z.string(),
+    insideBox: z.array(z.string().nonempty({ error: "Content should not left blank" })).min(1, { error: "Add atleast one value " })
 })
 
 

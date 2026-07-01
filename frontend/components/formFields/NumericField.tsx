@@ -3,20 +3,20 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
-const NumericField = ({ numericField }: { numericField: NumericFieldSchema }) => {
+const NumericField = ({ schema }: { schema: NumericFieldSchema }) => {
     const { control, } = useFormContext();
     return (
         <Controller
-            name={numericField.name}
+            name={schema.name}
             control={control}
             defaultValue={0}
             render={({ fieldState: { error }, field: { name, value, onChange } }) =>
                 <div className="grid gap-1">
-                    <Label className="text-sm font-bold">{numericField.label} <span className="text-destructive">*</span></Label>
+                    <Label className="text-sm font-bold">{schema.label} <span className="text-destructive">*</span></Label>
                     <Input
                         className='fieldClassName'
-                        placeholder={numericField.placeholder}
-                        type={numericField.type}
+                        placeholder={schema.placeholder}
+                        type={schema.type}
                         name={name}
                         value={value}
                         required

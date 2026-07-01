@@ -7,16 +7,16 @@ import { Upload } from 'lucide-react';
 
 
 interface FileUploadFieldProps {
-    fileField: FileUploadSchema
+    schema: FileUploadSchema
 }
 
-const FileUploadField = ({ fileField }: FileUploadFieldProps) => {
+const FileUploadField = ({ schema }: FileUploadFieldProps) => {
     const { control } = useFormContext();
     const inputRef = useRef<ImageUploadHandle>(null);
 
     return (
         <Controller
-            name={fileField.name}
+            name={schema.name}
             control={control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <>

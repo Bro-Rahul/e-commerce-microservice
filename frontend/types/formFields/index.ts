@@ -41,6 +41,11 @@ export type FileUploadSchema = {
     multiple: boolean
 } & BaseFieldsSchema
 
+export type ArrayFieldSchema = {
+    type: "array",
+    childrenFieldType: FormFieldSchema
+} & BaseFieldsSchema
+
 
 
 export type FormFieldSchema =
@@ -50,3 +55,4 @@ export type FormFieldSchema =
     | TextAreaFieldSchema
     | DateFieldSchema
     | FileUploadSchema
+    | ArrayFieldSchema

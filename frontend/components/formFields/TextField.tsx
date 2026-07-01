@@ -4,27 +4,21 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { Label } from '../ui/label';
 import { Lock } from 'lucide-react';
 
-const TextField = ({ textField }: { textField: TextFieldSchema }) => {
+const TextField = ({ schema }: { schema: TextFieldSchema }) => {
     const { control } = useFormContext();
     return (
         <Controller
-            name={textField.name}
+            name={schema.name}
             control={control}
             defaultValue={''}
-            render={({ fieldState: { error }, field: { name, value, onChange } }) =>
-                <div className="grid gap-1">
-                    <Label className="text-sm font-bold">{textField.label} <span className="text-destructive">*</span></Label>
+            render={({ fieldState: { error }, field }) =>
+                <div className="grid place-self-start w-full gap-2">
+                    <Label className="text-sm font-bold">{schema.label} <span className="text-destructive">*</span></Label>
                     <Input
                         className='fieldClassName'
-                        placeholder={textField.placeholder}
-                        type={textField.type}
-                        name={name}
-                        value={value}
-                        required
-                        readOnly={textField.readOnly}
-                        onChange={e => onChange(e.target.value)}
+                        {...field}
                     />
-                    {textField.readOnly && <Lock className="size-4" />}
+                    {schema.readOnly && <Lock className="size-4" />}
                     {error?.message && <p className="mt-1 text-xs text-red-500">{error.message}</p>}
                 </div>
             }

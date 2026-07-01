@@ -15,15 +15,15 @@ import {
 import { DateFieldSchema } from "@/types/formFields";
 
 const DateField = ({
-    dateField,
+    schema,
 }: {
-    dateField: DateFieldSchema;
+    schema: DateFieldSchema;
 }) => {
     const { control } = useFormContext();
 
     return (
         <Controller
-            name={dateField.name}
+            name={schema.name}
             control={control}
             defaultValue={undefined}
             render={({
@@ -32,7 +32,7 @@ const DateField = ({
             }) => (
                 <div className="grid gap-2">
                     <label className="text-sm font-medium">
-                        {dateField.label}
+                        {schema.label}
                     </label>
 
                     <Popover>
@@ -47,7 +47,7 @@ const DateField = ({
                                     format(value, "PPP")
                                 ) : (
                                     <span className="text-muted-foreground">
-                                        {dateField.placeholder}
+                                        {schema.placeholder}
                                     </span>
                                 )}
                             </Button>
