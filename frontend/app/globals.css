@@ -1,26 +1,549 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Retail Professional Design System
+ * Corporate Modern / High-Density Utility
+ */
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Semantic colors */
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground: var(--on-background);
+
+  --color-card: var(--surface-container-lowest);
+  --color-card-foreground: var(--on-surface);
+
+  --color-popover: var(--surface-container-lowest);
+  --color-popover-foreground: var(--on-surface);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-primary-container-foreground: var(--on-primary-container);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-secondary-container-foreground: var(--on-secondary-container);
+
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-foreground: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-tertiary-container-foreground: var(--on-tertiary-container);
+
+  --color-muted: var(--surface-container-low);
+  --color-muted-foreground: var(--on-surface-variant);
+
+  --color-accent: var(--secondary-container);
+  --color-accent-foreground: var(--on-secondary-container);
+
+  --color-destructive: var(--error);
+  --color-destructive-foreground: var(--on-error);
+
+  --color-border: var(--outline-variant);
+  --color-input: var(--outline-variant);
+  --color-ring: var(--primary);
+
+  /* Surface system */
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+
+  /* Chart colors */
+  --color-chart-1: var(--secondary-container);
+  --color-chart-2: var(--primary);
+  --color-chart-3: var(--tertiary-container);
+  --color-chart-4: var(--secondary);
+  --color-chart-5: var(--error);
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-inter);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Layout tokens */
+  --container-max: 1500px;
+  --gutter: 12px;
+  --section-padding: 20px;
+  --stack-compact: 4px;
+  --stack-default: 8px;
+  --stack-loose: 16px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * Light theme
+ */
+:root {
+  /* Surfaces */
+  --surface: #f9f9f9;
+  --surface-dim: #dadada;
+  --surface-bright: #f9f9f9;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f3f3f3;
+  --surface-container: #eeeeee;
+  --surface-container-high: #e8e8e8;
+  --surface-container-highest: #e2e2e2;
+
+  /* Content */
+  --on-surface: #1a1c1c;
+  --on-surface-variant: #44474c;
+
+  /* Inverse */
+  --inverse-surface: #2f3131;
+  --inverse-on-surface: #f1f1f1;
+
+  /* Borders / outlines */
+  --outline: #75777c;
+  --outline-variant: #d5d9d9;
+
+  /* Brand */
+  --primary: #232f3e;
+  --on-primary: #ffffff;
+  --primary-container: #0e1a28;
+  --on-primary-container: #8a97a9;
+  --inverse-primary: #bbc7db;
+
+  /* Action / secondary */
+  --secondary: #FF9900;
+  --on-secondary: #ffffff;
+  --secondary-container: #8a5100;
+  --on-secondary-container: #000000;
+
+  /* Information / tertiary */
+  --tertiary: #001d23;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #007185;
+  --on-tertiary-container: #ffffff;
+
+  /* Error / urgency */
+  --error: #b12704;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+
+  /* Fixed colors */
+  --primary-fixed: #d7e3f7;
+  --primary-fixed-dim: #bbc7db;
+  --on-primary-fixed: #101c2b;
+  --on-primary-fixed-variant: #3c4858;
+
+  --secondary-fixed: #ffdcbd;
+  --secondary-fixed-dim: #ffb86f;
+  --on-secondary-fixed: #2c1600;
+  --on-secondary-fixed-variant: #693c00;
+
+  --tertiary-fixed: #adecff;
+  --tertiary-fixed-dim: #80d2e9;
+  --on-tertiary-fixed: #001f26;
+  --on-tertiary-fixed-variant: #004e5d;
+
+  /* App aliases */
+  --background: var(--surface-container-low);
+  --on-background: var(--on-surface);
+
+  /* Design-system extras */
+  --surface-variant: var(--surface-container-highest);
+  --surface-tint: #535f70;
+}
+
+/*
+ * Dark theme
+ *
+ * The retail design remains navy-led, but surfaces and text are inverted
+ * for comfortable dark-mode use.
+ */
+.dark {
+  --surface: #111416;
+  --surface-dim: #0c0e0f;
+  --surface-bright: #303334;
+  --surface-container-lowest: #0b0d0e;
+  --surface-container-low: #151819;
+  --surface-container: #1b1e20;
+  --surface-container-high: #25282a;
+  --surface-container-highest: #303334;
+
+  --on-surface: #e1e3e3;
+  --on-surface-variant: #c4c7c7;
+
+  --inverse-surface: #e1e3e3;
+  --inverse-on-surface: #2f3131;
+
+  --outline: #8e9191;
+  --outline-variant: #444748;
+
+  --primary: #bbc7db;
+  --on-primary: #101c2b;
+  --primary-container: #232f3e;
+  --on-primary-container: #d7e3f7;
+  --inverse-primary: #3c4858;
+
+  --secondary: #FF9900;
+  --on-secondary: #2c1600;
+  --secondary-container: #8a5100;
+  --on-secondary-container: #ffdcbd;
+
+  --tertiary: #80d2e9;
+  --on-tertiary: #001f26;
+  --tertiary-container: #004e5d;
+  --on-tertiary-container: #adecff;
+
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+
+  --primary-fixed: #d7e3f7;
+  --primary-fixed-dim: #bbc7db;
+  --on-primary-fixed: #101c2b;
+  --on-primary-fixed-variant: #3c4858;
+
+  --secondary-fixed: #ffdcbd;
+  --secondary-fixed-dim: #ffb86f;
+  --on-secondary-fixed: #2c1600;
+  --on-secondary-fixed-variant: #693c00;
+
+  --tertiary-fixed: #adecff;
+  --tertiary-fixed-dim: #80d2e9;
+  --on-tertiary-fixed: #001f26;
+  --on-tertiary-fixed-variant: #004e5d;
+
+  --background: var(--surface-container-low);
+  --on-background: var(--on-surface);
+
+  --surface-variant: var(--surface-container-highest);
+  --surface-tint: #bbc7db;
+}
+
+/*
+ * Base styles
+ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: Inter, var(--font-inter), sans-serif;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  a {
+    color: var(--tertiary-container);
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * Retail Professional typography utilities
+ *
+ * Usage:
+ *   className="headline-lg"
+ *   className="headline-md"
+ *   className="body-md"
+ *   className="label-price"
+ */
+@utility headline-lg {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: -0.02em;
+}
+
+@utility headline-lg-mobile {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+@utility headline-md {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+@utility headline-sm {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+@utility body-lg {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+@utility body-md {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+@utility body-sm {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@utility label-price {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.01em;
+}
+
+@utility label-badge {
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 12px;
+}
+
+/*
+ * Layout utilities
+ */
+@utility retail-container {
+  width: 100%;
+  max-width: 1500px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@utility retail-section {
+  padding-block: 20px;
+}
+
+@utility stack-compact {
+  gap: 4px;
+}
+
+@utility stack-default {
+  gap: 8px;
+}
+
+@utility stack-loose {
+  gap: 16px;
+}
+
+/*
+ * Surface utilities
+ */
+@utility retail-surface {
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+
+@utility retail-page {
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+}
+
+@utility retail-card {
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 0.5rem;
+}
+
+@utility retail-card-hover {
+  transition:
+    box-shadow 150ms ease,
+    border-color 150ms ease;
+}
+
+@utility retail-card-interactive {
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 0.5rem;
+  transition:
+    box-shadow 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+
+  &:hover {
+    border-color: var(--outline);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  }
+}
+
+/*
+ * Brand / commerce utilities
+ */
+@utility retail-header {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+@utility action-button {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  border-radius: 0.5rem;
+  font-weight: 700;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease;
+
+  &:hover {
+    filter: brightness(0.96);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+@utility secondary-button {
+  background-color: #ffd814;
+  color: #000000;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+@utility tertiary-button {
+  background-color: #ffffff;
+  color: var(--on-surface);
+  border: 1px solid #d5d9d9;
+  border-radius: 0.5rem;
+}
+
+@utility price {
+  color: var(--error);
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.01em;
+}
+
+@utility product-title {
+  color: var(--on-surface);
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+@utility product-meta {
+  color: var(--on-surface-variant);
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@utility info-link {
+  color: var(--tertiary-container);
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@utility best-seller {
+  background-color: #e47911;
+  color: #ffffff;
+  border-radius: 0.125rem;
+  font-family: Inter, var(--font-inter), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 12px;
+  padding: 4px 8px;
+}
+
+@utility low-stock {
+  color: var(--error);
+  font-weight: 700;
+}
+
+/*
+ * Search / form utilities
+ */
+@utility search-input {
+  background-color: #ffffff;
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 0.375rem 0 0 0.375rem;
+  outline: none;
+
+  &:focus {
+    border: 2px solid var(--secondary-container);
+  }
+}
+
+@utility search-button {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  border-radius: 0 0.375rem 0.375rem 0;
+  font-weight: 700;
+}
+
+@utility dense-list {
+  border-top: 1px solid var(--surface-container);
+}
+
+@utility dense-list-item {
+  padding-block: 8px;
+  border-bottom: 1px solid var(--surface-container);
+}
+
+/*
+ * Product image utility
+ */
+@utility product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
 }
