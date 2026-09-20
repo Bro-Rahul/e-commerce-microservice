@@ -314,10 +314,14 @@
   .textareafield{
     @apply min-h-44 w-full resize-y rounded-lg border border-outline-variant bg-surface px-4 py-3 text-on-surface outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20
   }
+
+  .error{
+    @apply text-red-500 mt-1 ml-2
+  }
 }
 
 /*
- * Retail Professional typography utilities
+ * Retail Professional typograpy utilities
  *
  * Usage:
  *   className="headline-lg"

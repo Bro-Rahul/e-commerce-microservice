@@ -5,31 +5,47 @@ import ImageViewer from './ImageViewer'
 interface ImagePickerProps {
     multiple?: boolean,
     htmlFor: string,
+    files?: File[]
+    onImageLoad?: (files: File[]) => void;
     render?: (images: string[]) => React.ReactNode
 }
 
-const ImagePicker = ({ multiple, htmlFor, render }: ImagePickerProps) => {
-    const [imageFiles, setImageFiles] = useState<File[]>([]);
+const ImagePicker = ({ multiple, htmlFor, files, render, onImageLoad }: ImagePickerProps) => {
+    const [imageFiles, setImageFiles] = useState<File[]>(files ?? []);
     const [imageUrls, setImageUrls] = useState<string[]>([]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
 
         if (!fileList) return
 
         const files = Array.from(fileList)
-
+        if (onImageLoad) onImageLoad(files);
         setImageFiles(files)
     }
 
     useEffect(() => {
-        if (imageFiles.length === 0) return;
-        imageUrls.forEach(image => URL.revokeObjectURL(image));
-        const newURLS = imageFiles.map(image => URL.createObjectURL(image));
-        setImageUrls(newURLS);
+        setImageFiles(files ?? [])
+    }, [files])
 
-        return imageUrls.forEach(url => URL.revokeObjectURL(url));
-    }, [imageFiles])
+    useEffect(() => {
+        if (imageFiles.length === 0) {
+            setImageUrls([]);
+            return;
+        }
+
+        const urls = imageFiles.map(file =>
+            URL.createObjectURL(file)
+        );
+
+        setImageUrls(urls);
+
+        return () => {
+            urls.forEach(url => {
+                URL.revokeObjectURL(url);
+            });
+        };
+    }, [imageFiles]);
 
 
     return (

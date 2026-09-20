@@ -3,11 +3,12 @@ import CoverImage from "@/components/sellers/addProducts/mediaAssets/CoverImage"
 import ImageCarousel from "@/components/sellers/addProducts/mediaAssets/ImageCarousel"
 import ImageCollection from "@/components/sellers/addProducts/mediaAssets/ImageCollection"
 import { Button } from "@/components/ui/button"
+import { AvailableCategoryType } from "@/types/inventoryTypes"
 import { Images } from "lucide-react"
 
 interface MediaAssetsPageProps {
     params: Promise<{
-        slug: string
+        slug: AvailableCategoryType
     }>
 }
 
@@ -25,7 +26,7 @@ const page = async ({ params }: MediaAssetsPageProps) => {
                 </span>
             </Heading>
 
-            <form className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm">
+            <div className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm">
                 <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
                     <div className="flex items-center gap-3">
                         <span className="material-symbols-outlined rounded-lg bg-primary p-2 text-xl text-on-primary text-white">
@@ -41,9 +42,9 @@ const page = async ({ params }: MediaAssetsPageProps) => {
                 </div>
 
                 <div className="space-y-8 p-5 sm:p-8">
-                    <CoverImage />
-                    <ImageCarousel />
-                    <ImageCollection />
+                    <CoverImage category={slug} />
+                    <ImageCarousel category={slug} />
+                    <ImageCollection category={slug} />
                 </div>
 
                 <div className="flex flex-col-reverse gap-3 border-t border-outline-variant bg-surface-container-low px-5 py-4 sm:flex-row sm:justify-end sm:px-8">
@@ -54,7 +55,7 @@ const page = async ({ params }: MediaAssetsPageProps) => {
                     >
                         Cancel
                     </Button>
-                    <a href={`/seller/add-product/${slug}/inventory`}>
+                    <a href={`/seller/add-product/${slug}/product-detail`}>
                         <Button
                             className="w-full rounded-lg bg-secondary px-5 py-2.5 text-sm font-bold text-on-secondary transition hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:ring-offset-2 sm:w-auto"
                             type="submit"
@@ -63,7 +64,7 @@ const page = async ({ params }: MediaAssetsPageProps) => {
                         </Button>
                     </a>
                 </div>
-            </form>
+            </div>
         </main>
     )
 }

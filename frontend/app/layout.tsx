@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import Navbar from "@/components/common/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { ToastBar, Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             disableTransitionOnChange
           >
             <Navbar />
+            <Toaster />
             {children}
 
           </ThemeProvider>

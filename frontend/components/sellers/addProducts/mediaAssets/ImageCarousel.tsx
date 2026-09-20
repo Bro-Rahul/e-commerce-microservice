@@ -1,12 +1,21 @@
 "use client"
+import { AvailableCategoryType } from '@/types/inventoryTypes'
 import ImagePicker from './ImagePicker'
+import useImageLoader from '@/hooks/seller/useImageLoader'
 
-const ImageCarousel = () => {
+interface ImageCarouselProps {
+    category: AvailableCategoryType
+}
+
+const ImageCarousel = ({ category }: ImageCarouselProps) => {
+    const { handleImage, images } = useImageLoader(category, "Carousel");
+
     return (
         <section
             className="space-y-4 border-t border-outline-variant pt-8"
             aria-labelledby="carousel-heading"
         >
+
             <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <h3
@@ -30,11 +39,12 @@ const ImageCarousel = () => {
             <ImagePicker
                 htmlFor="carousel-images"
                 multiple
+                files={images}
+                onImageLoad={handleImage}
                 render={(images) => (
                     <div className="space-y-4">
                         {images.length > 0 ? (
                             <>
-                                {/* Image previews */}
                                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
                                     {images.map((previewUrl, index) => (
                                         <div
@@ -54,7 +64,6 @@ const ImageCarousel = () => {
                                     ))}
                                 </div>
 
-                                {/* Add more images */}
                                 <label
                                     htmlFor="carousel-images"
                                     className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-outline-variant px-4 py-3 text-sm font-semibold text-primary transition hover:bg-surface-container"
@@ -113,7 +122,6 @@ const ImageCarousel = () => {
                                     </div>
                                 </div>
 
-                                {/* Browse button */}
                                 <span className="hidden shrink-0 rounded-lg border border-outline-variant bg-card px-4 py-2.5 text-sm font-bold text-on-surface shadow-sm transition group-hover:border-primary group-hover:text-primary sm:block">
                                     Browse files
                                 </span>

@@ -1,4 +1,9 @@
+import { AvailableCategoryType } from "@/types/inventoryTypes"
 import { BookOpen, House, LayoutDashboard, LucideIcon, PackagePlus, PackageSearch, Shirt, Smartphone, Sparkles, ToyBrick, Tv } from "lucide-react"
+import { bookInventoryFields } from "./formFields/bookFields"
+import { phoneInventoryFields } from "./formFields/phoneFields"
+import { InventoryFieldType } from "./formFields/inventoryFields"
+import { AvailableInventoryType, PhoneInventoryType } from "@/validators/inventoryValidator"
 
 // Sidebar Navigations Links 
 export const SideBarNavigations = [
@@ -25,3 +30,26 @@ export const Categories: Category[] = [
     { name: "Beauty", description: "Skincare, cosmetics & care", icon: Sparkles, href: "/seller/add-product/beauty" },
     { name: "Toys & games", description: "Play, puzzles & hobbies", icon: ToyBrick, href: "/seller/add-product/games" },
 ]
+
+
+
+
+// export const ProductsInventoryFields: {
+//     [k in AvailableCategoryType]: InventoryFieldType<>[]
+// } = {
+//     book: bookInventoryFields,
+//     phone: phoneInventoryFields
+// }
+
+export const phoneInventoryFieldsDefaults: PhoneInventoryType = {
+    sku: '',
+    price: 0,
+    quantity: 0,
+    stockDescription: '',
+    additionalFields: [],
+    brand: '',
+    installedRam: '',
+    operatingSystem: '',
+    cpuSpeed: '',
+    memoryStorage: '',
+}

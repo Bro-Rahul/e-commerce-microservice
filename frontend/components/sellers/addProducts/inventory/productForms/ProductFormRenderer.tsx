@@ -1,0 +1,24 @@
+"use client"
+
+import { AvailableCategoryType, CategoryInventoryType } from "@/types/inventoryTypes";
+import PhoneForm from "./PhoneForm";
+import BookForm from "./BookForm";
+
+interface ProductFormRendererProps {
+    category: AvailableCategoryType
+}
+
+const ProductFormRenderer = ({ category }: ProductFormRendererProps) => {
+
+    switch (category) {
+
+        case "phone":
+            return <PhoneForm category="phone" />
+        case "book":
+            return <BookForm />
+        default:
+            return <p>No Form For this </p>
+    }
+}
+
+export default ProductFormRenderer
