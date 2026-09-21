@@ -4,7 +4,7 @@ import ImageCarousel from "@/components/sellers/addProducts/mediaAssets/ImageCar
 import ImageCollection from "@/components/sellers/addProducts/mediaAssets/ImageCollection"
 import { Button } from "@/components/ui/button"
 import { AvailableCategoryType } from "@/types/inventoryTypes"
-import { Images } from "lucide-react"
+import { Images, Save } from "lucide-react"
 
 interface MediaAssetsPageProps {
     params: Promise<{
@@ -48,19 +48,13 @@ const page = async ({ params }: MediaAssetsPageProps) => {
                 </div>
 
                 <div className="flex flex-col-reverse gap-3 border-t border-outline-variant bg-surface-container-low px-5 py-4 sm:flex-row sm:justify-end sm:px-8">
-                    <Button
-                        className="rounded-lg border border-outline-variant px-5 py-2.5 text-sm font-bold text-on-surface transition hover:bg-surface-container"
-                        variant="outline"
-                        type="button"
-                    >
-                        Cancel
-                    </Button>
                     <a href={`/seller/add-product/${slug}/product-detail`}>
                         <Button
-                            className="w-full rounded-lg bg-secondary px-5 py-2.5 text-sm font-bold text-on-secondary transition hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:ring-offset-2 sm:w-auto"
-                            type="submit"
+                            type='submit'
+                            className="rounded-lg border border-outline-variant px-5 py-2.5 text-sm font-bold text-on-surface transition hover:bg-surface-container"
+                            variant={'outline'}
                         >
-                            Save and continue
+                            <Save />Save
                         </Button>
                     </a>
                 </div>

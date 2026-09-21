@@ -13,7 +13,7 @@ const ProductFormRenderer = ({ category }: ProductFormRendererProps) => {
     switch (category) {
 
         case "phone":
-            return <PhoneForm category="phone" />
+            return <PhoneForm />
         case "book":
             return <BookForm />
         default:

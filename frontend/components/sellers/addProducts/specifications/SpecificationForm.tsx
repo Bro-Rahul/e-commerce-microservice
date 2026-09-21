@@ -4,10 +4,12 @@ import { SpecificationType, specificationValidator } from '@/validators/specific
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Plus, Save, X } from 'lucide-react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-import z from 'zod'
+import z, { date } from 'zod'
 import SpecificationNameDialog from './SpecificationNameDialog'
 import toast from 'react-hot-toast'
 import SpecificationKeyValuePair from './SpecificationKeyValuePair'
+import { useEffect } from 'react'
+import useAddProduct from '@/store/useAddProduct'
 
 export interface SpecificationForm {
     data: SpecificationType
@@ -18,7 +20,7 @@ const specificationFormValidator = z.object({
 })
 
 const SpecificationForm = () => {
-
+    const { updateSpecifications } = useAddProduct();
     const methods = useForm<SpecificationForm>({
         defaultValues: {
             data: []
@@ -31,9 +33,37 @@ const SpecificationForm = () => {
         control: methods.control
     })
 
-    const handleSubmit = (data: SpecificationForm) => {
-        console.log("data")
-        console.log(data);
+
+    useEffect(() => {
+        const setProductValues = () => {
+            const product = useAddProduct.getState().products.phone
+            const specifications = product.specifications
+            if (specifications.length > 0) {
+                methods.reset({
+                    data: specifications
+                })
+            }
+        }
+
+        if (useAddProduct.persist.hasHydrated()) {
+            setProductValues()
+            return
+        }
+
+        const unsubscribe =
+            useAddProduct.persist.onFinishHydration(() => {
+                setProductValues()
+            })
+
+        return unsubscribe
+    }, [methods.reset])
+
+    const handleSubmit = (spcifications: SpecificationForm) => {
+        updateSpecifications('phone', spcifications.data);
+        toast.success("Specifications Data Saved!", {
+            position: 'bottom-right',
+            duration: 5000
+        })
     }
 
     const onErr = (err: any) => {

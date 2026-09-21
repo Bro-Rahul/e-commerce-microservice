@@ -1,6 +1,6 @@
 import Heading from "@/components/sellers/addProducts/Heading"
 import { Button } from "@/components/ui/button"
-import { ClipboardList } from "lucide-react"
+import { ClipboardList, Forward } from "lucide-react"
 import { AvailableCategoryType } from "@/types/inventoryTypes"
 import ProductFormRenderer from "@/components/sellers/addProducts/inventory/productForms/ProductFormRenderer"
 
@@ -28,12 +28,15 @@ const page = async ({ params }: ProductDetailPageProps) => {
       <div className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm">
         <ProductFormRenderer category={slug} />
         <div className="flex flex-col-reverse gap-3 border-t border-outline-variant bg-surface-container-low px-5 py-4 sm:flex-row sm:justify-end sm:px-8">
-          <Button className="rounded-lg border border-outline-variant px-5 py-2.5 text-sm font-bold text-on-surface transition hover:bg-surface-container" type="button" variant="outline">
-            Cancel
-          </Button>
-          <Button className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-bold text-on-secondary transition hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:ring-offset-2" type="submit">
-            Save and continue
-          </Button>
+          <a href={`/seller/add-product/${slug}/inventory`}>
+            <Button
+              type='submit'
+              className="rounded-lg border border-outline-variant px-5 py-2.5 text-sm font-bold text-on-surface transition hover:bg-surface-container"
+              variant={'outline'}
+            >
+              Next<Forward />
+            </Button>
+          </a>
         </div>
       </div>
     </main>

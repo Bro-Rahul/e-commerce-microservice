@@ -4,6 +4,7 @@ import { bookInventoryFields } from "./formFields/bookFields"
 import { phoneInventoryFields } from "./formFields/phoneFields"
 import { InventoryFieldType } from "./formFields/inventoryFields"
 import { AvailableInventoryType, PhoneInventoryType } from "@/validators/inventoryValidator"
+import { ProductType } from "@/store/useAddProduct"
 
 // Sidebar Navigations Links 
 export const SideBarNavigations = [
@@ -52,4 +53,28 @@ export const phoneInventoryFieldsDefaults: PhoneInventoryType = {
     operatingSystem: '',
     cpuSpeed: '',
     memoryStorage: '',
+}
+
+export const productsDefaults: ProductType = {
+    book: {
+        baseDetail: {
+            about: "",
+            category: "book",
+            description: "",
+            title: "",
+        },
+        inventory: [],
+        specifications: []
+    },
+
+    phone: {
+        baseDetail: {
+            about: "",
+            category: "phone",
+            description: "",
+            title: "",
+        },
+        inventory: [],
+        specifications: [],
+    },
 }
