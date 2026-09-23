@@ -11,6 +11,8 @@ export const additionalFieldsValidator = z.array(z.object({
 export const baseInventoryFieldValidator = z.object({
     sku: z.string().nonempty({ error: "SKU must not be empty" }),
 
+    name: z.string().nonempty({ error: "Stock name must not be empty" }),
+
     price: z.number().positive({ error: "Price must be an Positive number" }).nonoptional(),
 
     quantity: z.number().positive({ error: "quantity must be an Positive number" }).nonoptional(),

@@ -1,7 +1,7 @@
 import { phoneInventoryFields } from '@/constants/formFields/phoneFields'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
-import { Trash2, Plus, Save } from 'lucide-react'
+import { Trash2, Plus, Save, Copy } from 'lucide-react'
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import { PhoneInventoryType, phoneInventoryValidators } from '@/validators/inventoryValidator'
 import { phoneInventoryFieldsDefaults } from '@/constants/data'
@@ -23,7 +23,7 @@ const inventoryResolver = z.object({
 })
 
 const PhoneInventory = () => {
-    const { updateProductInventory } = useAddProduct();
+    const { updateProductInventory, addNewProductInventory } = useAddProduct();
     const methods = useForm<PhoneInventoryForm>({
         resolver: zodResolver(inventoryResolver),
         defaultValues: {
@@ -37,6 +37,12 @@ const PhoneInventory = () => {
         control: methods.control,
         name: 'inventory',
     });
+
+    const handleCopy = (index: number) => {
+        const { id, disabled, ...rest } = fields[index];
+        append(rest);
+        addNewProductInventory('phone', index);
+    }
 
     useEffect(() => {
         const setProductValues = () => {
@@ -127,6 +133,12 @@ const PhoneInventory = () => {
                                                 <Trash2 />
                                             </Button>
                                         )}
+                                        <Button className="self-end font-bold "
+                                            onClick={() => handleCopy(index)}
+                                            type="button">
+                                            <Copy />
+                                            Copy
+                                        </Button>
                                     </div>
                                 </div>
 
@@ -143,7 +155,7 @@ const PhoneInventory = () => {
                                                     key={`${index}-${idx}`}
                                                     name={`inventory.${index}.${item.name}`}
                                                     control={methods.control}
-                                                    render={({ field, fieldState: { error } }) =>
+                                                    render={({ fieldState: { error } }) =>
                                                         <div className="space-y-2">
                                                             <label
                                                                 className="block text-sm font-bold text-on-surface">
@@ -154,6 +166,7 @@ const PhoneInventory = () => {
                                                                 {...methods.register(`inventory.${index}.${item.name}`, {
                                                                     valueAsNumber: item.type === "number"
                                                                 })}
+                                                                placeholder={item.placeholder}
                                                             />
                                                             {error?.message && <p className='error'>{error?.message}</p>}
                                                         </div>

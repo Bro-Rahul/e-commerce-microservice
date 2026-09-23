@@ -6,11 +6,15 @@ import { SpecificationType } from "@/validators/specificationValidator"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
+interface ProductMetaDetailType {
+  [k: string]: any
+}
 
 interface ProductDetailsType {
   baseDetail: ProductBaseFieldsType
   inventory: AvailableInventoryType[]
-  specifications: SpecificationType
+  specifications: SpecificationType,
+  productMetaDetail: ProductMetaDetailType
 }
 
 export type ProductType = {
@@ -30,11 +34,20 @@ type useAddProductContextType = {
     payload: Partial<AvailableInventoryType[]>
   ) => void,
 
+  addNewProductInventory: (
+    category: AvailableCategoryType,
+    payload: number
+  ) => void,
+
   updateSpecifications: (
     category: AvailableCategoryType,
     payload: Partial<SpecificationType>
   ) => void
 
+  updateMetaDetails: (
+    category: AvailableCategoryType,
+    payload: ProductMetaDetailType
+  ) => void
 }
 
 const useAddProduct = create<useAddProductContextType>()(
@@ -69,6 +82,17 @@ const useAddProduct = create<useAddProductContextType>()(
         }))
       ),
 
+      addNewProductInventory: (category, index) =>
+        set((state) => ({
+          products: {
+            ...state.products,
+            [category]: {
+              ...state.products[category],
+              inventory: [...state.products[category].inventory, state.products[category].inventory[index]]
+            }
+          }
+        })),
+
       updateSpecifications: (category, payload) =>
         set((state) => ({
 
@@ -79,8 +103,20 @@ const useAddProduct = create<useAddProductContextType>()(
               specifications: payload
             }
           }
+        })),
+      updateMetaDetails: (category, payload) =>
+        set((state) => ({
+          products: {
+            ...state.products,
+            [category]: {
+              ...state.products[category],
+              productMetaDetail: {
+                ...state.products[category].productMetaDetail,
+                ...payload
+              }
+            }
+          }
         }))
-
     }),
     {
       name: "addProduct",

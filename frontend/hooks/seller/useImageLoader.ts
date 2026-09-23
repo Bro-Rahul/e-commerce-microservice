@@ -19,7 +19,7 @@ const useImageLoader = (category: AvailableCategoryType, imageType: ImagePlaceTy
     }
 
     useEffect(() => {
-        const getCarouselImage = async () => {
+        const getImages = async () => {
             try {
                 const imageResponse = await getImageByCategoryAndPlace(category, imageType);
                 const images = imageResponse.map(image => new File(
@@ -35,7 +35,7 @@ const useImageLoader = (category: AvailableCategoryType, imageType: ImagePlaceTy
 
             }
         }
-        getCarouselImage();
+        getImages();
     }, []);
 
     return {

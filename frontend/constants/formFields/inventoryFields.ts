@@ -15,6 +15,12 @@ export const inventoryFields: InventoryFieldType<BaseInventoryFieldType>[] = [
         placeholder: "Enter SKU",
     },
     {
+        name: "name",
+        label: "Name",
+        type: "text",
+        placeholder: "Enter Name for variant",
+    },
+    {
         name: "price",
         label: "Price",
         type: "number",

@@ -48,6 +48,7 @@ export const phoneInventoryFieldsDefaults: PhoneInventoryType = {
     quantity: 0,
     stockDescription: '',
     additionalFields: [],
+    name: '',
     brand: '',
     installedRam: '',
     operatingSystem: '',
@@ -64,7 +65,8 @@ export const productsDefaults: ProductType = {
             title: "",
         },
         inventory: [],
-        specifications: []
+        specifications: [],
+        productMetaDetail: {}
     },
 
     phone: {
@@ -76,5 +78,6 @@ export const productsDefaults: ProductType = {
         },
         inventory: [],
         specifications: [],
+        productMetaDetail: {}
     },
 }

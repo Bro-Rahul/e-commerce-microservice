@@ -22,7 +22,7 @@ const page = async ({ params }: BaseProductDetailPageProps) => {
                 </span>
             </Heading>
 
-            <div className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm">
+            <div className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm my-5">
                 <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
                     <div className="flex items-center gap-3">
                         <span className="material-symbols-outlined rounded-lg bg-primary p-2 text-xl text-on-primary text-white">

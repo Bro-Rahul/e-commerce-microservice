@@ -2,6 +2,7 @@ import Heading from "@/components/sellers/addProducts/Heading"
 import CoverImage from "@/components/sellers/addProducts/mediaAssets/CoverImage"
 import ImageCarousel from "@/components/sellers/addProducts/mediaAssets/ImageCarousel"
 import ImageCollection from "@/components/sellers/addProducts/mediaAssets/ImageCollection"
+import SaveAssetsBtn from "@/components/sellers/addProducts/mediaAssets/SaveAssetsBtn"
 import { Button } from "@/components/ui/button"
 import { AvailableCategoryType } from "@/types/inventoryTypes"
 import { Images, Save } from "lucide-react"
@@ -47,17 +48,8 @@ const page = async ({ params }: MediaAssetsPageProps) => {
                     <ImageCollection category={slug} />
                 </div>
 
-                <div className="flex flex-col-reverse gap-3 border-t border-outline-variant bg-surface-container-low px-5 py-4 sm:flex-row sm:justify-end sm:px-8">
-                    <a href={`/seller/add-product/${slug}/product-detail`}>
-                        <Button
-                            type='submit'
-                            className="rounded-lg border border-outline-variant px-5 py-2.5 text-sm font-bold text-on-surface transition hover:bg-surface-container"
-                            variant={'outline'}
-                        >
-                            <Save />Save
-                        </Button>
-                    </a>
-                </div>
+
+                <SaveAssetsBtn slug={slug} />
             </div>
         </main>
     )
