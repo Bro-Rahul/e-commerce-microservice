@@ -1,6 +1,6 @@
-import PhoneInventory from '../PhoneInventory'
+import PhoneInventory from '../../inventory/PhoneInventory'
 import SpecificationForm from '../../specifications/SpecificationForm'
-import ArrayFields, { ArrayDataType } from '../ArrayFields'
+import ArrayFields, { ArrayDataType } from '../../inventory/ArrayFields'
 import useAddProduct from '@/store/useAddProduct'
 
 

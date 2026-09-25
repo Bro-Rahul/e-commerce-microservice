@@ -1,4 +1,4 @@
-import { BaseInventoryFieldType, PhoneInventoryType } from "@/validators/inventoryValidator";
+import { PhoneInventoryType } from "@/validators/inventoryValidator";
 import { inventoryFields, InventoryFieldType } from "./inventoryFields";
 
 

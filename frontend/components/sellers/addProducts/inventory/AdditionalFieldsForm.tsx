@@ -1,22 +1,16 @@
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form'
-import { PhoneInventoryForm } from './PhoneInventory';
+import { Controller, FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
 import { AdditionalFieldsType } from '@/validators/inventoryValidator';
 import { Button } from '@/components/ui/button';
 import { Plus, Trash2 } from 'lucide-react';
-import { phoneInventoryFieldsDefaults } from '@/constants/data';
-
-
-interface AdditionalFieldsForm {
-    additionalFields: AdditionalFieldsType;
-}
 
 interface AdditionalFieldsProps {
     variantIndex: number
 }
 
 const AdditionalFieldsForm = ({ variantIndex }: AdditionalFieldsProps) => {
-    const { control, register } = useFormContext<PhoneInventoryForm>();
-    const { fields, remove, append } = useFieldArray<PhoneInventoryForm, `inventory.${number}.additionalFields`>({
+    const methods = useFormContext<FieldValues>();
+    const { control, register } = methods;
+    const { fields, remove, append } = useFieldArray({
         control: control,
         name: `inventory.${variantIndex}.additionalFields`
     });

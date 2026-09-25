@@ -1,8 +1,8 @@
 "use client"
 
 import { AvailableCategoryType, CategoryInventoryType } from "@/types/inventoryTypes";
-import PhoneForm from "./PhoneForm";
-import BookForm from "./BookForm";
+import PhoneForm from "./phone/PhoneForm";
+import BookForm from "./book/BookForm";
 
 interface ProductFormRendererProps {
     category: AvailableCategoryType

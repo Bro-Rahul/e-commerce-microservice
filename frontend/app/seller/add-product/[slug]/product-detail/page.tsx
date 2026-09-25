@@ -2,7 +2,7 @@ import Heading from "@/components/sellers/addProducts/Heading"
 import { Button } from "@/components/ui/button"
 import { ClipboardList, Forward } from "lucide-react"
 import { AvailableCategoryType } from "@/types/inventoryTypes"
-import ProductFormRenderer from "@/components/sellers/addProducts/inventory/productForms/ProductFormRenderer"
+import ProductFormRenderer from "@/components/sellers/addProducts/productForms/ProductFormRenderer"
 
 
 interface ProductDetailPageProps {

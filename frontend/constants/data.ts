@@ -3,8 +3,9 @@ import { BookOpen, House, LayoutDashboard, LucideIcon, PackagePlus, PackageSearc
 import { bookInventoryFields } from "./formFields/bookFields"
 import { phoneInventoryFields } from "./formFields/phoneFields"
 import { InventoryFieldType } from "./formFields/inventoryFields"
-import { AvailableInventoryType, PhoneInventoryType } from "@/validators/inventoryValidator"
+import { AvailableInventoryType, BookInventoryType, PhoneInventoryType } from "@/validators/inventoryValidator"
 import { ProductType } from "@/store/useAddProduct"
+import { BookAttributesType } from "@/validators/products/bookValidator"
 
 // Sidebar Navigations Links 
 export const SideBarNavigations = [
@@ -56,6 +57,18 @@ export const phoneInventoryFieldsDefaults: PhoneInventoryType = {
     memoryStorage: '',
 }
 
+export const bookInventoryFieldsDefaults: BookInventoryType = {
+    sku: '',
+    price: 0,
+    quantity: 0,
+    stockDescription: '',
+    additionalFields: [],
+    name: '',
+    binding: 'PAPERBACK',
+    isbn10: '',
+    isbn13: '',
+}
+
 export const productsDefaults: ProductType = {
     book: {
         baseDetail: {
@@ -80,4 +93,27 @@ export const productsDefaults: ProductType = {
         specifications: [],
         productMetaDetail: {}
     },
+}
+
+
+export const defaultBookAttributes: BookAttributesType = {
+    author: '',
+    isbn10: '',
+    isbn13: '',
+    publisher: '',
+    publicationDate: '',
+    edition: '',
+    language: '',
+    binding: 'PAPERBACK',
+    pages: 0,
+    genre: '',
+    series: '',
+    description: '',
+    readingAgeMin: undefined,
+    readingAgeMax: undefined,
+    countryOfOrigin: '',
+    height: undefined,
+    width: undefined,
+    thickness: undefined,
+    weight: undefined,
 }

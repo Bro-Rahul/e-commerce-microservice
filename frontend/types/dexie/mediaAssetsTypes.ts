@@ -1,4 +1,4 @@
-import { AvailableCategoryType } from "./inventoryTypes"
+import { AvailableCategoryType } from "../inventoryTypes"
 
 export type ImagePlaceType = "CoverImage" | "Carousel" | "ImageCollection"
 
