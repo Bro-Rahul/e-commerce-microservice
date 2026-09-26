@@ -1,9 +1,5 @@
-import { AvailableCategoryType } from "@/types/inventoryTypes"
 import { BookOpen, House, LayoutDashboard, LucideIcon, PackagePlus, PackageSearch, Shirt, Smartphone, Sparkles, ToyBrick, Tv } from "lucide-react"
-import { bookInventoryFields } from "./formFields/bookFields"
-import { phoneInventoryFields } from "./formFields/phoneFields"
-import { InventoryFieldType } from "./formFields/inventoryFields"
-import { AvailableInventoryType, BookInventoryType, PhoneInventoryType } from "@/validators/inventoryValidator"
+import { BookInventoryType, PhoneInventoryType } from "@/validators/inventoryValidator"
 import { ProductType } from "@/store/useAddProduct"
 import { BookAttributesType } from "@/validators/products/bookValidator"
 
@@ -116,4 +112,35 @@ export const defaultBookAttributes: BookAttributesType = {
     width: undefined,
     thickness: undefined,
     weight: undefined,
+}
+
+
+export const customerRegistrationDefaults = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneCountryCode: "+91",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+    countryRegion: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    areaCode: "",
+}
+
+export const sellerRegistrationDefaults = {
+    ...customerRegistrationDefaults,
+    legalName: "",
+    storeName: "",
+    businessType: "",
+    productCategory: "",
+    taxNumber: "",
+    registrationNumber: "",
+    accountHolder: "",
+    bankAccount: "",
+    routingCode: "",
 }
