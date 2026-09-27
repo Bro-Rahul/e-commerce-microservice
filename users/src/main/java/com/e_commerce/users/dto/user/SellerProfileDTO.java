@@ -30,5 +30,9 @@ public class SellerProfileDTO {
     private String logoUrl;
 
     @NotEmpty
-    private String userId;
+    private String accountNumber;
+
+    @NotEmpty
+    private String ifscCode;
+
 }

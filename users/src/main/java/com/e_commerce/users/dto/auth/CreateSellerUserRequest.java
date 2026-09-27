@@ -4,10 +4,8 @@ import com.e_commerce.users.dto.address.CreateAddressRequest;
 import com.e_commerce.users.dto.user.SellerProfileDTO;
 import com.e_commerce.users.dto.user.CreateUserRequestDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
 
 @Data
 public class CreateSellerUserRequest {

@@ -22,7 +22,6 @@ public class Users {
 
     private String password;
 
-    @Column(unique = true)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
@@ -41,9 +40,8 @@ public class Users {
     @OneToOne(mappedBy = "userId")
     private SellerProfile sellerProfile;
 
-
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         accountStatus = AccountStatus.PENDING_VERIFICATION;
     }
 }

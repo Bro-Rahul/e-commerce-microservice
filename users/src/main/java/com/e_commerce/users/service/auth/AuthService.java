@@ -7,7 +7,6 @@ import com.e_commerce.users.dto.auth.LoginResponseDTO;
 import com.e_commerce.users.mapper.UserMapper;
 import com.e_commerce.users.model.UserInfo;
 import com.e_commerce.users.model.Users;
-import com.e_commerce.users.model.UsersRole;
 import com.e_commerce.users.repo.UsersRepo;
 import com.e_commerce.users.service.seller.UserService;
 import lombok.AllArgsConstructor;
@@ -30,31 +29,29 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final UserService userService;
-    private  final UserMapper userMapper;
+    private final UserMapper userMapper;
 
-
-    public ResponseEntity<LoginResponseDTO> loginUser(LoginRequestDTO authRequest){
+    public ResponseEntity<LoginResponseDTO> loginUser(LoginRequestDTO authRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
-        );
+                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
             Users user = usersRepo.findByEmail(authRequest.getEmail()).get();
-            Map<String,Object> claims = new HashMap<>();
-            claims.put("role",user.getRole().toString());
-            claims.put("id",user.getId());
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("role", user.getRole().toString());
+            claims.put("id", user.getId());
             UserDetails userInfo = new UserInfo(user);
-            String token = jwtService.generateToken(claims,userInfo);
-            return ResponseEntity.ok().body(new LoginResponseDTO(token,userMapper.toResponse(user)));
+            String token = jwtService.generateToken(claims, userInfo);
+            return ResponseEntity.ok().body(new LoginResponseDTO(token, userMapper.toResponse(user)));
         } else {
             throw new UsernameNotFoundException("Invalid user request!");
         }
     }
 
-    public void registerSellerUser(CreateSellerUserRequest userRequest){
+    public void registerSellerUser(CreateSellerUserRequest userRequest) {
         userService.createSellerUser(userRequest);
     }
 
-    public void registerCustomerUser(CreateCustomerUserRequest userRequest){
+    public void registerCustomerUser(CreateCustomerUserRequest userRequest) {
         userService.createCustomerUser(userRequest);
     }
 

@@ -1,6 +1,5 @@
 package com.e_commerce.users.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,12 +17,18 @@ public class SellerProfile {
     private String storeDescription;
 
     private String businessName;
+
     private String businessEmail;
+
     private String businessPhone;
 
     private String gstNumber;
 
     private String logoUrl;
+
+    private String accountNumber;
+
+    private String ifscCode;
 
     private LocalDateTime createdAt;
 

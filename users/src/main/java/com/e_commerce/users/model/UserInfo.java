@@ -12,10 +12,9 @@ public class UserInfo implements UserDetails {
 
     private String email;
     private String password;
-    private String id;
     private List<GrantedAuthority> authorities;
 
-    public UserInfo(Users user){
+    public UserInfo(Users user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().toString()));
