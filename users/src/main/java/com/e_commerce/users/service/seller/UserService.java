@@ -1,12 +1,16 @@
 package com.e_commerce.users.service.seller;
 
-import com.e_commerce.users.dto.user.CreateUserRequest;
+import com.e_commerce.users.dto.auth.CreateCustomerUserRequest;
+import com.e_commerce.users.dto.auth.CreateSellerUserRequest;
 import com.e_commerce.users.mapper.AddressMapper;
+import com.e_commerce.users.mapper.SellerProfileMapper;
 import com.e_commerce.users.mapper.UserMapper;
 import com.e_commerce.users.model.Address;
+import com.e_commerce.users.model.SellerProfile;
 import com.e_commerce.users.model.Users;
 import com.e_commerce.users.model.UsersRole;
 import com.e_commerce.users.repo.AddressRepo;
+import com.e_commerce.users.repo.SellerProfileRepo;
 import com.e_commerce.users.repo.UsersRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +27,32 @@ public class UserService {
     private final AddressRepo addressRepo;
     private final AddressMapper addressMapper;
     private final PasswordEncoder passwordEncoder;
+    private final SellerProfileMapper sellerProfileMapper;
+    private final SellerProfileRepo sellerProfileRepo;
 
     @Transactional
-    public void createUser(CreateUserRequest userRequest,UsersRole role){
-        Users user = userMapper.toEntity(userRequest);
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setRole(role);
+    public void createCustomerUser(CreateCustomerUserRequest userRequest){
+        Users user = userMapper.toEntity(userRequest.getUser());
+        user.setPassword(passwordEncoder.encode(userRequest.getUser().getPassword()));
+        user.setRole(UsersRole.CUSTOMER);
         Users updatedUser = repo.save(user);
         Address address = addressMapper.toEntity(userRequest.getAddressRequest());
         address.setUser(updatedUser);
         addressRepo.save(address);
+    }
+
+    @Transactional
+    public void createSellerUser(CreateSellerUserRequest userRequest){
+        Users user = userMapper.toEntity(userRequest.getUser());
+        user.setPassword(passwordEncoder.encode(userRequest.getUser().getPassword()));
+        user.setRole(UsersRole.SELLER);
+        Users updatedUser = repo.save(user);
+        Address address = addressMapper.toEntity(userRequest.getAddressRequest());
+        address.setUser(updatedUser);
+        addressRepo.save(address);
+        SellerProfile profile = sellerProfileMapper.toEntity(userRequest.getSellerProfile());
+        profile.setUserId(user);
+        sellerProfileRepo.save(profile);
     }
 
     public ResponseEntity<?> getAllUsers(){

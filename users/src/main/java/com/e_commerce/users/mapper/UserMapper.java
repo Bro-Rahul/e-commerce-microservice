@@ -1,6 +1,6 @@
 package com.e_commerce.users.mapper;
 
-import com.e_commerce.users.dto.user.CreateUserRequest;
+import com.e_commerce.users.dto.user.CreateUserRequestDTO;
 import com.e_commerce.users.dto.user.UserResponseDTO;
 import com.e_commerce.users.model.Users;
 import org.mapstruct.Mapper;
@@ -15,7 +15,9 @@ public interface UserMapper {
     @Mapping(target = "accountStatus", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "sellerProfile", ignore = true)
-    Users toEntity(CreateUserRequest createUserRequest);
+    Users toEntity(CreateUserRequestDTO createUserRequest);
+
+
 
 
     UserResponseDTO toResponse(Users user);

@@ -1,9 +1,10 @@
 package com.e_commerce.users.controller.auth;
 
 
+import com.e_commerce.users.dto.auth.CreateCustomerUserRequest;
+import com.e_commerce.users.dto.auth.CreateSellerUserRequest;
 import com.e_commerce.users.dto.auth.LoginRequestDTO;
 import com.e_commerce.users.dto.auth.LoginResponseDTO;
-import com.e_commerce.users.dto.user.CreateUserRequest;
 import com.e_commerce.users.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,12 +27,12 @@ public class AuthController {
     }
 
     @PostMapping("/register-seller")
-    public void registerSellerUser(@Valid @RequestBody CreateUserRequest userRequest){
+    public void registerSellerUser(@Valid @RequestBody CreateSellerUserRequest userRequest){
         authService.registerSellerUser(userRequest);
     }
 
     @PostMapping("/register-customer")
-    public void registerCustomerUser(@Valid @RequestBody CreateUserRequest userRequest){
+    public void registerCustomerUser(@Valid @RequestBody CreateCustomerUserRequest userRequest){
         authService.registerCustomerUser(userRequest);
     }
 

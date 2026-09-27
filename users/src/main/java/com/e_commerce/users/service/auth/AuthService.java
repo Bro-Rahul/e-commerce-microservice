@@ -1,8 +1,10 @@
 package com.e_commerce.users.service.auth;
 
+import com.e_commerce.users.dto.auth.CreateCustomerUserRequest;
+import com.e_commerce.users.dto.auth.CreateSellerUserRequest;
 import com.e_commerce.users.dto.auth.LoginRequestDTO;
 import com.e_commerce.users.dto.auth.LoginResponseDTO;
-import com.e_commerce.users.dto.user.CreateUserRequest;
+import com.e_commerce.users.mapper.UserMapper;
 import com.e_commerce.users.model.UserInfo;
 import com.e_commerce.users.model.Users;
 import com.e_commerce.users.model.UsersRole;
@@ -28,6 +30,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final UserService userService;
+    private  final UserMapper userMapper;
 
 
     public ResponseEntity<LoginResponseDTO> loginUser(LoginRequestDTO authRequest){
@@ -41,18 +44,18 @@ public class AuthService {
             claims.put("id",user.getId());
             UserDetails userInfo = new UserInfo(user);
             String token = jwtService.generateToken(claims,userInfo);
-            return ResponseEntity.ok().body(new LoginResponseDTO(token));
+            return ResponseEntity.ok().body(new LoginResponseDTO(token,userMapper.toResponse(user)));
         } else {
             throw new UsernameNotFoundException("Invalid user request!");
         }
     }
 
-    public void registerSellerUser(CreateUserRequest userRequest){
-        userService.createUser(userRequest, UsersRole.SELLER);
+    public void registerSellerUser(CreateSellerUserRequest userRequest){
+        userService.createSellerUser(userRequest);
     }
 
-    public void registerCustomerUser(CreateUserRequest userRequest){
-        userService.createUser(userRequest,UsersRole.CUSTOMER);
+    public void registerCustomerUser(CreateCustomerUserRequest userRequest){
+        userService.createCustomerUser(userRequest);
     }
 
 }

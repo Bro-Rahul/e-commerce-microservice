@@ -1,13 +1,13 @@
 package com.e_commerce.users.dto.user;
 
-import com.e_commerce.users.dto.address.CreateAddressRequest;
 import jakarta.annotation.Nullable;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CreateUserRequest {
+public class CreateUserRequestDTO {
 
     @NotBlank(message = "First Name must not be blank")
     private String firstName;
@@ -28,9 +28,4 @@ public class CreateUserRequest {
 
     @Nullable
     private String profileImage;
-
-    @NotNull
-    @Valid
-    private CreateAddressRequest addressRequest;
-
 }
