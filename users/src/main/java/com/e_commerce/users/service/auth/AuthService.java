@@ -8,7 +8,8 @@ import com.e_commerce.users.mapper.UserMapper;
 import com.e_commerce.users.model.UserInfo;
 import com.e_commerce.users.model.Users;
 import com.e_commerce.users.repo.UsersRepo;
-import com.e_commerce.users.service.seller.UserService;
+import com.e_commerce.users.service.customer.CustomerUserService;
+import com.e_commerce.users.service.seller.SellerUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,8 @@ public class AuthService {
     private final UsersRepo usersRepo;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private final UserService userService;
+    private final SellerUserService sellerUserService;
+    private final CustomerUserService createCustomerUser;
     private final UserMapper userMapper;
 
     public ResponseEntity<LoginResponseDTO> loginUser(LoginRequestDTO authRequest) {
@@ -48,11 +50,11 @@ public class AuthService {
     }
 
     public void registerSellerUser(CreateSellerUserRequest userRequest) {
-        userService.createSellerUser(userRequest);
+        sellerUserService.createSellerUser(userRequest);
     }
 
     public void registerCustomerUser(CreateCustomerUserRequest userRequest) {
-        userService.createCustomerUser(userRequest);
+        createCustomerUser.createCustomerUser(userRequest);
     }
 
 }

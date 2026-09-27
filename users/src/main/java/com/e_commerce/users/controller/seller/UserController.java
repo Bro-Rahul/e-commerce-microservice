@@ -1,6 +1,6 @@
 package com.e_commerce.users.controller.seller;
 
-import com.e_commerce.users.service.seller.UserService;
+import com.e_commerce.users.service.seller.SellerUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
 
-    private final UserService userService ;
+    private final SellerUserService userService ;
 
     @GetMapping("")
     public ResponseEntity<?> greet(){
