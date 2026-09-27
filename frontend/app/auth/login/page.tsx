@@ -95,7 +95,7 @@ const page = () => {
 
                 <Link href={'/auth/register-customer'}>
                     <button
-                        className="h-9.5 w-full rounded-md border border-outline-variant bg-surface-container text-sm transition hover:bg-surface-container-high focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                        className="h-9.5 w-full rounded-md border border-outline-variant text-sm text-primary transition hover:bg-surface-container-high focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
                         type="button"
                     >
                         Create your ShopDirect account

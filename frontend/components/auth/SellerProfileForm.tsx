@@ -28,14 +28,14 @@ const SellerProfileForm = () => {
 
             <div className="grid gap-x-3 gap-y-2.5 p-3 sm:grid-cols-2">
 
-                {/* Legal Name */}
+                {/* Business Name */}
                 <Controller
                     control={control}
-                    name="legalName"
+                    name="businessName"
                     render={({ field, fieldState: { error } }) => (
                         <Field
-                            label="Legal Business / Entity Name"
-                            htmlFor="legalName"
+                            label="Business Name"
+                            htmlFor="businessName"
                             required
                             error={error?.message}
                         >
@@ -43,8 +43,8 @@ const SellerProfileForm = () => {
                                 {...field}
                                 autoComplete="organization"
                                 className="inputfields"
-                                id="legalName"
-                                placeholder="e.g. Global Stores LLC"
+                                id="businessName"
+                                placeholder="e.g. Global Stores"
                             />
                         </Field>
                     )}
@@ -72,128 +72,112 @@ const SellerProfileForm = () => {
                     )}
                 />
 
-                {/* Business Type */}
+                {/* Business Email */}
                 <Controller
                     control={control}
-                    name="businessType"
+                    name="businessEmail"
                     render={({ field, fieldState: { error } }) => (
                         <Field
-                            label="Business Type"
-                            htmlFor="businessType"
+                            label="Business Email"
+                            htmlFor="businessEmail"
                             required
-                            error={error?.message}
-                        >
-                            <select
-                                {...field}
-                                id="businessType"
-                                className="inputfields"
-                            >
-                                <option value="">
-                                    Select business type
-                                </option>
-
-                                <option value="private-limited">
-                                    Private Limited Company (Pvt Ltd)
-                                </option>
-
-                                <option value="llp">
-                                    Limited Liability Partnership
-                                </option>
-
-                                <option value="partnership">
-                                    Partnership
-                                </option>
-
-                                <option value="sole-proprietorship">
-                                    Sole Proprietorship
-                                </option>
-                            </select>
-                        </Field>
-                    )}
-                />
-
-                {/* Product Category */}
-                <Controller
-                    control={control}
-                    name="productCategory"
-                    render={({ field, fieldState: { error } }) => (
-                        <Field
-                            label="Primary Product Category"
-                            htmlFor="productCategory"
-                            required
-                            error={error?.message}
-                        >
-                            <select
-                                {...field}
-                                id="productCategory"
-                                className="inputfields"
-                            >
-                                <option value="">
-                                    Select product category
-                                </option>
-
-                                <option value="electronics">
-                                    Consumer Electronics & Appliances
-                                </option>
-
-                                <option value="home-kitchen">
-                                    Home & Kitchen
-                                </option>
-
-                                <option value="fashion">
-                                    Fashion
-                                </option>
-
-                                <option value="books-media">
-                                    Books & Media
-                                </option>
-
-                                <option value="health-personal-care">
-                                    Health & Personal Care
-                                </option>
-                            </select>
-                        </Field>
-                    )}
-                />
-
-                {/* Tax Number */}
-                <Controller
-                    control={control}
-                    name="taxNumber"
-                    render={({ field, fieldState: { error } }) => (
-                        <Field
-                            label="Tax ID / GSTIN / VAT Number"
-                            htmlFor="taxNumber"
-                            required
-                            optionalText="Format: 22AAAAA0000A1Z5"
                             error={error?.message}
                         >
                             <input
                                 {...field}
-                                id="taxNumber"
+                                autoComplete="email"
+                                type="email"
+                                id="businessEmail"
                                 className="inputfields"
-                                placeholder="22AAAAA0000A1Z5"
+                                placeholder="company@example.com"
                             />
                         </Field>
                     )}
                 />
 
-                {/* Registration Number */}
+                {/* Business Phone */}
                 <Controller
                     control={control}
-                    name="registrationNumber"
+                    name="businessPhone"
                     render={({ field, fieldState: { error } }) => (
                         <Field
-                            label="Business Registration / PAN Number"
-                            htmlFor="registrationNumber"
+                            label="Business Phone"
+                            htmlFor="businessPhone"
                             required
                             error={error?.message}
                         >
                             <input
                                 {...field}
-                                id="registrationNumber"
+                                id="businessPhone"
+                                type="tel"
+                                autoComplete="tel"
                                 className="inputfields"
-                                placeholder="e.g. U72900KA2021PTC000000"
+                                placeholder="Business contact number"
+                            />
+                        </Field>
+                    )}
+                />
+
+                {/* GST Number */}
+                <Controller
+                    control={control}
+                    name="gstNumber"
+                    render={({ field, fieldState: { error } }) => (
+                        <Field
+                            label="GST Number"
+                            htmlFor="gstNumber"
+                            required
+                            error={error?.message}
+                        >
+                            <input
+                                {...field}
+                                id="gstNumber"
+                                className="inputfields"
+                                placeholder="GST registration number"
+                            />
+                        </Field>
+                    )}
+                />
+
+                {/* Store Description */}
+                <Controller
+                    control={control}
+                    name="storeDescription"
+                    render={({ field, fieldState: { error } }) => (
+                        <Field
+                            label="Store Description"
+                            htmlFor="storeDescription"
+                            required
+                            error={error?.message}
+                        >
+                            <textarea
+                                {...field}
+                                id="storeDescription"
+                                className="inputfields"
+                                placeholder="Describe your store"
+                                rows={3}
+                            />
+                        </Field>
+                    )}
+                />
+
+                {/* Logo URL */}
+                <Controller
+                    control={control}
+                    name="logoUrl"
+                    render={({ field, fieldState: { error } }) => (
+                        <Field
+                            label="Logo URL"
+                            htmlFor="logoUrl"
+                            required
+                            error={error?.message}
+                        >
+                            <input
+                                {...field}
+                                id="logoUrl"
+                                type="url"
+                                className="inputfields"
+                                placeholder="https://example.com/logo.png"
                             />
                         </Field>
                     )}
@@ -216,70 +200,49 @@ const SellerProfileForm = () => {
                     </span>
                 </h3>
 
-                <div className="grid gap-2.5 sm:grid-cols-3">
+                <div className="grid gap-2.5 sm:grid-cols-2">
 
-                    {/* Account Holder */}
+                    {/* Account Number */}
                     <Controller
                         control={control}
-                        name="accountHolder"
+                        name="accountNumber"
                         render={({ field, fieldState: { error } }) => (
                             <Field
-                                label="Account Holder Name"
-                                htmlFor="accountHolder"
+                                label="Account Number"
+                                htmlFor="accountNumber"
                                 required
                                 error={error?.message}
                             >
                                 <input
                                     {...field}
-                                    id="accountHolder"
-                                    autoComplete="name"
-                                    className="inputfields"
-                                    placeholder="Global Stores LLC"
-                                />
-                            </Field>
-                        )}
-                    />
-
-                    {/* Bank Account */}
-                    <Controller
-                        control={control}
-                        name="bankAccount"
-                        render={({ field, fieldState: { error } }) => (
-                            <Field
-                                label="Bank Account Number"
-                                htmlFor="bankAccount"
-                                required
-                                error={error?.message}
-                            >
-                                <input
-                                    {...field}
-                                    id="bankAccount"
+                                    id="accountNumber"
                                     autoComplete="off"
                                     inputMode="numeric"
                                     className="inputfields"
-                                    placeholder="001234567890"
+                                    placeholder="Bank account number"
                                 />
                             </Field>
                         )}
                     />
 
-                    {/* Routing Code */}
+                    {/* IFSC Code */}
                     <Controller
                         control={control}
-                        name="routingCode"
+                        name="ifscCode"
                         render={({ field, fieldState: { error } }) => (
                             <Field
-                                label="IFSC / SWIFT / Routing Code"
-                                htmlFor="routingCode"
+                                label="IFSC Code"
+                                htmlFor="ifscCode"
                                 required
                                 error={error?.message}
                             >
                                 <input
                                     {...field}
-                                    id="routingCode"
+                                    id="ifscCode"
                                     autoComplete="off"
+                                    autoCapitalize="characters"
                                     className="inputfields"
-                                    placeholder="HDFC000123"
+                                    placeholder="e.g. HDFC000123"
                                 />
                             </Field>
                         )}

@@ -134,13 +134,13 @@ export const customerRegistrationDefaults = {
 
 export const sellerRegistrationDefaults = {
     ...customerRegistrationDefaults,
-    legalName: "",
+    businessEmail: "",
+    storeDescription: "",
+    businessName: "",
+    logoUrl: "",
+    gstNumber: "",
     storeName: "",
-    businessType: "",
-    productCategory: "",
-    taxNumber: "",
-    registrationNumber: "",
-    accountHolder: "",
-    bankAccount: "",
-    routingCode: "",
+    businessPhone: "",
+    accountNumber: "",
+    ifscCode: "",
 }

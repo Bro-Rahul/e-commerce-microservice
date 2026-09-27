@@ -7,50 +7,50 @@ export const sellerRegisterationValidator = z.object({
 
     ...addressValidator.shape,
 
-    legalName: z
+    businessEmail: z
         .string()
         .trim()
-        .min(1, "Legal name must not be empty"),
+        .email("Enter a valid business email"),
+
+    storeDescription: z
+        .string()
+        .trim()
+        .min(1, "Store description must not be empty"),
+
+    businessName: z
+        .string()
+        .trim()
+        .min(1, "Business name must not be empty"),
+
+    logoUrl: z
+        .string()
+        .trim()
+        .min(1, "Logo URL must not be empty"),
+
+    gstNumber: z
+        .string()
+        .trim()
+        .min(1, "GST number must not be empty"),
 
     storeName: z
         .string()
         .trim()
         .min(1, "Store name must not be empty"),
 
-    businessType: z
+    businessPhone: z
         .string()
         .trim()
-        .min(1, "Business type must be selected"),
+        .min(1, "Business phone must not be empty"),
 
-    productCategory: z
+    accountNumber: z
         .string()
         .trim()
-        .min(1, "Product category must be selected"),
+        .min(1, "Account number must not be empty"),
 
-    taxNumber: z
+    ifscCode: z
         .string()
         .trim()
-        .min(1, "Tax number must not be empty"),
-
-    registrationNumber: z
-        .string()
-        .trim()
-        .min(1, "Registration number must not be empty"),
-
-    accountHolder: z
-        .string()
-        .trim()
-        .min(1, "Account holder name must not be empty"),
-
-    bankAccount: z
-        .string()
-        .trim()
-        .min(1, "Bank account number must not be empty"),
-
-    routingCode: z
-        .string()
-        .trim()
-        .min(1, "Routing code must not be empty"),
+        .min(1, "IFSC code must not be empty"),
 })
     .superRefine((data, ctx) => {
         if (data.password !== data.confirmPassword) {
