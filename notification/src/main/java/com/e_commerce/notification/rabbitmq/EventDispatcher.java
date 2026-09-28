@@ -24,11 +24,8 @@ public class EventDispatcher {
     public void dispatch(Event event){
 
         switch (event.getRoutingKey()){
-            case "user.created":
-                processUserCreated((UserCreatedEvent) event);
-
-            case "notification.email":
-                processEmailNotification((EmailNotificationEvent) event);
+            case "user.created" -> processUserCreated((UserCreatedEvent) event);
+            case "notification.email" -> processEmailNotification((EmailNotificationEvent) event);
         }
 
     }
