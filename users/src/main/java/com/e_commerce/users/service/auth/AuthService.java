@@ -61,7 +61,7 @@ public class AuthService {
 
     @Transactional
     public ResponseEntity<String> validateOTP(OTPVerificationRequest verificationRequest){
-        Object value = redisTemplate.opsForValue().get(verificationRequest.getEmail());
+        Object value = redisTemplate.opsForValue().get(String.format("%s-code",verificationRequest.getEmail()));
         if(value == null){
             return ResponseEntity.badRequest().body("OTP code has been expired try to re-send again");
         }
