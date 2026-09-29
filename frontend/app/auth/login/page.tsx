@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { EyeClosed, Eye } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
 const page = () => {
     const [viewPassword, setViewPassword] = useState<boolean>(false);
@@ -18,8 +19,12 @@ const page = () => {
         },
         resolver: zodResolver(loginValidator)
     })
-    const onSubmit = (data: LoginRequestType) => {
-        console.log(data)
+    const onSubmit = async (data: LoginRequestType) => {
+        await signIn("credentials", {
+            username: data.email,
+            password: data.password,
+            redirect: false,
+        });
     }
 
     return (
