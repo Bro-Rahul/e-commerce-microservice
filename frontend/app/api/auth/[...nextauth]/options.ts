@@ -2,7 +2,6 @@ import { ApiError } from "@/http/apiError";
 import { loginUser } from "@/http/auth/authHttp";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
-import toast from "react-hot-toast";
 
 const options: NextAuthOptions = {
     providers: [
@@ -24,19 +23,10 @@ const options: NextAuthOptions = {
                     };
                 } catch (error) {
                     if (error instanceof ApiError) {
-                        toast.error(error.message, {
-                            duration: 5000,
-                            position: 'bottom-right'
-                        })
-
-                    } else {
-                        toast.error("Unexpected error", {
-                            duration: 5000,
-                            position: 'bottom-right'
-                        })
+                        throw error
                     }
+                    throw new Error("Unexpected error")
                 }
-                return null;
             },
             credentials: {
                 username: { label: "Email", type: "email", placeholder: "john@gmail.com" },

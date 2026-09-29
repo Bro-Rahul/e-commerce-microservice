@@ -8,6 +8,7 @@ import { EyeClosed, Eye } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 const page = () => {
     const [viewPassword, setViewPassword] = useState<boolean>(false);
@@ -20,12 +21,22 @@ const page = () => {
         resolver: zodResolver(loginValidator)
     })
     const onSubmit = async (data: LoginRequestType) => {
-        await signIn("credentials", {
+
+        const result = await signIn("credentials", {
             username: data.email,
             password: data.password,
             redirect: false,
         });
-    }
+
+        console.log(result?.error)
+
+        if (result?.error) {
+            toast.error(result.error, {
+                position: "bottom-right",
+                duration: 5000,
+            });
+        }
+    };
 
     return (
         <main className="retail-page flex min-h-[calc(100vh-3.125rem)] justify-center px-4 pb-10 pt-[clamp(5rem,24vh,10.5rem)]">
