@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import Navbar from "@/components/common/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { ToastBar, Toaster } from "react-hot-toast";
+import AuthProvider from "@/context/AuthProvider";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -42,19 +43,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           rel="stylesheet" />
       </head>
       <body className="min-h-full flex flex-col w-full h-full">
-        <TooltipProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <Toaster />
-            {children}
+        <AuthProvider>
+          <TooltipProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <Toaster />
+              {children}
 
-          </ThemeProvider>
-        </TooltipProvider>
+            </ThemeProvider>
+          </TooltipProvider>
+        </AuthProvider>
       </body>
     </html>
   );
