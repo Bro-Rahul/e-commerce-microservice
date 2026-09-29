@@ -1,10 +1,7 @@
 package com.e_commerce.users.controller.auth;
 
 
-import com.e_commerce.users.dto.auth.CreateCustomerUserRequest;
-import com.e_commerce.users.dto.auth.CreateSellerUserRequest;
-import com.e_commerce.users.dto.auth.LoginRequestDTO;
-import com.e_commerce.users.dto.auth.LoginResponseDTO;
+import com.e_commerce.users.dto.auth.*;
 import com.e_commerce.users.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -34,6 +31,11 @@ public class AuthController {
     @PostMapping("/register-customer")
     public void registerCustomerUser(@Valid @RequestBody CreateCustomerUserRequest userRequest){
         authService.registerCustomerUser(userRequest);
+    }
+
+    @PostMapping("/email-verification")
+    public ResponseEntity<String> emailVerification(@Valid @RequestBody OTPVerificationRequest request){
+        return authService.validateOTP(request);
     }
 
 }
