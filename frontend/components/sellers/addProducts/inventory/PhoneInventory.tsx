@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/button'
 import { Trash2, Plus, Save, Copy } from 'lucide-react'
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import { PhoneInventoryType, phoneInventoryValidators } from '@/validators/inventoryValidator'
-import { phoneInventoryFieldsDefaults } from '@/constants/data'
+import { Categories, phoneInventoryFieldsDefaults } from '@/constants/data'
 import AdditionalFieldsForm from './AdditionalFieldsForm'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import useAddProduct from '@/store/useAddProduct'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
+import JsonUploadBtn from '../JsonUploadBtn'
 
 
 export interface PhoneInventoryForm {
@@ -100,11 +101,20 @@ const PhoneInventory = () => {
 
 
                             </div>
-                            <Button className="self-end bg-secondary font-bold text-on-secondary hover:bg-secondary/90"
-                                onClick={() => append(phoneInventoryFieldsDefaults)} type="button">
-                                <Plus />
-                                Add new variant
-                            </Button>
+                            <div className='flex flex-col gap-3 sm:flex-row '>
+                                <Button className="self-end bg-secondary font-bold text-on-secondary hover:bg-secondary/90"
+                                    onClick={() => append(phoneInventoryFieldsDefaults)} type="button">
+                                    <Plus />
+                                    Add new variant
+                                </Button>
+                                <JsonUploadBtn
+                                    schema={inventoryResolver}
+                                    onSuccess={data => {
+                                        methods.reset(data)
+                                        updateProductInventory("phone", data.inventory)
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                     <Accordion className="space-y-8 p-5 sm:p-8" defaultValue={['variant-1']} keepMounted multiple>

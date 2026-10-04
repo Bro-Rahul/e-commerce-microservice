@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 import SpecificationKeyValuePair from './SpecificationKeyValuePair'
 import { useEffect } from 'react'
 import useAddProduct from '@/store/useAddProduct'
+import JsonUploadBtn from '../JsonUploadBtn'
 
 export interface SpecificationForm {
     data: SpecificationType
@@ -96,12 +97,19 @@ const SpecificationForm = () => {
                                     <h2 className="headline-sm">Phone Specification Data</h2>
                                     <p className="mt-1 text-sm text-on-surface-variant">List Down Phone Specfications about Cameras,Display,Processor etc.</p>
                                 </div>
-
-
                             </div>
-                            <SpecificationNameDialog
-                                handleSave={handleAppend}
-                            />
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                <SpecificationNameDialog
+                                    handleSave={handleAppend}
+                                />
+                                <JsonUploadBtn
+                                    schema={specificationFormValidator}
+                                    onSuccess={data => {
+                                        methods.reset(data)
+                                        updateSpecifications("phone", data.data)
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 p-5 w-full sm:p-8">

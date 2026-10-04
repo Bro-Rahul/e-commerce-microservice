@@ -8,6 +8,7 @@ import { Plus, Save, Trash2 } from "lucide-react"
 import { useEffect } from "react"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+import JsonUploadBtn from "../JsonUploadBtn"
 
 export interface ArrayDataType {
   value: string
@@ -22,6 +23,9 @@ interface ArrayFieldsProps {
 }
 
 const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps) => {
+  const resolver = arrayFieldsValidator.shape.arrayData
+
+
   const { setArrayField } = useArrayFieldStore();
   const {
     register,
@@ -67,9 +71,6 @@ const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps
     if (onSave) onSave(data.arrayData);
   }
 
-  const onRemove = (index: number) => {
-    remove(index);
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -90,14 +91,23 @@ const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps
               </div>
             </div>
 
-            <Button
-              type="button"
-              className="bg-secondary text-on-secondary hover:bg-secondary/90"
-              onClick={() => append({ value: "" })}
-            >
-              <Plus />
-              Add Item
-            </Button>
+            <div className='flex flex-col gap-3 sm:flex-row '>
+              <Button
+                type="button"
+                className="bg-secondary text-on-secondary hover:bg-secondary/90"
+                onClick={() => append({ value: "" })}
+              >
+                <Plus />
+                Add Item
+              </Button>
+              <JsonUploadBtn
+                schema={resolver}
+                onSuccess={data => {
+                  onSubmit({ arrayData: data })
+                  reset({ arrayData: data })
+                }}
+              />
+            </div>
           </div>
         </div>
 

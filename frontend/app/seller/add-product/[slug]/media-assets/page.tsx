@@ -3,7 +3,6 @@ import CoverImage from "@/components/sellers/addProducts/mediaAssets/CoverImage"
 import ImageCarousel from "@/components/sellers/addProducts/mediaAssets/ImageCarousel"
 import ImageCollection from "@/components/sellers/addProducts/mediaAssets/ImageCollection"
 import SaveAssetsBtn from "@/components/sellers/addProducts/mediaAssets/SaveAssetsBtn"
-import { Button } from "@/components/ui/button"
 import { AvailableCategoryType } from "@/types/inventoryTypes"
 import { Images, Save } from "lucide-react"
 
