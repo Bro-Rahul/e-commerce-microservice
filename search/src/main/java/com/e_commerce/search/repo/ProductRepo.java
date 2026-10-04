@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.e_commerce.search.model.Products;
 
 @Repository
-public interface ProductRepo extends ElasticsearchRepository<Products, Long> {
+public interface ProductRepo extends ElasticsearchRepository<Products, String> {
 
     Optional<Products> findByProductId(String productId);
 

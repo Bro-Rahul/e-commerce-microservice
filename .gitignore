@@ -4,3 +4,7 @@ notification/target
 notification/.idea
 users/target
 users/.idea
+**/application.properties
+.*
+!.gitignore
+**/target
