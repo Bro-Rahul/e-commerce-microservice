@@ -83,7 +83,48 @@ const useFormateData = (category: AvailableCategoryType) => {
         },
     }
 
-    return productDisplayData
+
+
+    const getProductSubmissionData = () => {
+        const formData = new FormData();
+        const productBaseDetails = product.baseDetail;
+        formData.append("productBaseDetail", new Blob(
+            [JSON.stringify(productBaseDetails)], {
+            type: 'application/json'
+        }));
+
+        const metaDetails = product.productMetaDetail;
+
+        formData.append("metaDetails", new Blob(
+            [JSON.stringify(metaDetails)], {
+            type: "application/json"
+        }));
+
+        formData.append("inventory", new Blob(
+            [JSON.stringify(product.inventory)], {
+            type: "application/json"
+        }
+        ))
+
+        formData.append("coverImage", coverImage)
+
+        imageCollection.forEach(image => {
+            formData.append("imageCollection", image)
+        });
+
+        carouselImages.forEach(image => {
+            formData.append("carouselImages", image)
+        });
+
+
+        return formData;
+    }
+
+
+    return {
+        productDisplayData,
+        getProductSubmissionData
+    }
 }
 
 export default useFormateData

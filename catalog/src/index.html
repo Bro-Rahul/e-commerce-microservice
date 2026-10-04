@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        fieldset {
+            margin-bottom: 25px;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        button {
+            padding: 12px 25px;
+            cursor: pointer;
+        }
+
+        .inventory {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Create Product</h1>
+
+    <form id="productForm">
+
+        <!-- ========================= -->
+        <!-- PRODUCT BASE DETAIL -->
+        <!-- ========================= -->
+
+        <fieldset>
+            <legend>Product Base Detail</legend>
+
+            <label for="category">
+                Category
+            </label>
+
+            <input type="text" id="category" value="electronics" required>
+
+            <label for="title">
+                Title
+            </label>
+
+            <input type="text" id="title" value="Samsung Galaxy S25" required>
+
+            <label for="description">
+                Description
+            </label>
+
+            <textarea id="description"
+                required>Samsung Galaxy S25 with powerful performance, premium display and advanced camera system.</textarea>
+
+            <label for="aboutItem">
+                About Item
+            </label>
+
+            <textarea
+                id="aboutItem">Premium Android smartphone with high-performance processor, AMOLED display and long-lasting battery.</textarea>
+
+        </fieldset>
+
+
+        <!-- ========================= -->
+        <!-- META DETAILS -->
+        <!-- ========================= -->
+
+        <fieldset>
+            <legend>Meta Details</legend>
+
+            <label for="brand">
+                Brand
+            </label>
+
+            <input type="text" id="brand" value="Samsung">
+
+            <label for="ram">
+                RAM
+            </label>
+
+            <input type="text" id="ram" value="12GB">
+
+            <label for="storage">
+                Storage
+            </label>
+
+            <input type="text" id="storage" value="256GB">
+
+            <label for="operatingSystem">
+                Operating System
+            </label>
+
+            <input type="text" id="operatingSystem" value="Android 16">
+
+            <label for="cpuModel">
+                CPU Model
+            </label>
+
+            <input type="text" id="cpuModel" value="Snapdragon 8 Elite">
+
+        </fieldset>
+
+
+        <!-- ========================= -->
+        <!-- ASSETS META DETAILS -->
+        <!-- ========================= -->
+
+        <fieldset>
+            <legend>Assets Meta Details</legend>
+
+            <div class="inventory">
+
+                <label>
+                    File Name
+                </label>
+
+                <input type="text" id="assetFileName" value="samsung-s25-front.jpg">
+
+                <label>
+                    Image Type
+                </label>
+
+                <select id="assetImageType">
+                    <option value="FRONT" selected>FRONT</option>
+                    <option value="BACK">BACK</option>
+                    <option value="SIDE">SIDE</option>
+                    <option value="GALLERY">GALLERY</option>
+                    <option value="CAROUSEL">CAROUSEL</option>
+                </select>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- ========================= -->
+        <!-- INVENTORY -->
+        <!-- ========================= -->
+
+        <fieldset>
+            <legend>Product Inventory</legend>
+
+            <label for="sku">
+                SKU
+            </label>
+
+            <input type="text" id="sku" value="SAM-S25-256-BLK">
+
+            <label for="inventoryName">
+                Name
+            </label>
+
+            <input type="text" id="inventoryName" value="Samsung Galaxy S25 256GB Black">
+
+            <label for="quantity">
+                Quantity
+            </label>
+
+            <input type="number" id="quantity" value="50">
+
+            <label for="price">
+                Price
+            </label>
+
+            <input type="number" id="price" value="79999" step="0.01">
+
+            <label for="stockDescription">
+                Stock Description
+            </label>
+
+            <textarea id="stockDescription">Available in stock</textarea>
+
+        </fieldset>
+
+
+        <!-- ========================= -->
+        <!-- FILES -->
+        <!-- ========================= -->
+
+        <fieldset>
+            <legend>Product Images</legend>
+
+            <label for="coverImage">
+                Cover Image
+            </label>
+
+            <input type="file" id="coverImage" accept="image/*" required>
+
+            <label for="imageCollection">
+                Image Collection
+            </label>
+
+            <input type="file" id="imageCollection" accept="image/*" multiple>
+
+            <label for="carouselImages">
+                Carousel Images
+            </label>
+
+            <input type="file" id="carouselImages" accept="image/*" multiple>
+
+        </fieldset>
+
+
+        <button type="submit">
+            Create Product
+        </button>
+
+    </form>
+
+
+    <script>
+
+        document
+            .getElementById("productForm")
+            .addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                const formData = new FormData();
+
+
+                // ==========================================
+                // ProductBaseDetail
+                // ==========================================
+
+                const productBaseDetail = {
+                    category: document.getElementById("category").value,
+                    title: document.getElementById("title").value,
+                    description: document.getElementById("description").value,
+                    aboutItem: document.getElementById("aboutItem").value
+                };
+
+                formData.append(
+                    "productBaseDetail",
+                    new Blob(
+                        [JSON.stringify(productBaseDetail)],
+                        {
+                            type: "application/json"
+                        }
+                    )
+                );
+
+
+                // ==========================================
+                // Meta Details
+                // Map<String, Object>
+                // ==========================================
+
+                const metaDetails = {
+
+                    brand: document.getElementById("brand").value,
+
+                    ram: document.getElementById("ram").value,
+
+                    storage: document.getElementById("storage").value,
+
+                    operatingSystem:
+                        document.getElementById("operatingSystem").value,
+
+                    cpuModel:
+                        document.getElementById("cpuModel").value
+                };
+
+                formData.append(
+                    "metaDetails",
+                    new Blob(
+                        [JSON.stringify(metaDetails)],
+                        {
+                            type: "application/json"
+                        }
+                    )
+                );
+
+
+                // ==========================================
+                // AssetsMetaDetails
+                // List<AssetsMetaDetails>
+                // ==========================================
+
+
+                // ==========================================
+                // Cover Image
+                // ==========================================
+
+                const coverImage =
+                    document.getElementById("coverImage").files[0];
+
+                if (coverImage) {
+
+                    formData.append(
+                        "coverImage",
+                        coverImage
+                    );
+
+                }
+
+
+                // ==========================================
+                // Image Collection
+                // ==========================================
+
+                const imageCollection =
+                    document.getElementById("imageCollection").files;
+
+                for (const image of imageCollection) {
+
+                    formData.append(
+                        "imageCollection",
+                        image
+                    );
+
+                }
+
+
+                // ==========================================
+                // Carousel Images
+                // ==========================================
+
+                const carouselImages =
+                    document.getElementById("carouselImages").files;
+
+                for (const image of carouselImages) {
+
+                    formData.append(
+                        "carouselImages",
+                        image
+                    );
+
+                }
+
+
+                // ==========================================
+                // Debug FormData
+                // ==========================================
+
+                for (const [key, value] of formData.entries()) {
+
+                    if (value instanceof File) {
+
+                        console.log(
+                            key,
+                            value.name
+                        );
+
+                    } else {
+
+                        console.log(
+                            key,
+                            value
+                        );
+
+                    }
+
+                }
+
+
+                // ==========================================
+                // Send Request
+                // ==========================================
+
+                try {
+
+                    const response = await fetch(
+                        "http://localhost:8080/catalog/seller/products",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+                    if (!response.ok) {
+
+                        const error =
+                            await response.text();
+
+                        console.error(error);
+
+                        alert(
+                            "Product creation failed"
+                        );
+
+                        return;
+                    }
+
+                    const product =
+                        await response.json();
+
+                    console.log(
+                        "Created product:",
+                        product
+                    );
+
+                    alert(
+                        "Product created successfully!"
+                    );
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Request failed"
+                    );
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>

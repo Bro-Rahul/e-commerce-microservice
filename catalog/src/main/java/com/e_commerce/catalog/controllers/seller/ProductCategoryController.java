@@ -1,8 +1,8 @@
 package com.e_commerce.catalog.controllers.seller;
 
-import com.e_commerce.catalog.dto.CreateCategoryRequest;
+import com.e_commerce.catalog.dto.category.CreateCategoryRequest;
 import com.e_commerce.catalog.model.ProductCategory;
-import com.e_commerce.catalog.services.seller.ProductService;
+import com.e_commerce.catalog.services.seller.CategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +15,20 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductCategoryController {
 
-    private final ProductService service;
+    private final CategoryService service;
 
     @GetMapping("/")
-    public ResponseEntity<List<ProductCategory>> getAllCategory(){
+    public ResponseEntity<List<ProductCategory>> getAllCategory() {
         return service.getAllCategory();
     }
 
     @PostMapping("/")
-    public void createNewCategory(@Valid CreateCategoryRequest createCategoryRequest){
+    public void createNewCategory(@Valid CreateCategoryRequest createCategoryRequest) {
         service.createCategory(createCategoryRequest);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategory(@PathVariable String id){
+    public void deleteCategory(@PathVariable String id) {
         service.deleteCategory(id);
     }
 }

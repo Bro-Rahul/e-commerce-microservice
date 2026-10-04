@@ -13,13 +13,18 @@ import {
 } from "@/components/ui/sidebar"
 
 import { CircleHelp, Settings, Store } from "lucide-react"
+import { getServerSession } from "next-auth"
 import React from "react"
+import options from "../api/auth/[...nextauth]/options"
+import { redirect } from "next/navigation"
 
 interface LayoutProps {
     children: React.ReactNode
 }
 
-const layout: React.FC<LayoutProps> = ({ children }) => {
+const layout: React.FC<LayoutProps> = async ({ children }) => {
+    const session = await getServerSession(options);
+    if (session && session.user.role !== "SELLER") redirect("/")
     return (
         <SidebarProvider className="h-full min-h-0! bg-background relative">
             <Sidebar className="top-14! bottom-0! h-auto!">

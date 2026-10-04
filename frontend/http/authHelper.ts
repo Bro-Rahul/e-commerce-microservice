@@ -12,10 +12,6 @@ export async function apiFetch<T>(
     try {
         response = await fetch(url, {
             ...options,
-            headers: {
-                "Content-Type": "application/json",
-                ...options?.headers,
-            },
         });
     } catch (error) {
 

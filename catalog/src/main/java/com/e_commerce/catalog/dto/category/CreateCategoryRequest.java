@@ -1,5 +1,4 @@
-package com.e_commerce.catalog.dto;
-
+package com.e_commerce.catalog.dto.category;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;

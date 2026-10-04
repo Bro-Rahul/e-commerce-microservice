@@ -5,8 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
-@Document
+@Document("products")
 public class Products {
 
     @Id
@@ -14,10 +16,18 @@ public class Products {
 
     private String title;
 
+    private String category;
+
     private String description;
 
     private String aboutItem;
 
     private String coverImageURL;
+
+    private Map<String, Object> metaDetails;
+
+    private ProductStatus productStatus = ProductStatus.PENDING_REVIEW;
+
+    private ProductMediaAssets assets;
 
 }

@@ -9,11 +9,12 @@ import { Controller, useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
     const [viewPassword, setViewPassword] = useState<boolean>(false);
-
-    const { handleSubmit, control, register } = useForm<LoginRequestType>({
+    const { push } = useRouter();
+    const { handleSubmit, control, reset, register } = useForm<LoginRequestType>({
         defaultValues: {
             email: '',
             password: ''
@@ -28,14 +29,19 @@ const page = () => {
             redirect: false,
         });
 
-        console.log(result?.error)
-
         if (result?.error) {
             toast.error(result.error, {
                 position: "bottom-right",
                 duration: 5000,
             });
+            return;
         }
+        toast.success("Login Success", {
+            position: 'bottom-right',
+            duration: 5000
+        })
+        reset();
+        push("/")
     };
 
     return (

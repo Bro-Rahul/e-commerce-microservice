@@ -1,20 +1,19 @@
 // types/next-auth.d.ts
 
-import { LoginResponseType } from "@/types/auth";
+import { LoginResponseType } from "@/types/authType";
+import { UserType } from "./user/userType";
 
 declare module "next-auth" {
     interface Session {
-        user: LoginResponseType;
+        user: UserType;
     }
 
-    interface User {
-        token: string;
-        user: LoginResponseType;
-    }
+    type User = UserType
 }
 
 declare module "next-auth/jwt" {
     interface JWT {
-        user: LoginResponseType;
+        user: UserType;
+        token: string
     }
 }

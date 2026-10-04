@@ -15,12 +15,9 @@ const options: NextAuthOptions = {
                         password: credentials?.password ?? "",
                     });
                     return {
-                        user: response,
-                        token: response.token,
-                        id: response.user.id,
-                        email: response.user.email,
-                        image: response.user.profileImage
-                    };
+                        ...response.userData,
+                        token: response.token
+                    }
                 } catch (error) {
                     if (error instanceof ApiError) {
                         throw error
@@ -38,7 +35,7 @@ const options: NextAuthOptions = {
         async jwt({ token, user }) {
 
             if (user) {
-                token.user = user
+                token.user = user as any
             }
 
             return token;
@@ -49,6 +46,7 @@ const options: NextAuthOptions = {
         }
 
     },
+
 }
 
 export default options;

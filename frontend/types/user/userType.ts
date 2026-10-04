@@ -11,4 +11,5 @@ export type UserType = {
     profileImage: string;
     createdAt: string;
     address: AddressType
-}
+    token: string
+}    

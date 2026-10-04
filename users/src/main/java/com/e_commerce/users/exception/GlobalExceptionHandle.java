@@ -1,14 +1,13 @@
 package com.e_commerce.users.exception;
 
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +15,8 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandle {
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
@@ -26,31 +24,72 @@ public class GlobalExceptionHandle {
         ex.getBindingResult()
                 .getFieldErrors()
                 .forEach(error ->
-                        errors.put(error.getField(), error.getDefaultMessage())
+                        errors.put(
+                                error.getField(),
+                                error.getDefaultMessage()
+                        )
                 );
 
+        ErrorResponse response = new ErrorResponse(
+                "Validation failed",
+                "VALIDATION_ERROR",
+                errors,
+                false
+        );
+
         return ResponseEntity
-                .badRequest()
-                .body(errors);
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
+
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<Map<String,String>> handleUsernameNotFoundException(UsernameNotFoundException ex){
-        Map<String, String> errors = new HashMap<>();
-        errors.put("error",ex.getMessage());
-        return ResponseEntity.badRequest().body(errors);
+    public ResponseEntity<ErrorResponse> handleUsernameNotFoundException(
+            UsernameNotFoundException ex) {
+
+        ErrorResponse response = new ErrorResponse(
+                ex.getMessage(),
+                "USER_NOT_FOUND",
+                null,
+                false
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(response);
     }
 
+
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Map<String, Object>> handleDataIntegrityViolation(
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolation(
             DataIntegrityViolationException ex) {
 
+        ErrorResponse response = new ErrorResponse(
+                "Data integrity violation",
+                "DATA_INTEGRITY_ERROR",
+                null,
+                false
+        );
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("error",ex.getMessage());
-        response.put("root",ex.getRootCause().toString());
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
+                .body(response);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentials(
+            BadCredentialsException ex
+    ) {
+
+        ErrorResponse response = new ErrorResponse(
+                ex.getMessage(),
+                "USER_NOT_FOUND",
+                null,
+                false
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
                 .body(response);
     }
 }
