@@ -8,7 +8,7 @@ interface AddProductPageProps {
 
 const page = async ({ params }: AddProductPageProps) => {
     const { slug } = await params
-    redirect(`/seller/add-product/${slug}/base-detail`)
+    redirect(`/seller/add-product/${slug}/product-form`)
 }
 
 export default page

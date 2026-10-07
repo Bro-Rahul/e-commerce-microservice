@@ -1,14 +1,50 @@
 "use client"
-import { AvailableCategoryType } from '@/types/inventoryTypes'
+import useImageLoader from '@/hooks/dexies/useImageLoader'
 import ImagePicker from './ImagePicker'
-import useImageLoader from '@/hooks/seller/useImageLoader'
+import { AvailableCategoryType } from '@/types/inventoryTypes'
+import useProductImage from '@/hooks/dexies/useProductImage'
+import { MediaAssetsType } from '@/types/dexie/mediaAssetsTypes'
 
 interface ImageCarouselProps {
+    variantId: string,
     category: AvailableCategoryType
 }
 
-const ImageCarousel = ({ category }: ImageCarouselProps) => {
-    const { handleImage, images } = useImageLoader(category, "Carousel");
+const ImageCarousel = ({ category, variantId }: ImageCarouselProps) => {
+    const { getImages, addCarouselImages } = useProductImage()
+    const images = useImageLoader<MediaAssetsType[]>({
+        dependency: [category, variantId],
+        loaderFn: async () => await getImages(category, "Carousel", variantId)
+    })
+
+    const handleImages = async (files: File[]) => {
+        const imageCollection: MediaAssetsType[] = files.map(file => ({
+            category,
+            file: file,
+            fileName: file.name,
+            imageType: "Carousel",
+            variantId
+        }))
+        await addCarouselImages(imageCollection, category, variantId)
+    }
+
+
+    const formattedImage = () => {
+        if (!images?.length) {
+            return [];
+        }
+
+        const files = images.map(image => new File(
+            [image.file],
+            image.fileName,
+            {
+                type: image.file.type,
+                lastModified: Date.now(),
+            }
+        ));
+
+        return files;
+    };
 
     return (
         <section
@@ -39,8 +75,8 @@ const ImageCarousel = ({ category }: ImageCarouselProps) => {
             <ImagePicker
                 htmlFor="carousel-images"
                 multiple
-                files={images}
-                onImageLoad={handleImage}
+                files={formattedImage()}
+                onImageLoad={handleImages}
                 render={(images) => (
                     <div className="space-y-4">
                         {images.length > 0 ? (

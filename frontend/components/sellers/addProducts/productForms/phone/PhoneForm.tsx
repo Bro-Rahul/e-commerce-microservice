@@ -1,29 +1,16 @@
-import PhoneInventory from '../../inventory/PhoneInventory'
 import SpecificationForm from '../../specifications/SpecificationForm'
-import ArrayFields, { ArrayDataType } from '../../inventory/ArrayFields'
-import useAddProduct from '@/store/useAddProduct'
+import PhoneAttributesForm from './PhoneAttributesForm'
+import InventoryForm from '../../inventory/InventoryForm'
+import WhatIsInBoxForm from './WhatIsInBoxForm'
 
 
 const PhoneForm = () => {
-    const { updateMetaDetails } = useAddProduct();
-
-    const onSave = (data: ArrayDataType[]) => {
-        updateMetaDetails("phone", {
-            "insideBox": data
-        });
-    }
-
-
     return (
         <>
-            <PhoneInventory />
-            <SpecificationForm />
-            <ArrayFields
-                searchKey='insideBox'
-                title='What is in the Box'
-                description='Enter the things that will be found inside the box '
-                onSave={onSave}
-            />
+            <PhoneAttributesForm />
+            <InventoryForm category='phone' />
+            <SpecificationForm category='phone' />
+            <WhatIsInBoxForm />
         </>
     )
 }

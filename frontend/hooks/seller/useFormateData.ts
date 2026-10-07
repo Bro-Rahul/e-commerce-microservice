@@ -5,27 +5,28 @@ import {
     ProductDisplayImageType,
     ProductImageType,
 } from "@/types/ProductDisplayTypes"
-import useImageLoader from "./useImageLoader"
+import useDexie from "../dexies/useDexie"
+import { useEffect, useState } from "react"
+import { MediaAssetsType } from "@/types/dexie/mediaAssetsTypes"
 
 const useFormateData = (category: AvailableCategoryType) => {
+    const [productImages, setProductImages] = useState<MediaAssetsType[]>([]);
     const product = useAddProduct(
         (state) => state.products[category]
     )
+    const { getImageByCategory } = useDexie();
 
-    const { images: coverImages } = useImageLoader(
-        category,
-        "CoverImage"
-    )
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
+                const images = await getImageByCategory(category);
+                setProductImages(images);
+            } catch (err) {
 
-    const { images: carouselImages } = useImageLoader(
-        category,
-        "Carousel"
-    )
-
-    const { images: imageCollection } = useImageLoader(
-        category,
-        "ImageCollection"
-    )
+            }
+        }
+        loadImage();
+    }, [category]);
 
     const getDisplayImage = (
         coverImage: File,
@@ -40,9 +41,7 @@ const useFormateData = (category: AvailableCategoryType) => {
         }))
     }
 
-    /*
-     * Carousel images
-     */
+
     const getImageCarousel = (
         images: File[]
     ): ProductImageType[] => {
@@ -59,16 +58,20 @@ const useFormateData = (category: AvailableCategoryType) => {
 
     const productDisplayData: ProductDataType = {
         mediaAssets: {
-            imageCarousel: getImageCarousel(
-                carouselImages ?? []
-            ),
+            imageCarousel: productImages
+                .filter((image) => image.imageType === "Carousel")
+                .map((item) => ({
+                    imageURL: URL.createObjectURL(item.file),
+                    name: item.fileName
+                })) ?? [],
 
-            productDisplay: coverImage
-                ? getDisplayImage(
-                    coverImage,
-                    imageCollection ?? []
-                )
-                : [],
+            productDisplay: productImages
+                .filter(file => file.imageType !== "Carousel")
+                .map((item) => ({
+                    imageURL: URL.createObjectURL(item.file),
+                    name: item.fileName,
+                    isCoverImage: item.imageType === "CoverImage"
+                })) ?? [],
         },
 
         productBaseDetails: {

@@ -1,14 +1,14 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import useArrayFieldStore from "@/store/useArrayFieldContext"
 import { ArrayFieldsForm, arrayFieldsValidator } from "@/validators/arrayFieldValidator"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Plus, Save, Trash2 } from "lucide-react"
-import { useEffect } from "react"
+import { List, Plus, Save, Trash2 } from "lucide-react"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+import FormCard from "../productForms/FormCard"
 import JsonUploadBtn from "../JsonUploadBtn"
+import { useEffect } from "react"
 
 export interface ArrayDataType {
   value: string
@@ -19,14 +19,12 @@ interface ArrayFieldsProps {
   title: string
   description: string,
   searchKey: string,
+  values?: ArrayDataType[],
   onSave?: (arrayData: ArrayDataType[]) => void
 }
 
-const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps) => {
+const ArrayFields = ({ description, title, searchKey, values, onSave }: ArrayFieldsProps) => {
   const resolver = arrayFieldsValidator.shape.arrayData
-
-
-  const { setArrayField } = useArrayFieldStore();
   const {
     register,
     control,
@@ -36,34 +34,22 @@ const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps
 
   } = useForm<ArrayFieldsForm>({
     defaultValues: {
-      arrayData: [],
+      arrayData: values ?? [],
     },
     resolver: zodResolver(arrayFieldsValidator),
   })
+
+  useEffect(() => {
+    reset({ arrayData: values })
+  }, [values])
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "arrayData",
   })
 
-  useEffect(() => {
-    const setState = () => {
-      const arrayData = useArrayFieldStore.getState().data[searchKey] ?? []
-      reset({ arrayData: arrayData });
-    }
-    if (useArrayFieldStore.persist.hasHydrated()) {
-      setState();
-      return;
-    }
-
-    const unsubscribe = useArrayFieldStore.persist.onFinishHydration(() => setState())
-
-    return unsubscribe;
-
-  }, []);
 
   const onSubmit = (data: ArrayFieldsForm) => {
-    setArrayField(searchKey, data.arrayData);
     toast.success(`${searchKey} has been Saved!`, {
       position: "bottom-right",
       duration: 5000
@@ -73,44 +59,31 @@ const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="flex flex-col border-t border-outline-variant py-5">
-        <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-              <span className="material-symbols-outlined w-fit rounded-lg bg-secondary p-2 text-xl text-on-secondary">
-                data_array
-              </span>
-
-              <div>
-                <h2 className="headline-sm">{title}</h2>
-
-                <p className="mt-1 text-sm text-on-surface-variant">
-                  {description}
-                </p>
-              </div>
-            </div>
-
-            <div className='flex flex-col gap-3 sm:flex-row '>
-              <Button
-                type="button"
-                className="bg-secondary text-on-secondary hover:bg-secondary/90"
-                onClick={() => append({ value: "" })}
-              >
-                <Plus />
-                Add Item
-              </Button>
-              <JsonUploadBtn
-                schema={resolver}
-                onSuccess={data => {
-                  onSubmit({ arrayData: data })
-                  reset({ arrayData: data })
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
+    <FormCard
+      Icon={List}
+      heading={title}
+      description={description}
+      headerActions={
+        <>
+          <Button
+            type="button"
+            className="bg-secondary text-on-secondary hover:bg-secondary/90"
+            onClick={() => append({ value: "" })}
+          >
+            <Plus />
+            Add Item
+          </Button>
+          <JsonUploadBtn
+            schema={resolver}
+            onSuccess={data => {
+              onSubmit({ arrayData: data })
+              reset({ arrayData: data })
+            }}
+          />
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4 p-5 sm:px-8">
           {fields.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-outline-variant bg-surface-container-low px-6 py-10 text-center">
@@ -168,18 +141,20 @@ const ArrayFields = ({ description, title, searchKey, onSave }: ArrayFieldsProps
           )}
 
           {fields.length > 0 && (
-            <Button
-              className="self-end mr-10  bg-card font-bold text-on-secondary hover:bg-secondary/90"
-              variant={'outline'}
-              type='submit'
-            >
-              <Save />
-              Save Data
-            </Button>
+            <div className="flex w-full justify-end border-t border-outline-variant bg-surface-container-low px-3 py-4 sm:px-4">
+              <Button
+                className="w-full max-w-xs bg-card font-bold text-on-secondary hover:bg-secondary/90 sm:w-fit"
+                variant={'outline'}
+                type='submit'
+              >
+                <Save />
+                Save Data
+              </Button>
+            </div>
           )}
         </div>
-      </section>
-    </form>
+      </form>
+    </FormCard>
   )
 }
 

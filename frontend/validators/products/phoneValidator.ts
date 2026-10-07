@@ -1,6 +1,6 @@
 import z from "zod"
 
-export const phoneFieldsValidator = z.object({
+export const phoneAttributeValidator = z.object({
     brand: z.string().nonempty({ error: "Brand must not be empty" }),
 
     installedRam: z.string().nonempty({ error: "installedRam must not be empty" }),
@@ -12,3 +12,4 @@ export const phoneFieldsValidator = z.object({
     memoryStorage: z.string().nonempty({ error: "Memory Storage must not be empty" })
 
 })
+export type PhoneAttributeType = z.infer<typeof phoneAttributeValidator>

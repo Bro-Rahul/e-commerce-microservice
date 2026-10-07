@@ -1,13 +1,19 @@
-import { BaseInventoryFieldType } from "@/validators/inventoryValidator";
+import { InventoryFieldType } from "@/validators/inventoryValidator";
 
-export type InventoryFieldType<T> = {
+type OptionsType = {
+    label: string,
+    value: string
+}
+
+export type InputFieldType<T> = {
     name: keyof T;
     label: string;
     type: string;
     placeholder: string;
+    options?: OptionsType[]
 };
 
-export const inventoryFields: InventoryFieldType<BaseInventoryFieldType>[] = [
+export const inventoryFields: InputFieldType<InventoryFieldType>[] = [
     {
         name: "sku",
         label: "SKU",

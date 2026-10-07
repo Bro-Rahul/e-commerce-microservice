@@ -3,7 +3,7 @@
 import { ShieldCheck } from 'lucide-react'
 import { sellerRegisterationValidator, SellerRegistrationType } from '@/validators/auth/SellerRegisterationValidator'
 import { FormProvider, useForm } from 'react-hook-form'
-import { sellerRegistrationDefaults } from '@/constants/data'
+import { sellerRegistrationDefaults } from '@/constants/data/data'
 import UserDetailForm from './UserDetailForm'
 import AddressForm from './AddressForm'
 import SellerProfileForm from './SellerProfileForm'

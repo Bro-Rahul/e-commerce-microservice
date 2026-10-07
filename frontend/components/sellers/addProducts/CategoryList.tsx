@@ -1,4 +1,4 @@
-import { Categories } from '@/constants/data'
+import { Categories } from '@/constants/data/ui'
 import { ArrowRight, Plus } from 'lucide-react'
 
 const CategoryList = () => {

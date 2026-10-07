@@ -1,6 +1,6 @@
 "use client"
 
-import { AvailableCategoryType, CategoryInventoryType } from "@/types/inventoryTypes";
+import { AvailableCategoryType } from "@/types/inventoryTypes";
 import PhoneForm from "./phone/PhoneForm";
 import BookForm from "./book/BookForm";
 

@@ -2,15 +2,18 @@
 import { Button } from '@/components/ui/button'
 import { SpecificationType, specificationValidator } from '@/validators/specificationValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus, Save, X } from 'lucide-react'
+import { ListChecks, Save, X } from 'lucide-react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-import z, { date } from 'zod'
+import z from 'zod'
 import SpecificationNameDialog from './SpecificationNameDialog'
 import toast from 'react-hot-toast'
 import SpecificationKeyValuePair from './SpecificationKeyValuePair'
 import { useEffect } from 'react'
 import useAddProduct from '@/store/useAddProduct'
+import FormCard from '../productForms/FormCard'
 import JsonUploadBtn from '../JsonUploadBtn'
+import { AvailableCategoryType } from '@/types/inventoryTypes'
+import { productStateDefaults } from '@/constants/data/productData'
 
 export interface SpecificationForm {
     data: SpecificationType
@@ -20,8 +23,10 @@ const specificationFormValidator = z.object({
     data: specificationValidator
 })
 
-const SpecificationForm = () => {
-    const { updateSpecifications } = useAddProduct();
+const SpecificationForm = ({ category }: { category: AvailableCategoryType }) => {
+    const { addProductSpecifications, products } = useAddProduct();
+    const { currentVariant } = products[category];
+
     const methods = useForm<SpecificationForm>({
         defaultValues: {
             data: []
@@ -37,13 +42,11 @@ const SpecificationForm = () => {
 
     useEffect(() => {
         const setProductValues = () => {
-            const product = useAddProduct.getState().products.phone
-            const specifications = product.specifications
-            if (specifications.length > 0) {
-                methods.reset({
-                    data: specifications
-                })
-            }
+            const { variants, currentVariant } = useAddProduct.getState().products.phone
+            const specifications = variants[currentVariant].specifications ?? productStateDefaults.specifications
+            methods.reset({
+                data: specifications
+            })
         }
 
         if (useAddProduct.persist.hasHydrated()) {
@@ -57,10 +60,10 @@ const SpecificationForm = () => {
             })
 
         return unsubscribe
-    }, [methods.reset])
+    }, [category, currentVariant, methods.reset])
 
     const handleSubmit = (spcifications: SpecificationForm) => {
-        updateSpecifications('phone', spcifications.data);
+        addProductSpecifications('phone', spcifications.data);
         toast.success("Specifications Data Saved!", {
             position: 'bottom-right',
             duration: 5000
@@ -85,33 +88,24 @@ const SpecificationForm = () => {
     }
     return (
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleSubmit, onErr)}>
-                <section className="flex flex-col border-t border-outline-variant py-5">
-                    <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
-                        <div className="flex items-center justify-between gap-3">
-                            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                                <span className="material-symbols-outlined w-fit rounded-lg bg-secondary p-2 text-xl text-on-secondary">
-                                    instant_mix
-                                </span>
-                                <div>
-                                    <h2 className="headline-sm">Phone Specification Data</h2>
-                                    <p className="mt-1 text-sm text-on-surface-variant">List Down Phone Specfications about Cameras,Display,Processor etc.</p>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                                <SpecificationNameDialog
-                                    handleSave={handleAppend}
-                                />
-                                <JsonUploadBtn
-                                    schema={specificationFormValidator}
-                                    onSuccess={data => {
-                                        methods.reset(data)
-                                        updateSpecifications("phone", data.data)
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    </div>
+            <FormCard
+                Icon={ListChecks}
+                heading="Phone Specification Data"
+                description="List down phone specifications about cameras, display, processor, and more."
+                headerActions={
+                    <>
+                        <SpecificationNameDialog handleSave={handleAppend} />
+                        <JsonUploadBtn
+                            schema={specificationFormValidator}
+                            onSuccess={data => {
+                                handleSubmit(data)
+                                methods.reset(data)
+                            }}
+                        />
+                    </>
+                }
+            >
+                <form onSubmit={methods.handleSubmit(handleSubmit, onErr)}>
                     <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 p-5 w-full sm:p-8">
                         {fields.map((field, index) => (
                             <article className="relative rounded-xl border border-outline-variant p-5 sm:p-6" key={field.id}>
@@ -136,16 +130,18 @@ const SpecificationForm = () => {
                             </p>
                         )}
                     </div>
-                    <Button
-                        className="self-end mr-10 bg-card font-bold text-on-secondary hover:bg-secondary/90"
-                        variant={'outline'}
-                        type='submit'
-                    >
-                        <Save />
-                        Save Data
-                    </Button>
-                </section>
-            </form>
+                    <div className="flex justify-end border-t border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
+                        <Button
+                            className="self-end bg-card font-bold text-on-secondary hover:bg-secondary/90"
+                            variant={'outline'}
+                            type='submit'
+                        >
+                            <Save />
+                            Save Data
+                        </Button>
+                    </div>
+                </form>
+            </FormCard>
         </FormProvider>
     )
 

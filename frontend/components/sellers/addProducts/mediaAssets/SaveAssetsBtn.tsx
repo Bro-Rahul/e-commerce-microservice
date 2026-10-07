@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import useImageLoader from '@/hooks/seller/useImageLoader'
+import useImageLoader from '@/hooks/dexies/useImageLoader'
+import useProductImage from '@/hooks/dexies/useProductImage'
 import { AvailableCategoryType } from '@/types/inventoryTypes'
 import { Save } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -9,15 +10,20 @@ import toast from 'react-hot-toast'
 
 interface SaveAssetsBtnProps {
     slug: AvailableCategoryType
+    variantId: string,
     advanceOnSave?: boolean
 }
 
-const SaveAssetsBtn = ({ slug, advanceOnSave = true }: SaveAssetsBtnProps) => {
-    const { images } = useImageLoader(slug, "CoverImage");
+const SaveAssetsBtn = ({ slug, variantId, advanceOnSave = true }: SaveAssetsBtnProps) => {
+    const { getImages } = useProductImage();
+    const images = useImageLoader({
+        dependency: [],
+        loaderFn: async () => await getImages("phone", "CoverImage", variantId)
+    });
     const { push } = useRouter();
 
     const handleClick = () => {
-        if (images.length === 0) {
+        if (!images) {
             toast.error("Please Provide Cover Image! ", {
                 position: 'bottom-right',
                 duration: 5000

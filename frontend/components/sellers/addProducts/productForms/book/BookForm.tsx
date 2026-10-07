@@ -1,12 +1,12 @@
-import BookAttributes from '@/components/sellers/addProducts/productForms/book/BookAttributes'
+import BookAttributesForm from '@/components/sellers/addProducts/productForms/book/BookAttributesForm'
 import BookAuthors from '@/components/sellers/addProducts/productForms/book/BookAuthors'
-import BookInventory from '../../inventory/BookInventory'
+import InventoryForm from '../../inventory/InventoryForm'
 
 const BookForm = () => {
     return (
         <>
-            <BookInventory />
-            <BookAttributes />
+            <BookAttributesForm />
+            <InventoryForm category='book' />
             <BookAuthors />
         </>
     )

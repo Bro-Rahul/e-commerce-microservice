@@ -1,31 +1,8 @@
-import { BookInventoryType } from "@/validators/inventoryValidator";
-import { inventoryFields, InventoryFieldType } from "./inventoryFields";
+import { BookAttributesType } from "@/validators/products/bookValidator";
+import { InputFieldType } from "./inventoryFields";
 
-export const bookInventoryFields: InventoryFieldType<BookInventoryType>[] = [
-    ...inventoryFields,
 
-    {
-        name: "binding",
-        label: "Binding",
-        type: "text",
-        placeholder: "Enter Author Name",
-    },
-    {
-        name: "isbn10",
-        label: "ISBN 10",
-        type: "text",
-        placeholder: "Enter ISBN 10 number",
-    },
-    {
-        name: "isbn13",
-        label: "ISBN 13",
-        type: "text",
-        placeholder: "Enter ISBN 13 number ",
-    },
-
-];
-
-export const bookAttributesFields = [
+export const bookAttributesFields: InputFieldType<BookAttributesType>[] = [
     {
         name: "author",
         label: "Author",

@@ -12,7 +12,7 @@ class MediaAssetsDb extends Dexie {
         super("assets")
 
         this.version(1).stores({
-            mediaAssets: "++id, category, imageType, [category+imageType]",
+            mediaAssets: "++id, category, imageType,variantId,[category+variantId], [category+imageType+variantId]",
             bookAuthor: "++id, name"
         })
     }

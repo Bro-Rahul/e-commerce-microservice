@@ -9,13 +9,15 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import FormCard from '../productForms/FormCard'
 import JsonUploadBtn from '../JsonUploadBtn'
 
 
 const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: AvailableCategoryType; advanceOnSave?: boolean }) => {
-    const { setProductBaseDetails } = useAddProduct();
+    const { products, addBaseDetail } = useAddProduct();
+    const { currentVariant } = products[category]
     const { push } = useRouter();
-    const { handleSubmit, register, control, reset, setValues } = useForm<ProductBaseFieldsType>({
+    const { handleSubmit, register, control, reset } = useForm<ProductBaseFieldsType>({
         defaultValues: {
             about: '',
             category,
@@ -26,14 +28,14 @@ const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: A
     });
     useEffect(() => {
         const setProductValues = () => {
-            const products = useAddProduct.getState().products
-            const product = products[category]
+            const { variants, currentVariant } = useAddProduct.getState().products[category]
+            const { baseDetail } = variants[currentVariant]
 
-            setValues({
-                about: product.baseDetail.about,
+            reset({
+                about: baseDetail.about || '',
                 category,
-                description: product.baseDetail.description,
-                title: product.baseDetail.title,
+                description: baseDetail.description || "",
+                title: baseDetail.title || "",
             })
         }
         if (useAddProduct.persist.hasHydrated()) {
@@ -46,10 +48,10 @@ const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: A
         })
 
         return unsubscribe
-    }, [category, setValues])
+    }, [reset, currentVariant, category])
 
     const onSubmit = (data: ProductBaseFieldsType) => {
-        setProductBaseDetails(category, data);
+        addBaseDetail(category, data);
         toast.success("Product Details Updated", {
             position: 'bottom-right',
             duration: 5000
@@ -60,23 +62,20 @@ const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: A
     }
 
     return (
-        <section className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm">
-            <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8 flex justify-between">
-                <div className="flex items-center gap-3">
-                    <span className="rounded-lg bg-secondary p-2 text-on-secondary">
-                        <SquareText size={20} aria-hidden="true" />
-                    </span>
-                    <h2 className="headline-sm">Basic details</h2>
-                </div>
-
+        <FormCard
+            Icon={SquareText}
+            heading="Basic details"
+            description="Capture the core product information customers will see first."
+            headerActions={
                 <JsonUploadBtn
                     schema={productBaseFieldsValidator}
                     onSuccess={(data) => {
-                        setProductBaseDetails(category, data);
+                        onSubmit(data)
                         reset(data);
                     }}
                 />
-            </div>
+            }
+        >
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-7 p-5 sm:p-8">
                     <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
@@ -182,8 +181,7 @@ const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: A
                     </Button>
                 </div>
             </form>
-        </section>
-
+        </FormCard>
     )
 }
 

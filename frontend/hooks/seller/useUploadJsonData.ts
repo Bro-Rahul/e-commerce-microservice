@@ -8,7 +8,6 @@ const useUploadJsonData = <T>(schema: z.ZodType<T>) => {
             const jsonData = JSON.parse(textData)
 
             const result = schema.safeParse(jsonData)
-            console.log(result)
             if (!result.success) {
                 result.error.issues.forEach(item =>
                     toast.error(`${item.message} at ${item.path}`, {

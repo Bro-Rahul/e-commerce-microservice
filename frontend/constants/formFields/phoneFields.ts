@@ -1,37 +1,36 @@
-import { PhoneInventoryType } from "@/validators/inventoryValidator";
-import { inventoryFields, InventoryFieldType } from "./inventoryFields";
+import { PhoneAttributeType } from "@/validators/products/phoneValidator";
+import { InputFieldType } from "./inventoryFields";
 
 
-export const phoneInventoryFields: InventoryFieldType<PhoneInventoryType>[] = [
-    ...inventoryFields,
+export const phoneAttributeFields: InputFieldType<PhoneAttributeType>[] = [
     {
         name: "brand",
         label: "Brand",
-        type: "text",
-        placeholder: "Enter Brand",
-    },
-    {
-        name: "installedRam",
-        label: "Installed RAM",
-        type: "text",
-        placeholder: "Enter Installed RAM",
-    },
-    {
-        name: "operatingSystem",
-        label: "Operating System",
-        type: "text",
-        placeholder: "Enter Operating System",
+        placeholder: "Enter the Brand Name...",
+        type: "text"
     },
     {
         name: "cpuSpeed",
         label: "CPU Speed",
-        type: "text",
-        placeholder: "Enter CPU Speed",
+        placeholder: "Enter the CPU Speed...",
+        type: "text"
+    },
+    {
+        name: "installedRam",
+        label: "Installed Ram",
+        placeholder: "Enter the Installed Ram Name...",
+        type: "text"
     },
     {
         name: "memoryStorage",
         label: "Memory Storage",
-        type: "text",
-        placeholder: "Enter Memory Storage",
+        placeholder: "Enter the Memory Storage Name...",
+        type: "text"
     },
-]
+    {
+        name: "operatingSystem",
+        label: "Operating System",
+        placeholder: "Enter the Operating System Name...",
+        type: "text"
+    },
+] 

@@ -1,61 +1,183 @@
-import { productsDefaults } from "@/constants/data"
-import { AvailableCategoryType } from "@/types/inventoryTypes"
-import { AvailableInventoryType } from "@/validators/inventoryValidator"
-import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator"
-import { SpecificationType } from "@/validators/specificationValidator"
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import {
+  getProductsDefaults,
+  productStateDefaults,
+} from "@/constants/data/productData";
 
-interface ProductMetaDetailType {
-  [k: string]: any
+import { AvailableCategoryType } from "@/types/inventoryTypes";
+import { ProductMetaDetailsType } from "@/types/ProductDisplayTypes";
+import { InventoryFieldType } from "@/validators/inventoryValidator";
+import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator";
+import { SpecificationType } from "@/validators/specificationValidator";
+
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+export interface ProductDetailsType {
+  baseDetail: ProductBaseFieldsType;
+  inventory: InventoryFieldType;
+  specifications: SpecificationType;
+  productMetaDetail: ProductMetaDetailsType;
 }
 
-interface ProductDetailsType {
-  baseDetail: ProductBaseFieldsType
-  inventory: AvailableInventoryType[]
-  specifications: SpecificationType,
-  productMetaDetail: ProductMetaDetailType
-}
+type ProductVariantsType = {
+  variants: Record<string, ProductDetailsType>;
+  mainVariant: string;
+  currentVariant: string;
+  variantKeys: string[];
+};
 
 export type ProductType = {
-  [K in AvailableCategoryType]: ProductDetailsType
-}
+  [K in AvailableCategoryType]: ProductVariantsType;
+};
 
-type useAddProductContextType = {
-  products: ProductType
+type UseAddProductContextType = {
+  products: ProductType;
 
-  setProductBaseDetails: (
+  addNewVariant: (
+    category: AvailableCategoryType
+  ) => void;
+
+  removeVariant: (
+    category: AvailableCategoryType
+  ) => void;
+
+  setCurrentVariant: (
     category: AvailableCategoryType,
-    payload: Partial<ProductBaseFieldsType>
-  ) => void
+    variantId: string
+  ) => void;
 
-  updateProductInventory: (
+  setAsMainVariant: (
+    category: AvailableCategoryType
+  ) => void;
+
+  addInventory: (
     category: AvailableCategoryType,
-    payload: Partial<AvailableInventoryType[]>
-  ) => void,
+    payload: InventoryFieldType
+  ) => void;
 
-  addNewProductInventory: (
+  addBaseDetail: (
     category: AvailableCategoryType,
-    payload: number
-  ) => void,
+    payload: ProductBaseFieldsType
+  ) => void;
 
-  updateSpecifications: (
+  addProductMetaDetail: (
     category: AvailableCategoryType,
-    payload: Partial<SpecificationType>
-  ) => void
+    payload: ProductMetaDetailsType
+  ) => void;
 
-  updateMetaDetails: (
+  addProductSpecifications: (
     category: AvailableCategoryType,
-    payload: ProductMetaDetailType
-  ) => void
-}
+    payload: SpecificationType
+  ) => void;
+};
 
-const useAddProduct = create<useAddProductContextType>()(
+const useAddProduct = create<UseAddProductContextType>()(
   persist(
     (set) => ({
-      products: productsDefaults,
+      products: getProductsDefaults(),
 
-      setProductBaseDetails: (category, payload) =>
+      // -----------------------------
+      // ADD NEW VARIANT
+      // -----------------------------
+      addNewVariant: (category) =>
+        set((state) => {
+          const variantId = crypto.randomUUID();
+
+          const categoryData = state.products[category];
+
+          return {
+            products: {
+              ...state.products,
+
+              [category]: {
+                ...categoryData,
+
+                variants: {
+                  ...categoryData.variants,
+
+                  [variantId]: {
+                    ...productStateDefaults,
+                  },
+                },
+
+                variantKeys: [
+                  ...categoryData.variantKeys,
+                  variantId,
+                ],
+
+                currentVariant: variantId,
+              },
+            },
+          };
+        }),
+
+      // -----------------------------
+      // REMOVE VARIANT
+      // -----------------------------
+      removeVariant: (category) =>
+        set((state) => {
+          const categoryData = state.products[category];
+
+          const {
+            currentVariant,
+            variantKeys,
+            variants,
+            mainVariant,
+          } = categoryData;
+
+          // Don't remove the last variant
+          if (variantKeys.length <= 1) {
+            return state;
+          }
+
+          // Create a NEW object instead of mutating variants
+          const updatedVariants = {
+            ...variants,
+          };
+
+          delete updatedVariants[currentVariant];
+
+          const currentVariantIndex =
+            variantKeys.indexOf(currentVariant);
+
+          const updatedVariantKeys = variantKeys.filter(
+            (id) => id !== currentVariant
+          );
+
+          const newCurrentVariant =
+            updatedVariantKeys[
+            Math.min(
+              currentVariantIndex,
+              updatedVariantKeys.length - 1
+            )
+            ];
+
+          return {
+            products: {
+              ...state.products,
+
+              [category]: {
+                ...categoryData,
+
+                variants: updatedVariants,
+
+                variantKeys: updatedVariantKeys,
+
+                currentVariant: newCurrentVariant,
+
+                mainVariant:
+                  mainVariant === currentVariant
+                    ? newCurrentVariant
+                    : mainVariant,
+              },
+            },
+          };
+        }),
+
+      // -----------------------------
+      // SET CURRENT VARIANT
+      // -----------------------------
+      setCurrentVariant: (category, variantId) =>
         set((state) => ({
           products: {
             ...state.products,
@@ -63,65 +185,156 @@ const useAddProduct = create<useAddProductContextType>()(
             [category]: {
               ...state.products[category],
 
-              baseDetail: {
-                ...state.products[category].baseDetail,
-                ...payload,
-              },
+              currentVariant: variantId,
             },
           },
         })),
-      updateProductInventory: (category, payload) => (
-        set((state) => ({
-          products: {
-            ...state.products,
-            [category]: {
-              ...state.products[category],
-              inventory: payload
-            }
-          }
-        }))
-      ),
 
-      addNewProductInventory: (category, index) =>
+      // -----------------------------
+      // SET MAIN VARIANT
+      // -----------------------------
+      setAsMainVariant: (category) =>
         set((state) => ({
           products: {
             ...state.products,
+
             [category]: {
               ...state.products[category],
-              inventory: [...state.products[category].inventory, state.products[category].inventory[index]]
-            }
-          }
+
+              mainVariant:
+                state.products[category].currentVariant,
+            },
+          },
         })),
 
-      updateSpecifications: (category, payload) =>
-        set((state) => ({
+      // -----------------------------
+      // ADD INVENTORY
+      // -----------------------------
+      addInventory: (category, payload) =>
+        set((state) => {
+          const categoryData = state.products[category];
 
-          products: {
-            ...state.products,
-            [category]: {
-              ...state.products[category],
-              specifications: payload
-            }
-          }
-        })),
-      updateMetaDetails: (category, payload) =>
-        set((state) => ({
-          products: {
-            ...state.products,
-            [category]: {
-              ...state.products[category],
-              productMetaDetail: {
-                ...state.products[category].productMetaDetail,
-                ...payload
-              }
-            }
-          }
-        }))
+          const { currentVariant } = categoryData;
+
+          return {
+            products: {
+              ...state.products,
+
+              [category]: {
+                ...categoryData,
+
+                variants: {
+                  ...categoryData.variants,
+
+                  [currentVariant]: {
+                    ...categoryData.variants[currentVariant],
+
+                    inventory: payload,
+                  },
+                },
+              },
+            },
+          };
+        }),
+
+      // -----------------------------
+      // ADD BASE DETAIL
+      // -----------------------------
+      addBaseDetail: (category, payload) =>
+        set((state) => {
+          const categoryData = state.products[category];
+
+          const { currentVariant } = categoryData;
+
+          return {
+            products: {
+              ...state.products,
+
+              [category]: {
+                ...categoryData,
+
+                variants: {
+                  ...categoryData.variants,
+
+                  [currentVariant]: {
+                    ...categoryData.variants[currentVariant],
+
+                    baseDetail: payload,
+                  },
+                },
+              },
+            },
+          };
+        }),
+
+      // -----------------------------
+      // ADD PRODUCT META DETAIL
+      // -----------------------------
+      addProductMetaDetail: (category, payload) =>
+        set((state) => {
+          const categoryData = state.products[category];
+
+          const { currentVariant } = categoryData;
+
+          return {
+            products: {
+              ...state.products,
+
+              [category]: {
+                ...categoryData,
+
+                variants: {
+                  ...categoryData.variants,
+
+                  [currentVariant]: {
+                    ...categoryData.variants[currentVariant],
+
+                    productMetaDetail: {
+                      ...categoryData.variants[currentVariant].productMetaDetail,
+                      ...payload
+                    }
+                  },
+                },
+              },
+            },
+          };
+        }),
+
+      // -----------------------------
+      // ADD SPECIFICATIONS
+      // -----------------------------
+      addProductSpecifications: (category, payload) =>
+        set((state) => {
+          const categoryData = state.products[category];
+
+          const { currentVariant } = categoryData;
+
+          return {
+            products: {
+              ...state.products,
+
+              [category]: {
+                ...categoryData,
+
+                variants: {
+                  ...categoryData.variants,
+
+                  [currentVariant]: {
+                    ...categoryData.variants[currentVariant],
+
+                    specifications: payload,
+                  },
+                },
+              },
+            },
+          };
+        }),
     }),
+
     {
       name: "addProduct",
     }
   )
-)
+);
 
-export default useAddProduct
+export default useAddProduct;

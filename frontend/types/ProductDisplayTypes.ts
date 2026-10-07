@@ -1,4 +1,4 @@
-import { AvailableInventoryType } from "@/validators/inventoryValidator";
+import { InventoryFieldType } from "@/validators/inventoryValidator";
 import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator";
 
 export type ProductImageType = {
@@ -19,7 +19,7 @@ export interface ProductDataType {
         productDisplay: ProductDisplayImageType[],
         imageCarousel: ProductImageType[],
     },
-    productInventory: AvailableInventoryType[],
+    productInventory: InventoryFieldType[],
     productBaseDetails: ProductBaseFieldsType,
     productMetaDetails: ProductMetaDetailsType
 }

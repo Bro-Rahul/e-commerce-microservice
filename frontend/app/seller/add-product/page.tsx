@@ -1,5 +1,4 @@
 import CategoryList from "@/components/sellers/addProducts/CategoryList"
-import { Categories } from "@/constants/data"
 import {
     ArrowRight,
     Plus,

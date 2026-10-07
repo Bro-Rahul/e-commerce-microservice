@@ -1,14 +1,15 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
-import useDexie from '@/hooks/seller/useDexie'
 import { BookAuthorTableType } from '@/types/dexie/bookAuthorTableType'
 import { BookAuthorType, BookAuthorValidator } from '@/validators/products/bookValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ImagePlus, Save } from 'lucide-react'
+import { ImagePlus, Save, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import FormCard from '../FormCard'
+import useAuthorImage from '@/hooks/dexies/useAuthorImage'
 
 const defaultBookAuthor: BookAuthorType = {
   name: '',
@@ -17,7 +18,7 @@ const defaultBookAuthor: BookAuthorType = {
 }
 
 const BookAuthors = () => {
-  const { addAuthorProfile, getAuthorProfile } = useDexie()
+  const { addAuthorProfile, getAuthorProfile } = useAuthorImage()
   const [profileFile, setProfileFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState('')
   const { handleSubmit, register, reset, setValue, formState: { errors } } = useForm<BookAuthorType>({
@@ -41,6 +42,9 @@ const BookAuthors = () => {
     }
 
     loadAuthorProfile()
+    return () => {
+      URL.revokeObjectURL(imagePreview);
+    }
   }, [reset])
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,20 +74,12 @@ const BookAuthors = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="border-t border-outline-variant py-5 flex flex-col">
-        <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
-          <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined rounded-lg bg-secondary p-2 text-xl text-on-secondary">
-              person
-            </span>
-            <div>
-              <h2 className="headline-sm">Author profile</h2>
-              <p className="mt-1 text-sm text-on-surface-variant">Add the author information shown on the book page.</p>
-            </div>
-          </div>
-        </div>
-
+    <FormCard
+      Icon={UserRound}
+      heading="Author profile"
+      description="Add the author information shown on the book page."
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 gap-7 p-5 sm:p-8 md:grid-cols-[180px_1fr]">
           <div className="space-y-2">
             <label className="block text-sm font-bold text-on-surface" htmlFor="author-profile-picture">
@@ -147,8 +143,8 @@ const BookAuthors = () => {
             Save Author Profile
           </Button>
         </div>
-      </section>
-    </form>
+      </form>
+    </FormCard>
   )
 }
 

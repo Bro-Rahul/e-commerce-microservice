@@ -1,39 +1,7 @@
 import z from "zod";
 
-// Book inventory fields
-export const bookFieldsValidator = z.object({
-    binding: z.enum(
-        [
-            "PAPERBACK",
-            "HARDCOVER",
-            "BOX_SET",
-            "MASS_MARKET_PAPERBACK",
-        ],
-        {
-            error: "Please select a binding type",
-        }
-    ),
 
-    isbn10: z
-        .string()
-        .regex(
-            /^\d{9}[\dX]$/,
-            "Please enter a valid ISBN-10"
-        )
-        .optional(),
-
-    isbn13: z
-        .string()
-        .regex(
-            /^\d{13}$/,
-            "Please enter a valid 13-digit ISBN-13"
-        )
-        .optional(),
-});
-
-
-// Book attributes
-export const BookAttributesValidator = z.object({
+export const bookAttributesValidator = z.object({
 
     author: z
         .string()
@@ -158,7 +126,7 @@ export const BookAttributesValidator = z.object({
 });
 
 export type BookAttributesType = z.infer<
-    typeof BookAttributesValidator
+    typeof bookAttributesValidator
 >;
 
 export const BookAuthorValidator = z.object({

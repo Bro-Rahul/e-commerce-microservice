@@ -1,14 +1,50 @@
 "use client"
-import ImagePicker from './ImagePicker'
 import { AvailableCategoryType } from '@/types/inventoryTypes';
-import useImageLoader from '@/hooks/seller/useImageLoader';
+import ImagePicker from './ImagePicker'
+import useProductImage from '@/hooks/dexies/useProductImage';
+import { MediaAssetsType } from '@/types/dexie/mediaAssetsTypes';
+import useImageLoader from '@/hooks/dexies/useImageLoader';
 
 interface ImageCollectionProps {
+    variantId: string,
     category: AvailableCategoryType
 }
 
-const ImageCollection = ({ category }: ImageCollectionProps) => {
-    const { handleImage, images } = useImageLoader(category, "ImageCollection");
+const ImageCollection = ({ category, variantId }: ImageCollectionProps) => {
+    const { getImages, addImageCollection } = useProductImage()
+    const images = useImageLoader<MediaAssetsType[]>({
+        dependency: [category, variantId],
+        loaderFn: async () => await getImages(category, "ImageCollection", variantId)
+    })
+
+    const handleImages = async (files: File[]) => {
+        const imageCollection: MediaAssetsType[] = files.map(file => ({
+            category,
+            file: file,
+            fileName: file.name,
+            imageType: "ImageCollection",
+            variantId
+        }))
+        await addImageCollection(imageCollection, category, variantId)
+    }
+
+
+    const formattedImage = () => {
+        if (!images?.length) {
+            return [];
+        }
+
+        const files = images.map(image => new File(
+            [image.file],
+            image.fileName,
+            {
+                type: image.file.type,
+                lastModified: Date.now(),
+            }
+        ));
+
+        return files;
+    };
 
     return (
         <section className="space-y-4 border-t border-outline-variant pt-8">
@@ -28,8 +64,8 @@ const ImageCollection = ({ category }: ImageCollectionProps) => {
             </div>
             <ImagePicker
                 multiple
-                onImageLoad={handleImage}
-                files={images}
+                onImageLoad={handleImages}
+                files={formattedImage()}
                 htmlFor="Image Collection"
                 render={(images) =>
                     <section className="space-y-3 border-t border-outline-variant pt-8" aria-labelledby="collection-heading">

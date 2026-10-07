@@ -1,10 +1,10 @@
-import { BaseInventoryFieldType } from '@/validators/inventoryValidator'
 import useInventoryVariants from '@/store/useInventoryVariants'
+import { InventoryFieldType } from '@/validators/inventoryValidator';
 import { useEffect } from 'react'
 import toast from 'react-hot-toast';
 
 interface UseVariants {
-    inventoryData: BaseInventoryFieldType[],
+    inventoryData: InventoryFieldType[],
     keys: string[]
 }
 

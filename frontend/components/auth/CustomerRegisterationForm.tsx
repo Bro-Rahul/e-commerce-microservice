@@ -5,7 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import UserDetailForm from './UserDetailForm'
 import { ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { customerRegistrationDefaults } from '@/constants/data'
+import { customerRegistrationDefaults } from '@/constants/data/data'
 import AddressForm from './AddressForm'
 
 const CustomerRegisterationForm = () => {

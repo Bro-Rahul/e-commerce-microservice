@@ -7,5 +7,6 @@ export type MediaAssetsType = {
     file: Blob,
     fileName: string,
     category: AvailableCategoryType,
+    variantId: string,
     imageType: ImagePlaceType,
 }

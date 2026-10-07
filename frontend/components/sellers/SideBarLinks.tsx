@@ -1,6 +1,6 @@
 "use client"
+import { SideBarNavigations } from '@/constants/data/ui';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
-import { SideBarNavigations } from '@/constants/data'
 import { usePathname } from 'next/navigation'
 
 const SideBarLinks = () => {

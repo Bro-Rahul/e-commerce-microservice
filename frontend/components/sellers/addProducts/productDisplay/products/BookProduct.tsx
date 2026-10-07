@@ -1,6 +1,6 @@
 "use client"
 
-import useDexie from '@/hooks/seller/useDexie'
+import useDexie from '@/hooks/dexies/useDexie'
 import { ProductDataType } from '@/types/ProductDisplayTypes'
 import { BookAuthorTableType } from '@/types/dexie/bookAuthorTableType'
 import { BookInventoryType } from '@/validators/inventoryValidator'

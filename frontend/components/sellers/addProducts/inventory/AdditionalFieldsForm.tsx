@@ -1,18 +1,14 @@
 import { Controller, FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
-import { AdditionalFieldsType } from '@/validators/inventoryValidator';
 import { Button } from '@/components/ui/button';
 import { Plus, Trash2 } from 'lucide-react';
+import { InventoryFieldType } from '@/validators/inventoryValidator';
 
-interface AdditionalFieldsProps {
-    variantIndex: number
-}
-
-const AdditionalFieldsForm = ({ variantIndex }: AdditionalFieldsProps) => {
-    const methods = useFormContext<FieldValues>();
+const AdditionalFieldsForm = () => {
+    const methods = useFormContext<InventoryFieldType>();
     const { control, register } = methods;
-    const { fields, remove, append } = useFieldArray({
+    const { fields, remove, append } = useFieldArray<InventoryFieldType, 'additionalFields'>({
         control: control,
-        name: `inventory.${variantIndex}.additionalFields`
+        name: `additionalFields`
     });
 
     return (
@@ -36,13 +32,13 @@ const AdditionalFieldsForm = ({ variantIndex }: AdditionalFieldsProps) => {
                         <div className="grid grid-cols-1 items-end gap-3 rounded-lg border border-outline-variant bg-surface-container-low p-3 sm:grid-cols-[1fr_1fr_auto]" key={field.id}>
                             <Controller
                                 control={control}
-                                name={`inventory.${variantIndex}.additionalFields.${fieldIndex}.key`}
+                                name={`additionalFields.${fieldIndex}.key`}
                                 render={({ fieldState: { error } }) => <label
                                     className="space-y-1.5 text-xs font-bold text-on-surface-variant">
                                     Key
                                     <input
                                         className="inputfields my-2"
-                                        {...register(`inventory.${variantIndex}.additionalFields.${fieldIndex}.key`)}
+                                        {...register(`additionalFields.${fieldIndex}.key`)}
                                     />
                                     {error?.message && <p className='error'>{error.message}</p>}
                                 </label>
@@ -50,14 +46,14 @@ const AdditionalFieldsForm = ({ variantIndex }: AdditionalFieldsProps) => {
                                 }
                             />
                             <Controller
-                                name={`inventory.${variantIndex}.additionalFields.${fieldIndex}.value`}
+                                name={`additionalFields.${fieldIndex}.value`}
                                 control={control}
                                 render={({ fieldState: { error } }) => <label
                                     className="space-y-1.5 text-xs font-bold text-on-surface-variant">
                                     Value
                                     <input
                                         className="inputfields my-2"
-                                        {...register(`inventory.${variantIndex}.additionalFields.${fieldIndex}.value`)}
+                                        {...register(`additionalFields.${fieldIndex}.value`)}
 
                                     />
                                     {error?.message && <p className='error'>{error.message}</p>}

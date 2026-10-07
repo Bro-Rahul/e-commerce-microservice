@@ -1,13 +1,10 @@
 import ProductBaseDetailForm from '@/components/sellers/addProducts/baseDetails/ProductBaseDetailForm'
 import Heading from '@/components/sellers/addProducts/Heading'
-import CoverImage from '@/components/sellers/addProducts/mediaAssets/CoverImage'
-import ImageCarousel from '@/components/sellers/addProducts/mediaAssets/ImageCarousel'
-import ImageCollection from '@/components/sellers/addProducts/mediaAssets/ImageCollection'
-import SaveAssetsBtn from '@/components/sellers/addProducts/mediaAssets/SaveAssetsBtn'
 import ProductSpecificForm from '@/components/sellers/addProducts/productForms/ProductSpecificAttributeForm'
 import MainVariantCheckbox from '@/components/sellers/addProducts/MainVariantCheckbox'
 import { AvailableCategoryType } from '@/types/inventoryTypes'
-import { ClipboardList, Images, SquareText } from 'lucide-react'
+import { ClipboardList, Images } from 'lucide-react'
+import AssetsForm from '@/components/sellers/addProducts/mediaAssets/AssetsForm'
 
 interface ProductFormPageProps {
     params: Promise<{
@@ -34,24 +31,7 @@ const page = async ({ params }: ProductFormPageProps) => {
 
             <div className="space-y-6">
                 <ProductBaseDetailForm category={slug} advanceOnSave={false} />
-
-                <section className="overflow-hidden rounded-xl border border-outline-variant bg-card shadow-sm">
-                    <div className="border-b border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
-                        <div className="flex items-center gap-3">
-                            <span className="rounded-lg bg-secondary p-2 text-on-secondary">
-                                <Images size={20} aria-hidden="true" />
-                            </span>
-                            <h2 className="headline-sm">Media assets</h2>
-                        </div>
-                    </div>
-                    <div className="space-y-8 p-5 sm:p-8">
-                        <CoverImage category={slug} />
-                        <ImageCarousel category={slug} />
-                        <ImageCollection category={slug} />
-                    </div>
-                    <SaveAssetsBtn slug={slug} advanceOnSave={false} />
-                </section>
-
+                <AssetsForm category={slug} />
                 <ProductSpecificForm category={slug} />
             </div>
         </main>
