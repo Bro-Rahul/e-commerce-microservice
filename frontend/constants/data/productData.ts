@@ -1,5 +1,8 @@
+import { AvailableCategoryType } from "@/types/inventoryTypes";
 import { inventoryFieldsDefaults } from "./inventoryData";
 import { ProductDetailsType, ProductType } from "@/store/useAddProduct";
+import { bookVariantKeyOptions } from "./bookData";
+import { phoneVariantKeyOptions } from "./phoneData";
 
 export const productStateDefaults: ProductDetailsType = {
     baseDetail: {
@@ -9,7 +12,6 @@ export const productStateDefaults: ProductDetailsType = {
         title: ''
     },
     inventory: inventoryFieldsDefaults,
-    specifications: [],
     productMetaDetail: {}
 }
 
@@ -35,4 +37,11 @@ export const getProductsDefaults = (): ProductType => {
         }
     };
     return productData;
+}
+
+export const productVariantsOptions: {
+    [k in AvailableCategoryType]: string[]
+} = {
+    "book": bookVariantKeyOptions,
+    "phone": phoneVariantKeyOptions
 }

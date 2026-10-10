@@ -89,6 +89,16 @@ const useProductImage = () => {
         return images;
     }
 
+    const getImageByCategory = async (
+        category: string
+    ) => {
+        const images = await db.mediaAssets
+            .where("category")
+            .equals(category)
+            .toArray();
+        return images;
+    }
+
     const deleteVariantImages = async (
         variantId: string,
         category: string
@@ -107,7 +117,8 @@ const useProductImage = () => {
         getImage,
         getImages,
         getVariantImagesForAnCategory,
-        deleteVariantImages
+        deleteVariantImages,
+        getImageByCategory
     }
 }
 

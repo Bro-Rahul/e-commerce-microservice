@@ -12,7 +12,7 @@ const SpecificationRenderer = ({ specificationsData }: SpecificationRendererProp
     return (
         <div className="border-t border-border px-4 py-8 md:px-6">
             <h3 className="mb-6 text-[20px] font-bold text-foreground">
-                Poco M8 5G Frost Silver 8GB RAM 128GB ROM Mobile Phone Information
+                Product Specifications
             </h3>
 
             <div className="grid grid-cols-1 gap-x-12 md:grid-cols-2">

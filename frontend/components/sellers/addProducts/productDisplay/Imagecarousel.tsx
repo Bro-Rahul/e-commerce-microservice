@@ -21,7 +21,7 @@ const Imagecarousel = ({ images }: ImagecarouselProps) => {
         return (
             <div className="w-full">
                 <h2 className="mb-4 text-xl font-bold text-foreground">From the manufacturer</h2>
-                <div className="mx-auto flex h-[50vh] w-[70%] items-center justify-center rounded-xl border border-dashed border-border bg-muted text-sm text-muted-foreground">
+                <div className="mx-auto flex aspect-video w-full max-w-5xl items-center justify-center rounded-xl border border-dashed border-border bg-card text-sm text-muted-foreground">
                     No images available
                 </div>
             </div>
@@ -41,11 +41,11 @@ const Imagecarousel = ({ images }: ImagecarouselProps) => {
     return (
         <div className="w-full my-5">
             <h2 className="mb-4 ml-5 text-xl font-bold text-foreground">From the manufacturer</h2>
-            <div className="relative mx-auto flex h-[50vh] w-[70%] items-center justify-center overflow-hidden rounded-xl border border-border bg-card">
+            <div className="relative mx-auto flex aspect-video w-full max-w-5xl items-center justify-center overflow-hidden rounded-xl border border-border bg-card">
                 <img
                     src={images[selectedIndex].imageURL}
                     alt={images[selectedIndex].name}
-                    className="h-full w-full object-fill"
+                    className="h-full w-full object-contain"
                 />
 
                 {images.length > 1 && (

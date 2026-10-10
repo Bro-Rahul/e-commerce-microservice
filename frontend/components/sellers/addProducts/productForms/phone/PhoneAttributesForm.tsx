@@ -11,15 +11,7 @@ import JsonUploadBtn from '../../JsonUploadBtn'
 import useAddProduct from '@/store/useAddProduct'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
-
-const phoneAttributeDefaults: PhoneAttributeType = {
-    brand: '',
-    cpuSpeed: '',
-    installedRam: '',
-    memoryStorage: '',
-    operatingSystem: ''
-}
-
+import { phoneAttributeDefaults } from '@/constants/data/phoneData'
 
 const PhoneAttributesForm = () => {
     const { addProductMetaDetail, products } = useAddProduct()

@@ -5,6 +5,7 @@ import MainVariantCheckbox from '@/components/sellers/addProducts/MainVariantChe
 import { AvailableCategoryType } from '@/types/inventoryTypes'
 import { ClipboardList, Images } from 'lucide-react'
 import AssetsForm from '@/components/sellers/addProducts/mediaAssets/AssetsForm'
+import ViewProductBtn from '@/components/sellers/addProducts/ViewProductBtn'
 
 interface ProductFormPageProps {
     params: Promise<{
@@ -34,6 +35,7 @@ const page = async ({ params }: ProductFormPageProps) => {
                 <AssetsForm category={slug} />
                 <ProductSpecificForm category={slug} />
             </div>
+            <ViewProductBtn category={slug} />
         </main>
     )
 }

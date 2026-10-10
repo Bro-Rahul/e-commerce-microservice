@@ -21,3 +21,6 @@ export const defaultBookAttributes: BookAttributesType = {
     thickness: undefined,
     weight: undefined,
 }
+
+
+export const bookVariantKeyOptions: string[] = ["binding"] 

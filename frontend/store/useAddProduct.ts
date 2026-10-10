@@ -7,7 +7,6 @@ import { AvailableCategoryType } from "@/types/inventoryTypes";
 import { ProductMetaDetailsType } from "@/types/ProductDisplayTypes";
 import { InventoryFieldType } from "@/validators/inventoryValidator";
 import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator";
-import { SpecificationType } from "@/validators/specificationValidator";
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -15,7 +14,6 @@ import { persist } from "zustand/middleware";
 export interface ProductDetailsType {
   baseDetail: ProductBaseFieldsType;
   inventory: InventoryFieldType;
-  specifications: SpecificationType;
   productMetaDetail: ProductMetaDetailsType;
 }
 
@@ -63,11 +61,6 @@ type UseAddProductContextType = {
   addProductMetaDetail: (
     category: AvailableCategoryType,
     payload: ProductMetaDetailsType
-  ) => void;
-
-  addProductSpecifications: (
-    category: AvailableCategoryType,
-    payload: SpecificationType
   ) => void;
 };
 
@@ -293,36 +286,6 @@ const useAddProduct = create<UseAddProductContextType>()(
                       ...categoryData.variants[currentVariant].productMetaDetail,
                       ...payload
                     }
-                  },
-                },
-              },
-            },
-          };
-        }),
-
-      // -----------------------------
-      // ADD SPECIFICATIONS
-      // -----------------------------
-      addProductSpecifications: (category, payload) =>
-        set((state) => {
-          const categoryData = state.products[category];
-
-          const { currentVariant } = categoryData;
-
-          return {
-            products: {
-              ...state.products,
-
-              [category]: {
-                ...categoryData,
-
-                variants: {
-                  ...categoryData.variants,
-
-                  [currentVariant]: {
-                    ...categoryData.variants[currentVariant],
-
-                    specifications: payload,
                   },
                 },
               },

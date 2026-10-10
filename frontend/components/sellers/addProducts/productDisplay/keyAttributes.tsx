@@ -1,6 +1,7 @@
+import { toTitleCase } from '@/lib/utils'
 import React from 'react'
 
-interface AboutItemsProps {
+interface KeyAttributesProps {
     aboutItem: {
         [k: string]: string
     }
@@ -8,13 +9,13 @@ interface AboutItemsProps {
 
 
 
-const AboutItems = ({ aboutItem }: AboutItemsProps) => {
+const KeyAttributes = ({ aboutItem }: KeyAttributesProps) => {
     return (
         <div className="mt-6 border-t border-border pt-6">
             <h3 className="mb-3 text-sm font-bold text-foreground">About this item</h3>
             <ul className="list-inside list-disc space-y-1 text-xs text-foreground/90">
                 {Object.entries(aboutItem).map(([key, val], index) =>
-                    <li key={index}><span className="font-bold">{key}:</span> {val}</li>
+                    <li key={index}><span className="font-bold">{toTitleCase(key)} :</span> {val}</li>
                 )}
             </ul>
             <a href="#" className="mt-3 inline-block text-xs text-primary hover:underline">
@@ -30,4 +31,4 @@ const AboutItems = ({ aboutItem }: AboutItemsProps) => {
     )
 }
 
-export default AboutItems
+export default KeyAttributes

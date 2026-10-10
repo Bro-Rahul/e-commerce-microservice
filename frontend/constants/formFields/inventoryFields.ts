@@ -10,6 +10,7 @@ export type InputFieldType<T> = {
     label: string;
     type: string;
     placeholder: string;
+    helperText?: string,
     options?: OptionsType[]
 };
 

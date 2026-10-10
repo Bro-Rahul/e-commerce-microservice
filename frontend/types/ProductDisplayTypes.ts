@@ -1,5 +1,6 @@
 import { InventoryFieldType } from "@/validators/inventoryValidator";
 import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator";
+import { keyValuePairType } from "@/validators/specificationValidator";
 
 export type ProductImageType = {
     imageURL: string,
@@ -19,7 +20,8 @@ export interface ProductDataType {
         productDisplay: ProductDisplayImageType[],
         imageCarousel: ProductImageType[],
     },
-    productInventory: InventoryFieldType[],
+    productInventory: InventoryFieldType,
     productBaseDetails: ProductBaseFieldsType,
-    productMetaDetails: ProductMetaDetailsType
+    productMetaDetails: ProductMetaDetailsType,
+    variantOptions: Record<string, keyValuePairType[]>
 }

@@ -116,23 +116,27 @@ export const bookAttributesFields: InputFieldType<BookAttributesType>[] = [
         label: "Height",
         type: "number",
         placeholder: "Enter height",
+        helperText: "Enter the height in cm's"
     },
     {
         name: "width",
         label: "Width",
         type: "number",
         placeholder: "Enter width",
+        helperText: "Book width in cm's"
     },
     {
         name: "thickness",
         label: "Thickness",
         type: "number",
         placeholder: "Enter thickness",
+        helperText: "Book Thickness in cm's"
     },
     {
         name: "weight",
         label: "Weight",
         type: "number",
         placeholder: "Enter weight",
+        helperText: "Book weight in gram's"
     },
 ];

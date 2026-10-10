@@ -3,534 +3,458 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SellerCentral - Product Catalog</title>
+<title>The Asura's Curse | ShopDirect</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed": "#101c2b",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#001d23",
+                        "tertiary-container": "#00333d",
+                        "tertiary-fixed-dim": "#80d2e9",
+                        "primary": "#0e1a28",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface-variant": "#44474c",
+                        "primary-container": "#232f3e",
+                        "outline-variant": "#c5c6cc",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-bright": "#f9f9f9",
+                        "on-tertiary-fixed": "#001f26",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#8a97a9",
+                        "on-background": "#1a1c1c",
+                        "outline": "#75777c",
+                        "surface-dim": "#dadada",
+                        "background": "#f9f9f9",
+                        "secondary-container": "#fe9800",
+                        "secondary-fixed-dim": "#ffb86f",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#3c4858",
+                        "on-surface": "#1a1c1c",
+                        "surface-tint": "#535f70",
+                        "on-tertiary-container": "#4ca0b6",
+                        "primary-fixed-dim": "#bbc7db",
+                        "inverse-primary": "#bbc7db",
+                        "tertiary-fixed": "#adecff",
+                        "on-secondary-container": "#643900",
+                        "secondary-fixed": "#ffdcbd",
+                        "inverse-surface": "#2f3131",
+                        "surface": "#f9f9f9",
+                        "primary-fixed": "#d7e3f7",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#2c1600",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "secondary": "#8a5100"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-loose": "16px",
+                        "stack-default": "8px",
+                        "gutter": "12px",
+                        "stack-compact": "4px",
+                        "section-padding": "20px",
+                        "container-max": "1500px"
+                    },
+                    "fontFamily": {
+                        "label-price": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-badge": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-price": ["21px", {"lineHeight": "21px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["16px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "label-badge": ["11px", {"lineHeight": "12px", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "26px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
         }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f3f3;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #c5c6cc;
-            border-radius: 10px;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; }
+        .product-card-border { border: 1px solid #DDD; }
     </style>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "surface-variant": "#e2e2e2",
-                      "outline-variant": "#c5c6cc",
-                      "on-surface": "#1a1c1c",
-                      "primary-fixed-dim": "#bbc7db",
-                      "on-surface-variant": "#44474c",
-                      "on-tertiary-container": "#4ca0b6",
-                      "on-secondary-container": "#643900",
-                      "surface-container-lowest": "#ffffff",
-                      "tertiary-container": "#00333d",
-                      "surface": "#f9f9f9",
-                      "on-error-container": "#93000a",
-                      "surface-container-low": "#f3f3f3",
-                      "surface-bright": "#f9f9f9",
-                      "on-secondary-fixed-variant": "#693c00",
-                      "tertiary": "#001d23",
-                      "on-primary-fixed-variant": "#3c4858",
-                      "surface-container": "#eeeeee",
-                      "secondary": "#8a5100",
-                      "on-tertiary-fixed": "#001f26",
-                      "inverse-on-surface": "#f1f1f1",
-                      "surface-container-highest": "#e2e2e2",
-                      "tertiary-fixed-dim": "#80d2e9",
-                      "surface-dim": "#dadada",
-                      "secondary-container": "#fe9800",
-                      "on-primary-container": "#8a97a9",
-                      "primary-fixed": "#d7e3f7",
-                      "primary": "#0e1a28",
-                      "secondary-fixed": "#ffdcbd",
-                      "on-tertiary": "#ffffff",
-                      "on-primary": "#ffffff",
-                      "on-tertiary-fixed-variant": "#004e5d",
-                      "on-secondary-fixed": "#2c1600",
-                      "on-error": "#ffffff",
-                      "background": "#f9f9f9",
-                      "inverse-primary": "#bbc7db",
-                      "surface-tint": "#535f70",
-                      "outline": "#75777c",
-                      "tertiary-fixed": "#adecff",
-                      "error": "#ba1a1a",
-                      "error-container": "#ffdad6",
-                      "surface-container-high": "#e8e8e8",
-                      "primary-container": "#232f3e",
-                      "on-secondary": "#ffffff",
-                      "secondary-fixed-dim": "#ffb86f",
-                      "on-background": "#1a1c1c",
-                      "on-primary-fixed": "#101c2b",
-                      "inverse-surface": "#2f3131"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.125rem",
-                      "lg": "0.25rem",
-                      "xl": "0.5rem",
-                      "full": "0.75rem"
-              },
-              "spacing": {
-                      "stack-loose": "16px",
-                      "section-padding": "20px",
-                      "container-max": "1500px",
-                      "stack-default": "8px",
-                      "stack-compact": "4px",
-                      "gutter": "12px"
-              },
-              "fontFamily": {
-                      "headline-md": ["Inter"],
-                      "body-sm": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "label-price": ["Inter"],
-                      "headline-sm": ["Inter"],
-                      "headline-lg-mobile": ["Inter"],
-                      "label-badge": ["Inter"],
-                      "headline-lg": ["Inter"],
-                      "body-md": ["Inter"]
-              },
-              "fontSize": {
-                      "headline-md": ["20px", {"lineHeight": "26px", "fontWeight": "700"}],
-                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
-                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                      "label-price": ["21px", {"lineHeight": "21px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
-                      "headline-sm": ["16px", {"lineHeight": "20px", "fontWeight": "700"}],
-                      "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                      "label-badge": ["11px", {"lineHeight": "12px", "fontWeight": "700"}],
-                      "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
-              }
-            },
-          },
-        }
-      </script>
 </head>
-<body class="bg-surface-container-low text-on-surface antialiased overflow-hidden">
-<!-- TopNavBar (Shared Component) -->
-<header class="flex justify-between items-center w-full px-section-padding h-16 z-50 bg-primary dark:bg-primary-container fixed top-0 docked full-width shadow-none">
-<div class="flex items-center gap-gutter">
-<span class="font-headline-md text-headline-md text-on-primary dark:text-on-primary-container">SellerCentral</span>
-<div class="hidden md:flex ml-8 items-center bg-white/10 rounded px-3 py-1.5 w-96">
-<span class="material-symbols-outlined text-on-primary mr-2" style="font-size: 20px;">search</span>
-<input class="bg-transparent border-none text-on-primary placeholder:text-on-primary-container font-body-md text-body-md focus:ring-0 w-full" placeholder="Search orders, products, help..." type="text"/>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-primary sticky top-0 z-50">
+<div class="flex flex-col w-full z-50 px-gutter max-w-container-max mx-auto py-2">
+<div class="flex items-center justify-between gap-4">
+<div class="font-headline-md text-headline-md font-bold text-on-primary">ShopDirect</div>
+<!-- Search Bar -->
+<div class="flex-grow max-w-3xl flex">
+<div class="relative w-full flex">
+<select class="bg-surface-container text-on-surface border-none rounded-l-lg text-body-sm px-3 focus:ring-2 focus:ring-secondary-container">
+<option>Books</option>
+</select>
+<input class="w-full border-none focus:ring-2 focus:ring-secondary-container px-4 text-body-md" placeholder="Search ShopDirect" type="text"/>
+<button class="bg-secondary-container p-2 rounded-r-lg flex items-center justify-center min-w-[45px]">
+<span class="material-symbols-outlined text-on-secondary-container">search</span>
+</button>
 </div>
 </div>
-<div class="flex items-center gap-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-on-primary cursor-pointer hover:bg-primary-container/20 p-2 rounded transition-colors">notifications</span>
-<span class="material-symbols-outlined text-on-primary cursor-pointer hover:bg-primary-container/20 p-2 rounded transition-colors">settings</span>
-<span class="material-symbols-outlined text-on-primary cursor-pointer hover:bg-primary-container/20 p-2 rounded transition-colors">help</span>
-</div>
-<div class="h-8 w-px bg-on-primary/20 mx-2"></div>
-<div class="flex items-center gap-2 cursor-pointer hover:bg-primary-container/20 px-2 py-1 rounded transition-colors">
-<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary font-bold text-sm">JS</div>
-<span class="font-body-md text-body-md text-on-primary hidden sm:block">Account</span>
+<div class="flex items-center gap-6 text-on-primary">
+<div class="flex items-center gap-1 cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<div class="hidden md:block">
+<div class="text-[10px] leading-tight opacity-80">Hello, sign in</div>
+<div class="text-body-sm font-bold">Account &amp; Lists</div>
 </div>
 </div>
-</header>
-<!-- SideNavBar (Shared Component) -->
-<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-surface-container-lowest dark:bg-surface-container-low border-r border-outline-variant dark:border-outline flex flex-col py-stack-loose z-40">
-<div class="px-4 mb-8">
-<h2 class="font-headline-sm text-headline-sm text-primary dark:text-on-primary-container">Global Marketplace</h2>
-<p class="font-label-sm text-label-sm text-on-surface-variant">Professional Seller</p>
+<div class="flex items-center gap-1 cursor-pointer">
+<span class="material-symbols-outlined">shopping_cart</span>
+<div class="relative">
+<span class="absolute -top-2 -right-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+<span class="hidden md:block text-body-sm font-bold self-end">Cart</span>
 </div>
-<nav class="flex-1 space-y-1">
-<!-- Dashboard -->
-<div class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer select-none">
-<span class="material-symbols-outlined mr-3">dashboard</span>
-<span class="font-label-sm text-label-sm">Dashboard</span>
 </div>
-<!-- Catalog (Active State) -->
-<div class="flex items-center px-4 py-3 text-secondary font-bold border-r-4 border-secondary bg-secondary-fixed/10 transition-all cursor-pointer select-none">
-<span class="material-symbols-outlined mr-3">inventory_2</span>
-<span class="font-label-sm text-label-sm">Catalog</span>
 </div>
-<!-- Pricing -->
-<div class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer select-none">
-<span class="material-symbols-outlined mr-3">sell</span>
-<span class="font-label-sm text-label-sm">Pricing</span>
 </div>
-<!-- Advertising -->
-<div class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer select-none">
-<span class="material-symbols-outlined mr-3">campaign</span>
-<span class="font-label-sm text-label-sm">Advertising</span>
-</div>
-<!-- Reports -->
-<div class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer select-none">
-<span class="material-symbols-outlined mr-3">analytics</span>
-<span class="font-label-sm text-label-sm">Reports</span>
+<!-- Nav Links -->
+<nav class="flex items-center gap-4 mt-2 overflow-x-auto no-scrollbar py-1">
+<div class="flex items-center text-on-primary font-bold text-body-sm whitespace-nowrap cursor-pointer">
+<span class="material-symbols-outlined mr-1">menu</span> All
+                </div>
+<div class="flex gap-4">
+<a class="text-on-primary text-body-sm hover:text-secondary-fixed-dim transition-colors whitespace-nowrap" href="#">Deals</a>
+<a class="text-on-primary text-body-sm hover:text-secondary-fixed-dim transition-colors whitespace-nowrap" href="#">Grocery</a>
+<a class="text-on-primary text-body-sm hover:text-secondary-fixed-dim transition-colors whitespace-nowrap" href="#">Best Sellers</a>
+<a class="text-on-primary text-body-sm hover:text-secondary-fixed-dim transition-colors whitespace-nowrap" href="#">Electronics</a>
+<a class="text-on-primary text-body-sm hover:text-secondary-fixed-dim transition-colors whitespace-nowrap" href="#">Customer Service</a>
+<a class="text-secondary-fixed font-bold border-b-2 border-secondary-fixed text-body-sm whitespace-nowrap" href="#">Prime</a>
 </div>
 </nav>
-<div class="px-4 mt-auto">
-<button class="w-full py-2.5 bg-[#FF9900] text-black font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-[#e68a00] transition-colors mb-6">
-<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
-                Add Product
-            </button>
-<div class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer select-none">
-<span class="material-symbols-outlined mr-3">logout</span>
-<span class="font-label-sm text-label-sm">Logout</span>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-section-padding">
+<!-- Breadcrumbs -->
+<nav class="flex text-body-sm text-on-surface-variant mb-stack-loose gap-2">
+<a class="hover:underline" href="#">Books</a> <span>›</span>
+<a class="hover:underline" href="#">Literature &amp; Fiction</a> <span>›</span>
+<a class="hover:underline" href="#">Myths, Legends &amp; Sagas</a> <span>›</span>
+<a class="hover:underline" href="#">Asian</a>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Images -->
+<div class="lg:col-span-3 space-y-4">
+<div class="sticky top-32">
+<div class="product-card-border bg-white p-4 rounded-lg">
+<img alt="The Asura's Curse Book Cover" class="w-full h-auto object-contain rounded shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaU6sOTEorLe7LJTXdME2jnvgFC0g3jVtdQTcCjn_GfsUHS1EdrbCPU8oSxr_ZOnqavDK7iE8xq9zW4qBYlCJkEqZxAGv71CjmBuYJxTaZVG5LZGR3_eTzsZ_TQkEdrE0rxN77BzjITS1IbdWMiHA4jSiH4GTsYuH-PEfNAcYHwUhrMonjoMwV6BIOhXkuasOdXaALVWzHnrONzg53ZipVXQOwK1yKe31FQsAh7ule88h0aAaJgr9E2w"/>
+</div>
+<button class="w-full mt-4 py-2 border border-outline-variant rounded-full text-body-md font-medium hover:bg-surface-container transition-colors">
+                        Read sample
+                    </button>
+<div class="mt-8">
+<h3 class="font-headline-sm text-headline-sm mb-4">Follow the author</h3>
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional black and white studio portrait of a modern female author, Anu Kay, with a clean and intellectual aesthetic. She is wearing a simple black turtleneck against a soft-focus library background. The lighting is soft and cinematic, emphasizing her thoughtful expression and scholarly presence in this high-end retail UI environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI00rmRJFnxsAJQDONRX7LlS0QMEKwk6xfjdNkKApTpr-I5JeVz03L-OJP9bLDwUATVzUbqCmKR93Lii9pdvbjmVXa9niwJijN2St3uWBqBsE5tEytVd5onVCe-p0qyrWcTILUR2Tt7VRc1rkixVI1uFDTtCWDEAxau9vZuhmq8rbzEBuWlRm9st2YIbikc_FHoGna_8VeDnkHXgVjmmm-Kgyh8_uhTuF-WTdmKtrM3dLc7C1T-p2EUg"/>
+</div>
+<div class="flex-grow">
+<div class="text-body-md font-bold">Anu Kay</div>
+<button class="mt-1 px-4 py-1 border border-outline-variant rounded-full text-body-sm hover:bg-surface-container transition-colors">Follow</button>
 </div>
 </div>
-</aside>
-<!-- Main Content -->
-<main class="ml-64 mt-16 p-section-padding h-[calc(100vh-64px)] flex flex-col overflow-hidden">
-<!-- Page Header -->
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-loose mb-stack-loose">
-<div>
-<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Product Catalog</h1>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage your active listings, inventory levels, and product visibility across all regions.</p>
-</div>
-<div class="flex gap-3">
-<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface font-bold rounded-lg hover:bg-surface-container-high transition-colors">
-<span class="material-symbols-outlined">download</span>
-                    Export CSV
-                </button>
-<button class="flex items-center gap-2 px-4 py-2 bg-[#FF9900] text-black font-bold rounded-lg hover:bg-[#e68a00] transition-colors shadow-sm">
-<span class="material-symbols-outlined">add</span>
-                    Add Product
-                </button>
 </div>
 </div>
-<!-- Filter Bar -->
-<div class="bg-white p-4 rounded-lg border border-outline-variant flex flex-wrap items-center gap-gutter mb-stack-loose">
-<div class="flex flex-col gap-1 min-w-[160px]">
-<label class="text-[10px] font-bold uppercase text-on-surface-variant px-1">Category</label>
-<select class="bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 font-body-md text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary outline-none">
-<option>All Categories</option>
-<option>Electronics</option>
-<option>Books</option>
-<option>Office Products</option>
-<option>Tools & Home Improvement</option>
-</select>
 </div>
-<div class="flex flex-col gap-1 min-w-[160px]">
-<label class="text-[10px] font-bold uppercase text-on-surface-variant px-1">Status</label>
-<select class="bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 font-body-md text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary outline-none">
-<option>All Statuses</option>
-<option>Active</option>
-<option>Inactive</option>
-<option>Out of Stock</option>
-<option>Suppressed</option>
-</select>
+<!-- Middle Column: Product Info -->
+<div class="lg:col-span-6">
+<div class="border-b border-outline-variant pb-stack-loose">
+<h1 class="font-headline-lg text-headline-lg mb-1 leading-tight">The Asura's Curse | Hidden Story from our Ancient Indian Hindu Mythology</h1>
+<div class="flex items-center gap-4 text-body-md">
+<span class="text-on-tertiary-container">by <a class="hover:underline" href="#">Anu Kay</a> (Author)</span>
+<span class="text-on-surface-variant">| Format: <span class="font-bold">Paperback</span></span>
 </div>
-<div class="flex flex-col gap-1 min-w-[180px]">
-<label class="text-[10px] font-bold uppercase text-on-surface-variant px-1">Date Modified</label>
+<!-- Rating -->
+<div class="flex items-center mt-2 gap-2">
+<div class="flex text-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+</div>
+<a class="text-on-tertiary-container text-body-sm hover:underline" href="#">4.4 (132 ratings)</a>
+<span class="text-on-surface-variant text-body-sm">| <a class="hover:underline" href="#">Search this page</a></span>
+</div>
+</div>
+<!-- Format Selection -->
+<div class="grid grid-cols-2 gap-4 mt-stack-loose">
+<div class="product-card-border p-3 rounded bg-surface-container-low cursor-pointer hover:border-secondary transition-all">
+<div class="text-body-sm font-bold">Kindle Edition</div>
+<div class="text-error font-label-price text-label-price">₹206.50</div>
+<div class="text-[11px] text-on-surface-variant">Available instantly</div>
+</div>
+<div class="border-2 border-secondary p-3 rounded bg-secondary-fixed cursor-pointer">
+<div class="text-body-sm font-bold">Paperback</div>
+<div class="text-error font-label-price text-label-price">₹250.00</div>
+<div class="text-[11px] text-on-surface-variant">Prime delivery</div>
+</div>
+</div>
+<!-- Offers Box -->
+<div class="mt-stack-loose p-4 border border-outline-variant rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary">percent</span>
+<span class="font-headline-sm text-headline-sm">Save Extra</span>
+<span class="text-body-sm text-on-surface-variant">with 3 offers</span>
+</div>
+<div class="space-y-3">
+<div class="text-body-sm">
+<span class="font-bold text-error">Cashback:</span> Get 5% back with Amazon Pay ICICI Bank credit card for Prime members. <a class="text-on-tertiary-container hover:underline" href="#">Details</a>
+</div>
+<div class="text-body-sm border-t border-outline-variant pt-2">
+<span class="font-bold text-error">Partner Offers (4):</span> Buy 3 or more and get 3% off on Qualifying Items offered by Repro Books-On-Demand. <a class="text-on-tertiary-container hover:underline" href="#">See All</a>
+</div>
+</div>
+</div>
+<!-- Icons Row -->
+<div class="flex justify-between items-center py-6 border-b border-outline-variant mt-4 text-center">
+<div class="flex flex-col items-center gap-1 max-w-[80px]">
+<span class="material-symbols-outlined text-on-surface-variant">local_shipping</span>
+<span class="text-[10px] text-on-tertiary-container leading-tight">Free Delivery</span>
+</div>
+<div class="flex flex-col items-center gap-1 max-w-[80px]">
+<span class="material-symbols-outlined text-on-surface-variant">published_with_changes</span>
+<span class="text-[10px] text-on-tertiary-container leading-tight">10 days Replacement</span>
+</div>
+<div class="flex flex-col items-center gap-1 max-w-[80px]">
+<span class="material-symbols-outlined text-on-surface-variant">check_circle</span>
+<span class="text-[10px] text-on-tertiary-container leading-tight">Amazon Delivered</span>
+</div>
+<div class="flex flex-col items-center gap-1 max-w-[80px]">
+<span class="material-symbols-outlined text-on-surface-variant">payments</span>
+<span class="text-[10px] text-on-tertiary-container leading-tight">Pay on Delivery</span>
+</div>
+<div class="flex flex-col items-center gap-1 max-w-[80px]">
+<span class="material-symbols-outlined text-on-surface-variant">lock</span>
+<span class="text-[10px] text-on-tertiary-container leading-tight">Secure transaction</span>
+</div>
+</div>
+<!-- Synopsis -->
+<div class="mt-stack-loose space-y-4">
+<p class="italic text-body-md">Professor Shastry is brutally murdered on the night of Dussehra, and his daughter is missing.</p>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                        Investigating the mysterious turn of events, Rohan is thrown into the depths of Lanka and the forgotten civilization of the Asuras. As he digs deeper, Rohan’s journey spans continents and eras, through the pages of the epic Ramayana, to the sinister plots of Nazi Germany, and even the shadowy beginnings of NASA’s rocket program.
+                    </p>
+<p class="text-body-md text-on-surface-variant leading-relaxed font-bold">
+                        The Asura's Curse will keep you guessing as the boundaries of belief, and history collapse into one extraordinary adventure.
+                    </p>
+<div class="flex items-center gap-2 text-body-sm text-on-tertiary-container cursor-pointer mt-4">
+<span class="material-symbols-outlined text-sm">report</span>
+                        Report an issue with this product
+                    </div>
+</div>
+<!-- Product Details Table -->
+<div class="mt-12">
+<h2 class="font-headline-md text-headline-md border-b border-outline-variant pb-2 mb-4">Product details</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 text-body-md">
+<div class="flex"><span class="font-bold w-1/3">Publisher</span><span class="w-2/3">: Srishti Publishers &amp; Distributors</span></div>
+<div class="flex"><span class="font-bold w-1/3">Publication date</span><span class="w-2/3">: 10 April 2025</span></div>
+<div class="flex"><span class="font-bold w-1/3">Edition</span><span class="w-2/3">: First Edition</span></div>
+<div class="flex"><span class="font-bold w-1/3">Language</span><span class="w-2/3">: English</span></div>
+<div class="flex"><span class="font-bold w-1/3">Print length</span><span class="w-2/3">: 184 pages</span></div>
+<div class="flex"><span class="font-bold w-1/3">ISBN-10</span><span class="w-2/3">: 9364117638</span></div>
+<div class="flex"><span class="font-bold w-1/3">ISBN-13</span><span class="w-2/3">: 978-9364117630</span></div>
+<div class="flex"><span class="font-bold w-1/3">Item Weight</span><span class="w-2/3">: 176 g</span></div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<div class="font-bold mb-2">Best Sellers Rank:</div>
+<ul class="list-none text-body-sm space-y-1">
+<li>#9,797 in Books (<a class="text-on-tertiary-container hover:underline" href="#">See Top 100 in Books</a>)</li>
+<li>#3 in <a class="text-on-tertiary-container hover:underline" href="#">Asian Myth &amp; Legend</a></li>
+<li>#152 in <a class="text-on-tertiary-container hover:underline" href="#">Thrillers and Suspense</a></li>
+</ul>
+</div>
+</div>
+<!-- About Author Deep Dive -->
+<div class="mt-12 bg-surface-container-low p-6 rounded-xl border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-4">About the Author</h2>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-24 h-24 rounded-full flex-shrink-0 overflow-hidden border-2 border-white shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A close-up high-resolution professional headshot of Anu Kay. She has a warm, inviting smile and is framed by soft, natural outdoor lighting. The composition is balanced and elegant, fitting for a prestigious author profile within a clean, high-density corporate commerce interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhE--v85AhrrEbDnaiQMk9ZFvWcRykVubcqPPT0EMa5OjQPyibPrflgutLarUZAhx70HC0vE2wziA1kNs5pYoEb9NNLAWi9a3YPb4IT9jeHZPyLlIKtCKgP0T-0mLjb0PCt201Ms4iOenbK8yY43qUGpXuxhRTWK1Rf2KkOmLFzHvX4U3XJXhLYVkqwnp4jYcgA3g1L9YLoGwvX85HFa8cBnG__PKNTSWw1xLIGtbGKq0NtEZIv9sI-Q"/>
+</div>
+<div class="space-y-3">
+<div class="font-headline-sm text-on-tertiary-container">Anu Kay</div>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                                Anu Kay is a novelist whose work blends personal reflection, historical depth, and cultural identity. Her stories explore the moments that shape us—both joyful and painful—through themes of heritage, belonging, and transformation. For Anu, writing is a way to heal, connect, and make sense of the world.
+                            </p>
+<p class="text-body-sm text-on-surface-variant opacity-80">
+                                She studied Creative Writing, Journalism, and English Literature in Germany and holds a Master's in Computer Applications.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Purchase Sidebar -->
+<div class="lg:col-span-3">
+<div class="sticky top-32 space-y-4">
+<div class="product-card-border bg-white p-4 rounded-lg shadow-sm">
+<div class="text-error font-label-price text-label-price mb-1">₹250.00</div>
+<div class="text-body-sm text-on-surface-variant mb-4">M.R.P.: <span class="line-through">₹299</span> <span class="text-error">(-16%)</span></div>
+<div class="text-body-md font-bold text-on-tertiary-fixed-variant mb-1">In stock</div>
+<div class="text-body-sm mb-4">Inclusive of all taxes</div>
+<div class="bg-primary-container text-on-primary-container px-2 py-1 inline-flex items-center gap-1 rounded text-[10px] font-bold mb-4">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Fulfilled
+                        </div>
+<div class="text-body-sm mb-4">
+                            FREE delivery <span class="font-bold">Wednesday, 8 July</span> on your first order. <a class="text-on-tertiary-container hover:underline" href="#">Details</a>
+</div>
+<div class="flex items-center gap-1 text-on-tertiary-container text-body-sm mb-6 cursor-pointer">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                            Delivering to Mumbai 400017
+                        </div>
+<div class="space-y-3">
 <div class="relative">
-<input class="w-full bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 font-body-md text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary outline-none pr-10" type="text" value="Last 30 Days"/>
-<span class="material-symbols-outlined absolute right-2 top-1.5 text-on-surface-variant pointer-events-none" style="font-size: 18px;">calendar_today</span>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg py-2 px-3 text-body-md appearance-none">
+<option>Quantity: 1</option>
+<option>Quantity: 2</option>
+<option>Quantity: 3</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<button class="w-full bg-secondary-container hover:bg-secondary text-on-secondary-container font-bold py-2.5 rounded-full transition-all">
+                                Add to Cart
+                            </button>
+<button class="w-full bg-secondary-fixed-dim hover:bg-secondary-fixed text-on-secondary-fixed font-bold py-2.5 rounded-full transition-all">
+                                Buy Now
+                            </button>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant text-body-sm space-y-2">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Ships from</span>
+<span>Amazon</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Sold by</span>
+<a class="text-on-tertiary-container hover:underline" href="#">Repro Books</a>
 </div>
 </div>
-<div class="flex-1 min-w-[200px]">
-<label class="text-[10px] font-bold uppercase text-on-surface-variant px-1">Search Products</label>
-<div class="relative">
-<input class="w-full bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 font-body-md text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary outline-none pr-10" placeholder="Search by SKU, Title, or ASIN..." type="text"/>
-<span class="material-symbols-outlined absolute right-2 top-1.5 text-on-surface-variant" style="font-size: 20px;">search</span>
+<div class="mt-6">
+<button class="w-full border border-outline-variant py-1.5 rounded-lg text-body-sm hover:bg-surface-container transition-colors">
+                                Add to Wish List
+                            </button>
 </div>
 </div>
-<div class="pt-5">
-<button class="px-4 py-1.5 text-secondary font-bold text-body-md hover:bg-secondary-fixed/10 rounded transition-colors">Clear All</button>
+<!-- Other Sellers -->
+<div class="product-card-border bg-white p-4 rounded-lg shadow-sm">
+<h3 class="font-headline-sm text-headline-sm mb-3">Other Sellers</h3>
+<div class="space-y-4">
+<div class="text-body-sm border-b border-outline-variant pb-3">
+<div class="font-bold text-error">₹234.00</div>
+<div class="text-on-tertiary-container hover:underline cursor-pointer">+ ₹60 delivery</div>
+<div class="mt-1">Sold by: Cloudtail India</div>
+<button class="mt-2 w-full py-1 border border-outline-variant rounded-full text-[11px] font-bold">See details</button>
 </div>
 </div>
-<!-- Data Table Container -->
-<div class="bg-white border border-outline-variant rounded-lg flex-1 flex flex-col overflow-hidden">
-<div class="overflow-x-auto custom-scrollbar flex-1">
-<table class="w-full border-collapse text-left min-w-[1000px]">
-<thead class="bg-surface-container-low sticky top-0 z-10">
-<tr class="border-b border-outline-variant">
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase">
-<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
-</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase">Product Details</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase">SKU</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase">Category</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase">Price</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase w-48">Stock Health</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase">Status</th>
-<th class="px-4 py-3 font-label-badge text-body-sm text-on-surface-variant uppercase text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-container/30 transition-colors group">
-<td class="px-4 py-4">
-<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
-</td>
-<td class="px-4 py-4">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded border border-outline-variant overflow-hidden flex-shrink-0 bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="A professional product photography shot of a high-end ergonomic office chair, sleek black mesh and polished chrome details, minimalist studio lighting on a clean white background, high-resolution and sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMsmCTSJ1ESJLyJsxeUzUSbp1EZJPOs3rqZRHAeitgNkfof8ds1ZxxyS56s_Aa4qt18BGBT06LAbosxaZjTSkCf4-Oi1AwtlbUkNFhZ79BvW8V0DOjSjez6F7Q2dvfKRErdCH6OZILemIXgXgH6Tr-9j7H-8-u9IHMV9mBd07atbtrLStTCAUOiHEBsvaMyQOBa2BF5aV-pyzIP4faKaVg38oPxjBzS8daHNe83S8g82UBEVY1MgUOc_QflcS5U4P9MFFTMuqPu4S"/>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim mt-stack-loose border-t border-outline-variant">
+<div class="max-w-container-max mx-auto px-section-padding py-stack-loose">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-8">
+<div>
+<h4 class="font-headline-sm text-headline-sm mb-4">Get to Know Us</h4>
+<ul class="space-y-2 text-body-sm text-on-surface-variant">
+<li><a class="hover:underline hover:text-primary" href="#">About Us</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Careers</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Press Releases</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">ShopDirect Science</a></li>
+</ul>
 </div>
 <div>
-<h4 class="font-headline-sm text-body-md text-on-surface line-clamp-1">ErgoPro Elite Series 2 - Midnight Black</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant">ASIN: B08X1K9L2P</p>
-</div>
-</div>
-</td>
-<td class="px-4 py-4 font-body-md text-on-surface">EP-ES2-MNB</td>
-<td class="px-4 py-4">
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Office Products</span>
-</td>
-<td class="px-4 py-4 font-label-price text-label-price text-[#B12704]">$249.99</td>
-<td class="px-4 py-4">
-<div class="flex flex-col gap-1.5">
-<div class="flex justify-between text-[11px] font-bold">
-<span class="text-on-surface">1,420 units</span>
-<span class="text-secondary">Healthy</span>
-</div>
-<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-<div class="bg-secondary h-full rounded-full w-[85%]"></div>
-</div>
-</div>
-</td>
-<td class="px-4 py-4">
-<span class="bg-[#e7f6ed] text-[#008a32] px-2 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit">
-<span class="w-1.5 h-1.5 rounded-full bg-[#008a32]"></span>
-                                    Active
-                                </span>
-</td>
-<td class="px-4 py-4 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined" style="font-size: 20px;">edit</span></button>
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Copy"><span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span></button>
-<button class="p-1.5 hover:bg-error-container/20 rounded text-error" title="Delete"><span class="material-symbols-outlined" style="font-size: 20px;">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-container/30 transition-colors group">
-<td class="px-4 py-4">
-<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
-</td>
-<td class="px-4 py-4">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded border border-outline-variant overflow-hidden flex-shrink-0 bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Close-up commercial shot of a premium leather journal with a fountain pen, elegant dark brown texture, soft moody lighting with warm highlights, luxury corporate gift aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKXA1l3NODsRE6k1No410hM7EJtsZuzf7PLJ-vMcsVOPq5tbPehUCJovt1ciZ_ip3M5cBcEX2g9STmYAS1yCo02FF2rubzQ4Lisc2E79F08bx4lQpQH5swPJ-cGQUwP-CHAqiVYG2I0CpFrxBDoUAPT2KmqENsD_h-JKFyL6DyjXdQPZzppJdBigX8tqEJ6SB8AuhZcxv38eQ5INzISn1fi_1YCdtpH8UIFpmFIsncyd8ioT-i0Ts3ehh_k7DHo4I78JRH-h3iXHG3"/>
+<h4 class="font-headline-sm text-headline-sm mb-4">Connect with Us</h4>
+<ul class="space-y-2 text-body-sm text-on-surface-variant">
+<li><a class="hover:underline hover:text-primary" href="#">Facebook</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Twitter</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Instagram</a></li>
+</ul>
 </div>
 <div>
-<h4 class="font-headline-sm text-body-md text-on-surface line-clamp-1">Handcrafted Leather Journal - Espresso</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant">ASIN: B07N4W2M8V</p>
-</div>
-</div>
-</td>
-<td class="px-4 py-4 font-body-md text-on-surface">HLJ-ESP-01</td>
-<td class="px-4 py-4">
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Stationery</span>
-</td>
-<td class="px-4 py-4 font-label-price text-label-price text-[#B12704]">$34.50</td>
-<td class="px-4 py-4">
-<div class="flex flex-col gap-1.5">
-<div class="flex justify-between text-[11px] font-bold">
-<span class="text-on-surface">12 units</span>
-<span class="text-error">Critical Low</span>
-</div>
-<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-<div class="bg-error h-full rounded-full w-[8%]"></div>
-</div>
-</div>
-</td>
-<td class="px-4 py-4">
-<span class="bg-[#fff4e5] text-[#b12704] px-2 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit">
-<span class="w-1.5 h-1.5 rounded-full bg-[#b12704]"></span>
-                                    Low Stock
-                                </span>
-</td>
-<td class="px-4 py-4 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined" style="font-size: 20px;">edit</span></button>
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Copy"><span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span></button>
-<button class="p-1.5 hover:bg-error-container/20 rounded text-error" title="Delete"><span class="material-symbols-outlined" style="font-size: 20px;">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-container/30 transition-colors group">
-<td class="px-4 py-4">
-<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
-</td>
-<td class="px-4 py-4">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded border border-outline-variant overflow-hidden flex-shrink-0 bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Modern technical studio shot of high-performance wireless noise-cancelling headphones in matte slate grey, floating in a clean architectural space, crisp detailing on the earcups, professional electronics branding aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq9kRnlHZZUTpnm4ucb2iS70Nnj-4dq1r1CM8zbEdM57m_ZaHrUc8a0MPg5eLFemWU5bwMbIiu5-CtSTJYIUDwIE1wnimmABxp2Ae9WP9JR5V2yAp_31TXrD2LIxuIyjb_IBFjx1WtGn0qWIopHGH-RtcvRrvnxSCbvYgGhcZMxaZ_QRC-phz4aDgZyiqKgsaB5NTix1Rim4sLVhzN8MqvqdoE-yDERHJcqs8L6WosqVwgEIAcICevjahVKzQUnNe7oSKIT6vWDXcx"/>
+<h4 class="font-headline-sm text-headline-sm mb-4">Make Money with Us</h4>
+<ul class="space-y-2 text-body-sm text-on-surface-variant">
+<li><a class="hover:underline hover:text-primary" href="#">Sell on ShopDirect</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Fulfilment by ShopDirect</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Advertise Your Products</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">ShopDirect Pay on Merchants</a></li>
+</ul>
 </div>
 <div>
-<h4 class="font-headline-sm text-body-md text-on-surface line-clamp-1">SonicFlow Wireless ANC Headphones</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant">ASIN: B09Y5T1G4W</p>
+<h4 class="font-headline-sm text-headline-sm mb-4">Let Us Help You</h4>
+<ul class="space-y-2 text-body-sm text-on-surface-variant">
+<li><a class="hover:underline hover:text-primary" href="#">COVID-19 and ShopDirect</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Your Account</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Returns Centre</a></li>
+<li><a class="hover:underline hover:text-primary" href="#">Help</a></li>
+</ul>
 </div>
 </div>
-</td>
-<td class="px-4 py-4 font-body-md text-on-surface">SF-ANC-SLT</td>
-<td class="px-4 py-4">
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Electronics</span>
-</td>
-<td class="px-4 py-4 font-label-price text-label-price text-[#B12704]">$189.00</td>
-<td class="px-4 py-4">
-<div class="flex flex-col gap-1.5">
-<div class="flex justify-between text-[11px] font-bold">
-<span class="text-on-surface">0 units</span>
-<span class="text-on-surface-variant">Empty</span>
+<div class="border-t border-outline-variant pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">ShopDirect</div>
+<div class="flex flex-wrap justify-center gap-4 text-body-sm text-on-surface-variant">
+<a class="hover:underline" href="#">Help</a>
+<a class="hover:underline" href="#">Returns</a>
+<a class="hover:underline" href="#">Gift Cards</a>
+<a class="hover:underline" href="#">Careers</a>
+<a class="hover:underline" href="#">Sell on ShopDirect</a>
+<a class="hover:underline" href="#">Accessibility</a>
 </div>
-<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-<div class="bg-outline h-full rounded-full w-0"></div>
-</div>
-</div>
-</td>
-<td class="px-4 py-4">
-<span class="bg-surface-container-high text-on-surface-variant px-2 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit">
-<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
-                                    Out of Stock
-                                </span>
-</td>
-<td class="px-4 py-4 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined" style="font-size: 20px;">edit</span></button>
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Copy"><span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span></button>
-<button class="p-1.5 hover:bg-error-container/20 rounded text-error" title="Delete"><span class="material-symbols-outlined" style="font-size: 20px;">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-container/30 transition-colors group">
-<td class="px-4 py-4">
-<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
-</td>
-<td class="px-4 py-4">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded border border-outline-variant overflow-hidden flex-shrink-0 bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Bright high-key lifestyle photography of a stainless steel insulated water bottle, minimalist design, soft natural morning light through a window, fresh and eco-friendly brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2nfYy34DZQ6NEwhPDRNu1OJ1MgUnX49a_8UvBbDG-GkP7LBRJnYiJ8yU1RvWPpqTwVIlTfyFe4r3utYzskct8uoTyizbHBBmEX50ymi_mPoXUxznpm1RqiAKiK_r9MSdmoxPQnEt70Q-YTfl8W9eMou-GPqKpHmQtVfpmNnI5q9rffnTgpDeMtpyA5Jv1jxCPtCO2-KvYl2FT213y-A7H8O5R5oJhJS9yNdcrKQWGLEt-NqSAlWBkIUGmG9sKDbSNqGVpGFQrYnrJ"/>
-</div>
-<div>
-<h4 class="font-headline-sm text-body-md text-on-surface line-clamp-1">ArcticStream Insulated Bottle 32oz</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant">ASIN: B04L9P2V0X</p>
-</div>
-</div>
-</td>
-<td class="px-4 py-4 font-body-md text-on-surface">AS-WB-32-SS</td>
-<td class="px-4 py-4">
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Kitchen</span>
-</td>
-<td class="px-4 py-4 font-label-price text-label-price text-[#B12704]">$24.95</td>
-<td class="px-4 py-4">
-<div class="flex flex-col gap-1.5">
-<div class="flex justify-between text-[11px] font-bold">
-<span class="text-on-surface">450 units</span>
-<span class="text-secondary">Healthy</span>
-</div>
-<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-<div class="bg-secondary h-full rounded-full w-[45%]"></div>
-</div>
-</div>
-</td>
-<td class="px-4 py-4">
-<span class="bg-[#e7f6ed] text-[#008a32] px-2 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit">
-<span class="w-1.5 h-1.5 rounded-full bg-[#008a32]"></span>
-                                    Active
-                                </span>
-</td>
-<td class="px-4 py-4 text-right">
-<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined" style="font-size: 20px;">edit</span></button>
-<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant" title="Copy"><span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span></button>
-<button class="p-1.5 hover:bg-error-container/20 rounded text-error" title="Delete"><span class="material-symbols-outlined" style="font-size: 20px;">delete</span></button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Pagination Footer -->
-<div class="flex flex-col md:flex-row justify-between items-center px-4 py-3 bg-surface-container-low border-t border-outline-variant gap-4">
-<div class="font-body-sm text-body-sm text-on-surface-variant">
-                    Showing <span class="font-bold text-on-surface">1 - 25</span> of <span class="font-bold text-on-surface">1,248</span> products
+<div class="text-body-sm text-on-surface-variant opacity-70">
+                    © 2024 ShopDirect, Inc. or its affiliates
                 </div>
-<div class="flex items-center gap-2">
-<div class="flex items-center mr-4">
-<span class="font-body-sm text-body-sm text-on-surface-variant mr-2">Rows per page:</span>
-<select class="bg-transparent border-none font-bold text-body-sm text-on-surface focus:ring-0 cursor-pointer">
-<option>25</option>
-<option>50</option>
-<option>100</option>
-</select>
 </div>
-<div class="flex gap-1">
-<button class="p-1.5 rounded border border-outline-variant hover:bg-surface-container-high transition-colors disabled:opacity-30" disabled="">
-<span class="material-symbols-outlined" style="font-size: 18px;">first_page</span>
-</button>
-<button class="p-1.5 rounded border border-outline-variant hover:bg-surface-container-high transition-colors disabled:opacity-30" disabled="">
-<span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
-</button>
-<div class="flex gap-1 px-2">
-<button class="w-8 h-8 flex items-center justify-center rounded bg-secondary text-on-secondary font-bold text-body-sm">1</button>
-<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface font-medium text-body-sm">2</button>
-<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface font-medium text-body-sm">3</button>
-<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
-<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high text-on-surface font-medium text-body-sm">50</button>
-</div>
-<button class="p-1.5 rounded border border-outline-variant hover:bg-surface-container-high transition-colors">
-<span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
-</button>
-<button class="p-1.5 rounded border border-outline-variant hover:bg-surface-container-high transition-colors">
-<span class="material-symbols-outlined" style="font-size: 18px;">last_page</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Shared Component Footer -->
-<footer class="flex flex-col md:flex-row justify-between items-center px-section-padding py-stack-loose mt-auto border-t border-outline-variant">
-<div class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface mb-4 md:mb-0">
-                © 2024 SellerCentral. All rights reserved.
-            </div>
-<div class="flex flex-wrap justify-center gap-6">
-<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors cursor-pointer" href="#">Privacy Policy</a>
-<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors cursor-pointer" href="#">Terms of Service</a>
-<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors cursor-pointer" href="#">Help Center</a>
-<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors cursor-pointer" href="#">Seller Agreement</a>
 </div>
 </footer>
-</main>
 <script>
-        // Simple logic for row selection
-        const headerCheckbox = document.querySelector('thead input[type="checkbox"]');
-        const rowCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-
-        headerCheckbox?.addEventListener('change', (e) => {
-            rowCheckboxes.forEach(checkbox => {
-                checkbox.checked = e.target.checked;
-                updateRowStyle(checkbox);
+        // Simple micro-interaction for active format selection
+        document.querySelectorAll('.cursor-pointer.product-card-border, .border-2.border-secondary').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.border-2.border-secondary').forEach(c => {
+                    c.classList.remove('border-2', 'border-secondary', 'bg-secondary-fixed');
+                    c.classList.add('product-card-border', 'bg-surface-container-low');
+                });
+                this.classList.remove('product-card-border', 'bg-surface-container-low');
+                this.classList.add('border-2', 'border-secondary', 'bg-secondary-fixed');
             });
         });
-
-        rowCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                updateRowStyle(checkbox);
-            });
-        });
-
-        function updateRowStyle(checkbox) {
-            const row = checkbox.closest('tr');
-            if (checkbox.checked) {
-                row.classList.add('bg-secondary-fixed/5');
-            } else {
-                row.classList.remove('bg-secondary-fixed/5');
-            }
-        }
     </script>
 </body></html>

@@ -24,7 +24,7 @@ const specificationFormValidator = z.object({
 })
 
 const SpecificationForm = ({ category }: { category: AvailableCategoryType }) => {
-    const { addProductSpecifications, products } = useAddProduct();
+    const { addProductMetaDetail, products } = useAddProduct();
     const { currentVariant } = products[category];
 
     const methods = useForm<SpecificationForm>({
@@ -42,10 +42,11 @@ const SpecificationForm = ({ category }: { category: AvailableCategoryType }) =>
 
     useEffect(() => {
         const setProductValues = () => {
-            const { variants, currentVariant } = useAddProduct.getState().products.phone
-            const specifications = variants[currentVariant].specifications ?? productStateDefaults.specifications
+            const { variants, currentVariant } = useAddProduct.getState().products[category]
+            const metaDetail = variants[currentVariant].productMetaDetail
+            const specification = metaDetail?.specifications ?? productStateDefaults.productMetaDetail
             methods.reset({
-                data: specifications
+                data: specification
             })
         }
 
@@ -62,8 +63,10 @@ const SpecificationForm = ({ category }: { category: AvailableCategoryType }) =>
         return unsubscribe
     }, [category, currentVariant, methods.reset])
 
-    const handleSubmit = (spcifications: SpecificationForm) => {
-        addProductSpecifications('phone', spcifications.data);
+    const handleSubmit = (specifications: SpecificationForm) => {
+        addProductMetaDetail(category, {
+            "specifications": specifications.data
+        });
         toast.success("Specifications Data Saved!", {
             position: 'bottom-right',
             duration: 5000

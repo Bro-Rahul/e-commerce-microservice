@@ -1,5 +1,4 @@
 "use client"
-
 import { Button } from '@/components/ui/button'
 import { defaultBookAttributes } from '@/constants/data/bookData'
 import { bookAttributesFields } from '@/constants/formFields/bookFields'
@@ -8,31 +7,33 @@ import { BookAttributesType, bookAttributesValidator } from '@/validators/produc
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BookOpenText, Save } from 'lucide-react'
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../FormCard'
 import JsonUploadBtn from '../../JsonUploadBtn'
+import Field from '@/components/auth/Field'
 
 
 const BookAttributesForm = () => {
-    const { addProductMetaDetail } = useAddProduct()
+    const { addProductMetaDetail, products } = useAddProduct()
+    const { currentVariant } = products.book
 
-    const { handleSubmit, register, reset, formState: { errors } } = useForm<BookAttributesType>({
+    const { handleSubmit, register, control, reset, formState: { errors } } = useForm<BookAttributesType>({
         resolver: zodResolver(bookAttributesValidator),
         defaultValues: defaultBookAttributes,
     })
 
     useEffect(() => {
         const { variants, currentVariant } = useAddProduct.getState().products.book
-        const bookMeta = variants[currentVariant].productMetaDetail
-
-        if (Object.keys(bookMeta).length > 0) {
-            reset(bookMeta as BookAttributesType)
-        }
-    }, [reset])
+        const metaDetail = variants[currentVariant].productMetaDetail
+        const attribute = metaDetail?.attribute
+        reset({ ...defaultBookAttributes, ...attribute })
+    }, [reset, currentVariant])
 
     const onSubmit = (data: BookAttributesType) => {
-        addProductMetaDetail('book', data)
+        addProductMetaDetail('book', {
+            "attribute": data
+        })
         toast.success('Book details saved!', {
             position: 'bottom-right',
             duration: 5000,
@@ -56,13 +57,13 @@ const BookAttributesForm = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-6 p-5 sm:p-8">
                     <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
-                        {bookAttributesFields.map((field) => {
-                            const fieldName = field.name
+                        {bookAttributesFields.map((item) => {
+                            const fieldName = item.name
                             const fieldError = errors[fieldName]?.message as string | undefined
-                            const isNumber = field.type === 'number'
-                            const isDate = field.type === 'date'
-                            const isTextarea = field.type === 'textarea'
-                            const isSelect = field.type === 'select'
+                            const isNumber = item.type === 'number'
+                            const isDate = item.type === 'date'
+                            const isTextarea = item.type === 'textarea'
+                            const isSelect = item.type === 'select'
 
                             const fieldRegister = register(fieldName, {
                                 setValueAs: (value) => {
@@ -77,36 +78,48 @@ const BookAttributesForm = () => {
                             })
 
                             return (
-                                <div key={String(field.name)} className={fieldName === 'description' ? 'md:col-span-2' : 'space-y-2'}>
-                                    <label className="block text-sm font-bold text-on-surface">
+                                <Controller
+                                    key={item.name}
+                                    name={item.name}
+                                    control={control}
+                                    render={({ field, fieldState: { error } }) => <Field
+                                        htmlFor={item.name}
+                                        label={item.label}
+                                        key={item.name}
+                                        optionalText={item.helperText}
+                                        error={error?.message}
+                                    // className={fieldName === 'description' ? 'md:col-span-2' : 'space-y-2'}
+                                    >
+                                        {/* <label className="block text-sm font-bold text-on-surface">
                                         {field.label}
-                                    </label>
+                                    </label> */}
 
-                                    {isSelect ? (
-                                        <select className="inputfields" {...fieldRegister}>
-                                            {(field.options ?? []).map((option) => (
-                                                <option key={String(option.value)} value={option.value}>
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    ) : isTextarea ? (
-                                        <textarea
-                                            className="textareafield"
-                                            {...fieldRegister}
-                                            placeholder={field.placeholder}
-                                        />
-                                    ) : (
-                                        <input
-                                            className="inputfields"
-                                            type={field.type}
-                                            {...fieldRegister}
-                                            placeholder={field.placeholder}
-                                        />
-                                    )}
+                                        {isSelect ? (
+                                            <select className="inputfields" {...fieldRegister}>
+                                                {(item.options ?? []).map((option) => (
+                                                    <option key={String(option.value)} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        ) : isTextarea ? (
+                                            <textarea
+                                                className="textareafield"
+                                                {...fieldRegister}
+                                                placeholder={item.placeholder}
+                                            />
+                                        ) : (
+                                            <input
+                                                className="inputfields"
+                                                type={item.type}
+                                                {...fieldRegister}
+                                                placeholder={item.placeholder}
+                                            />
+                                        )}
 
-                                    {fieldError && <p className="error">{fieldError}</p>}
-                                </div>
+                                        {/* {fieldError && <p className="error">{fieldError}</p>} */}
+                                    </Field>}
+                                />
                             )
                         })}
                     </div>
