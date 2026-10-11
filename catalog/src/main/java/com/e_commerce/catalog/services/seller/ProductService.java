@@ -1,20 +1,19 @@
 package com.e_commerce.catalog.services.seller;
 
-import com.e_commerce.catalog.dto.events.product.ProductCreatedEvent;
+import com.e_commerce.catalog.dto.product.AssetsMetaDetails;
 import com.e_commerce.catalog.dto.product.ProductBaseDetail;
-import com.e_commerce.catalog.dto.product.ProductInventoryRequest;
-import com.e_commerce.catalog.model.ProductMediaAssets;
+import com.e_commerce.catalog.dto.product.ProductCreationRequest;
 import com.e_commerce.catalog.model.Products;
 import com.e_commerce.catalog.rabbitmq.EventPublisher;
 import com.e_commerce.catalog.repo.ProductRepo;
 import com.e_commerce.catalog.services.file.FileService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,47 +24,21 @@ public class ProductService {
 
     private final ProductRepo productRepo;
     private final FileService fileService;
+    private final ProductVariantService productVariantService;
     private final EventPublisher eventPublisher;
 
     @Transactional
-    public Products createProduct(
-            Map<String, Object> metaDetails,
-            ProductBaseDetail productBaseDetail,
-            List<ProductInventoryRequest> inventoryRequest,
-            MultipartFile coverImage,
-            List<MultipartFile> imageCollection,
-            List<MultipartFile> carouselImages) {
-        List<String> uploadedFiles = new ArrayList<>();
-        try {
-            String coverImageUrl = fileService.store(coverImage);
-            uploadedFiles.add(coverImageUrl);
-            List<String> imageCollectionUrls = fileService.storeAll(imageCollection);
-            uploadedFiles.addAll(imageCollectionUrls);
-            List<String> carouselImageUrls = fileService.storeAll(carouselImages);
-            uploadedFiles.addAll(carouselImageUrls);
+    public ResponseEntity<?> createProduct(
+            List<ProductCreationRequest> productVariants,
+            List<MultipartFile> images,
+            List<MultipartFile> extraAssets,
+            List<AssetsMetaDetails> imageDetail) {
 
-            ProductMediaAssets productMediaAssets = new ProductMediaAssets(carouselImageUrls,
-                    imageCollectionUrls);
+        Products product = productRepo.save(new Products());
+        var variants = productVariantService.addProductVariants(productVariants,
+                images, extraAssets, imageDetail, product);
 
-            Products product = new Products();
-            product.setTitle(productBaseDetail.getTitle());
-            product.setCategory(productBaseDetail.getCategory());
-            product.setDescription(productBaseDetail.getDescription());
-            product.setAboutItem(productBaseDetail.getAboutItem());
-            product.setCoverImageURL(coverImageUrl);
-            product.setAssets(productMediaAssets);
-            product.setMetaDetails(metaDetails);
-
-            Products updatedProduct = productRepo.save(product);
-            eventPublisher.publishEvent(
-                    new ProductCreatedEvent(updatedProduct,
-                            inventoryRequest));
-
-            return updatedProduct;
-        } catch (RuntimeException exception) {
-            fileService.deleteAll(uploadedFiles);
-            throw exception;
-        }
+        return ResponseEntity.ok(variants);
     }
 
     public ResponseEntity<Optional<Products>> getProducyById(String id) {
@@ -85,10 +58,10 @@ public class ProductService {
         if (optionalProduct.isEmpty())
             throw new RuntimeException("Product not Found");
         Products product = optionalProduct.get();
-        product.setCategory(productBaseDetail.getCategory());
-        product.setAboutItem(productBaseDetail.getAboutItem());
-        product.setTitle(productBaseDetail.getTitle());
-        product.setDescription(productBaseDetail.getDescription());
+        // product.setCategory(productBaseDetail.getCategory());
+        // product.setAboutItem(productBaseDetail.getAboutItem());
+        // product.setTitle(productBaseDetail.getTitle());
+        // product.setDescription(productBaseDetail.getDescription());
         productRepo.save(product);
         return;
     }
@@ -117,22 +90,23 @@ public class ProductService {
 
         if (coverImage != null && !coverImage.isEmpty()) {
             String newCoverImageUrl = fileService.store(coverImage);
-            fileService.delete(product.getCoverImageURL());
-            product.setCoverImageURL(newCoverImageUrl);
+            // fileService.delete(product.getCoverImageURL());
+            // product.setCoverImageURL(newCoverImageUrl);
         }
 
         if (imageCollection != null && !imageCollection.isEmpty()) {
             List<String> newImageCollections = fileService.storeAll(imageCollection);
-            fileService.deleteAll(product.getAssets().getImageCollections());
-            product.getAssets().setImageCollections(newImageCollections);
+            // fileService.deleteAll(product.getAssets().getImageCollections());
+            // product.getAssets().setImageCollections(newImageCollections);
 
         }
 
         if (carouselImages != null && !carouselImages.isEmpty()) {
             List<String> newCarouselImages = fileService.storeAll(carouselImages);
-            fileService.deleteAll(product.getAssets().getCarouselImages());
-            product.getAssets().setCarouselImages(newCarouselImages);
+            // fileService.deleteAll(product.getAssets().getCarouselImages());
+            // product.getAssets().setCarouselImages(newCarouselImages);
         }
 
     }
+
 }

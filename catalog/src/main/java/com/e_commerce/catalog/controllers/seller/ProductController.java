@@ -1,12 +1,12 @@
 package com.e_commerce.catalog.controllers.seller;
 
+import com.e_commerce.catalog.dto.product.AssetsMetaDetails;
 import com.e_commerce.catalog.dto.product.ProductBaseDetail;
-import com.e_commerce.catalog.dto.product.ProductInventoryRequest;
+import com.e_commerce.catalog.dto.product.ProductCreationRequest;
 import com.e_commerce.catalog.model.Products;
 import com.e_commerce.catalog.repo.ProductRepo;
 import com.e_commerce.catalog.services.seller.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,21 +30,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Products> createProduct(
-            @RequestPart("metaDetails") Map<String, Object> metaDetails,
-            @RequestPart("productBaseDetail") ProductBaseDetail productBaseDetail,
-            @RequestPart("inventory") List<ProductInventoryRequest> inventoryRequest,
-            @RequestPart("coverImage") MultipartFile coverImage,
-            @RequestPart(value = "imageCollection", required = false) List<MultipartFile> imageCollection,
-            @RequestPart(value = "carouselImages", required = false) List<MultipartFile> carouselImages) {
-        Products product = productService.createProduct(
-                metaDetails,
-                productBaseDetail,
-                inventoryRequest,
-                coverImage,
-                imageCollection,
-                carouselImages);
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    public ResponseEntity<?> createProduct(
+            @RequestPart("variants") List<ProductCreationRequest> productVariants,
+            @RequestPart("image") List<MultipartFile> images,
+            @RequestPart(value = "extraAssets", required = false) List<MultipartFile> extraAssets,
+            @RequestPart("imageMetaDetail") List<AssetsMetaDetails> imageDetail) {
+
+        return productService.createProduct(productVariants, images, extraAssets, imageDetail);
+
     }
 
     @GetMapping("/{id}")

@@ -9,8 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssetsMetaDetails {
 
-    private String fileName;
+    private Integer index;
 
-    private String imageType;
+    private String name;
 
+    private String type;
+
+    private Boolean isCoverImage;
+
+    private Integer variantId;
 }

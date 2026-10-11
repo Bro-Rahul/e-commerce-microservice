@@ -23,5 +23,4 @@ export interface ProductDataType {
     productInventory: InventoryFieldType,
     productBaseDetails: ProductBaseFieldsType,
     productMetaDetails: ProductMetaDetailsType,
-    variantOptions: Record<string, keyValuePairType[]>
 }

@@ -19,5 +19,4 @@ public class ProductBaseDetail {
     @JsonAlias("about")
     private String aboutItem;
 
-
 }

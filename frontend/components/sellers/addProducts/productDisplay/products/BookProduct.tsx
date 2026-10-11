@@ -10,9 +10,10 @@ import {
   RotateCcw,
   ShieldCheck,
   Truck,
+  Upload,
 } from "lucide-react"
 
-import type { ProductDataType } from "@/types/ProductDisplayTypes"
+import type { ProductDataType, ProductMetaDetailsType } from "@/types/ProductDisplayTypes"
 import type { BookAuthorTableType } from "@/types/dexie/bookAuthorTableType"
 import db from "@/lib/dexie/db"
 
@@ -21,6 +22,10 @@ import Imagecarousel from "../Imagecarousel"
 import ProductVariants from "../ProductVariants"
 import useProductVariantProvider from "@/hooks/context/useProductVariantProvider"
 import KeyAttributes from "../keyAttributes"
+import SubmitProductBtn from "../../SubmitProductBtn"
+import useFormateData from "@/hooks/seller/useFormateData"
+import { Button } from "@/components/ui/button"
+import { createProduct } from "@/http/seller/productHttp"
 
 interface BookProductProps {
   productData: ProductDataType
@@ -29,6 +34,8 @@ interface BookProductProps {
 const BookProduct = ({ productData }: BookProductProps) => {
   const { availableOptions, selectedOptions, stockAvailable } =
     useProductVariantProvider()
+
+  const { getProductSubmissionData } = useFormateData({ category: "book" })
 
   const [authorProfile, setAuthorProfile] = useState<
     (BookAuthorTableType & { imageUrl: string }) | null
@@ -51,21 +58,6 @@ const BookProduct = ({ productData }: BookProductProps) => {
       }).format(price)
       : "Price unavailable"
 
-  const detailEntries = [
-    ["Publisher", attributes.publisher],
-    ["Publication date", attributes.publicationDate],
-    ["Edition", attributes.edition],
-    ["Language", attributes.language],
-    ["Binding", attributes.binding],
-    ["Print length", attributes.pages ? `${attributes.pages} pages` : undefined],
-    ["ISBN-10", attributes.isbn10],
-    ["ISBN-13", attributes.isbn13],
-    ["Genre", attributes.genre],
-    ["Series", attributes.series],
-    ["Country of origin", attributes.countryOfOrigin],
-    ["Weight", attributes.weight ? `${attributes.weight} g` : undefined],
-  ].filter((entry): entry is [string, string | number] => Boolean(entry[1]))
-
   useEffect(() => {
     let active = true
     let imageUrl: string | undefined
@@ -85,7 +77,26 @@ const BookProduct = ({ productData }: BookProductProps) => {
       active = false
       if (imageUrl) URL.revokeObjectURL(imageUrl)
     }
-  }, [])
+  }, []);
+
+  const handleSubmit = async () => {
+    const formData = getProductSubmissionData((_, formData, payload) => {
+      payload.author = {
+        name: authorProfile?.name,
+        description: authorProfile?.description
+      }
+      if (authorProfile?.profile) {
+        formData.append("extraAssets", authorProfile.profile, `author`)
+      }
+    });
+
+    try {
+      const response = await createProduct(formData);
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <main className="mx-auto w-full bg-background px-3 py-4 md:px-6 md:py-6">
@@ -411,6 +422,8 @@ const BookProduct = ({ productData }: BookProductProps) => {
           )}
         </div>
       </div>
+
+      <SubmitProductBtn handleClick={handleSubmit} />
     </main>
   )
 }

@@ -9,6 +9,9 @@ import KeyAttributes from '../keyAttributes'
 import useProductVariantProvider from '@/hooks/context/useProductVariantProvider'
 import ProductVariants from '../ProductVariants'
 import { cn } from '@/lib/utils'
+import SubmitProductBtn from '../../SubmitProductBtn'
+import useFormateData from '@/hooks/seller/useFormateData'
+import { createProduct } from '@/http/seller/productHttp'
 
 
 const trustBadges = [
@@ -21,6 +24,16 @@ const trustBadges = [
 
 const PhoneProduct = ({ productData }: { productData: ProductDataType }) => {
   const { availableOptions, selectedOptions, stockAvailable } = useProductVariantProvider();
+  const { getProductSubmissionData } = useFormateData({ category: "phone" })
+  const handleSubmit = async () => {
+    const formData = getProductSubmissionData();
+    try {
+      const response = await createProduct(formData);
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <div className="mx-auto w-full bg-background px-3 py-4 md:px-6 md:py-6">
@@ -131,6 +144,7 @@ const PhoneProduct = ({ productData }: { productData: ProductDataType }) => {
           </ul>
         </div>
       </div>
+      <SubmitProductBtn handleClick={handleSubmit} />
     </div>
   )
 }
