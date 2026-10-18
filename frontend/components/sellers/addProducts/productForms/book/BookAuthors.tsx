@@ -1,15 +1,14 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
-import { BookAuthorTableType } from '@/types/dexie/bookAuthorTableType'
 import { BookAuthorType, BookAuthorValidator } from '@/validators/products/bookValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImagePlus, Save, UserRound } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../FormCard'
-import useAuthorImage from '@/hooks/dexies/useAuthorImage'
+import useAddProduct from '@/store/useAddProduct'
 
 const defaultBookAuthor: BookAuthorType = {
   name: '',
@@ -18,58 +17,46 @@ const defaultBookAuthor: BookAuthorType = {
 }
 
 const BookAuthors = () => {
-  const { addAuthorProfile, getAuthorProfile } = useAuthorImage()
-  const [profileFile, setProfileFile] = useState<File | null>(null)
-  const [imagePreview, setImagePreview] = useState('')
-  const { handleSubmit, register, reset, setValue, formState: { errors } } = useForm<BookAuthorType>({
+
+  const { addProductMetaDetail, products } = useAddProduct();
+  const { currentVariant } = products.book
+  const { handleSubmit, register, reset, watch, formState: { errors } } = useForm<BookAuthorType>({
     resolver: zodResolver(BookAuthorValidator),
     defaultValues: defaultBookAuthor,
   })
+  const imagePreview = watch("profilePicture");
 
   useEffect(() => {
-    const loadAuthorProfile = async () => {
-      const author = await getAuthorProfile()
-
-      if (!author) return
-
-      setProfileFile(author.profile)
-      setImagePreview(URL.createObjectURL(author.profile))
+    const setProductValues = () => {
+      const { variants, currentVariant } = useAddProduct.getState().products.book
+      const metaDetail = variants[currentVariant].productMetaDetail
+      const authorData = metaDetail?.author ?? defaultBookAuthor
       reset({
-        name: author.name,
-        description: author.description,
-        profilePicture: author.profile.name,
+        ...authorData
       })
     }
 
-    loadAuthorProfile()
-    return () => {
-      URL.revokeObjectURL(imagePreview);
+    if (useAddProduct.persist.hasHydrated()) {
+      setProductValues()
+      return
     }
-  }, [reset])
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const unsubscribe =
+      useAddProduct.persist.onFinishHydration(() => {
+        setProductValues()
+      })
 
-    if (!file) return
-
-    setProfileFile(file)
-    setValue('profilePicture', file.name, { shouldDirty: true, shouldValidate: true })
-    setImagePreview(URL.createObjectURL(file))
-  }
+    return unsubscribe
+  }, [currentVariant, reset])
 
   const onSubmit = async (data: BookAuthorType) => {
-    if (!profileFile) return
-
-    const profile: BookAuthorTableType = {
-      profile: profileFile,
-      name: data.name,
-      description: data.description,
-    }
-
-    await addAuthorProfile(profile)
+    addProductMetaDetail("book", {
+      "author": data
+    })
     toast.success('Author profile saved!', {
       position: 'bottom-right',
       duration: 5000,
+
     })
   }
 
@@ -83,29 +70,26 @@ const BookAuthors = () => {
         <div className="grid grid-cols-1 gap-7 p-5 sm:p-8 md:grid-cols-[180px_1fr]">
           <div className="space-y-2">
             <label className="block text-sm font-bold text-on-surface" htmlFor="author-profile-picture">
-              Profile picture
+              Profile picture URL
             </label>
-            <label
-              className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-outline-variant bg-surface-container-low transition hover:border-secondary"
-              htmlFor="author-profile-picture"
-            >
+            <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-outline-variant bg-surface-container-low">
               {imagePreview ? (
                 <img alt="Author profile preview" className="h-full w-full object-cover" src={imagePreview} />
               ) : (
                 <div className="flex flex-col items-center gap-2 p-4 text-center">
                   <ImagePlus className="text-on-surface-variant" />
-                  <span className="text-xs font-bold text-on-surface-variant">Upload photo</span>
+                  <span className="text-xs font-bold text-on-surface-variant">Enter an image URL below</span>
                 </div>
               )}
-              <input
-                accept="image/png,image/jpeg,image/webp"
-                className="sr-only"
-                id="author-profile-picture"
-                onChange={handleImageChange}
-                type="file"
-              />
-            </label>
-            {errors.profilePicture?.message && <p className="error">{errors.profilePicture.message}</p>}
+            </div>
+            <input
+              className="inputfields"
+              id="author-profile-picture"
+              type="url"
+              {...register('profilePicture')}
+              placeholder="https://example.com/author.jpg"
+            />
+            {errors.profilePicture?.message && <p className="error">Please enter the author's profile picture URL.</p>}
           </div>
 
           <div className="grid grid-cols-1 gap-7 content-start">

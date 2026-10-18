@@ -25,8 +25,9 @@ const trustBadges = [
 const PhoneProduct = ({ productData }: { productData: ProductDataType }) => {
   const { availableOptions, selectedOptions, stockAvailable } = useProductVariantProvider();
   const { getProductSubmissionData } = useFormateData({ category: "phone" })
+
   const handleSubmit = async () => {
-    const formData = getProductSubmissionData();
+    const formData = await getProductSubmissionData();
     try {
       const response = await createProduct(formData);
       console.log(response)

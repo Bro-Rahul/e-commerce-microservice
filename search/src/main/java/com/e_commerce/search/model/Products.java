@@ -1,6 +1,5 @@
 package com.e_commerce.search.model;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -23,6 +22,8 @@ public class Products {
     
     private String productId;
 
+    private String variantId;
+
     private String title;
 
     private String category;
@@ -40,6 +41,8 @@ public class Products {
 
     private ProductMediaAssets assets;
 
-    private List<ProductInventory> inventory;
+    private ProductInventory inventory;
+
+    private Map<String,Object> variantInfo;
 
 }

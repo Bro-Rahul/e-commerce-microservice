@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductInventoryRequest {
 
+    private String variantId;
+
     private String sku;
 
     private String name;

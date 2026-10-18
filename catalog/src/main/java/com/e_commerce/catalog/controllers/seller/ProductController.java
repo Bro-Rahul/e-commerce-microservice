@@ -32,11 +32,10 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<?> createProduct(
             @RequestPart("variants") List<ProductCreationRequest> productVariants,
-            @RequestPart("image") List<MultipartFile> images,
-            @RequestPart(value = "extraAssets", required = false) List<MultipartFile> extraAssets,
+            @RequestPart("images") List<MultipartFile> images,
             @RequestPart("imageMetaDetail") List<AssetsMetaDetails> imageDetail) {
 
-        return productService.createProduct(productVariants, images, extraAssets, imageDetail);
+        return productService.createProduct(productVariants, images, imageDetail);
 
     }
 

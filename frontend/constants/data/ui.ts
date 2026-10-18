@@ -39,3 +39,38 @@ export const Categories: Category[] = [
     { name: "Beauty", description: "Skincare, cosmetics & care", icon: Sparkles, href: "/seller/add-product/beauty" },
     { name: "Toys & games", description: "Play, puzzles & hobbies", icon: ToyBrick, href: "/seller/add-product/games" },
 ]
+
+interface SelectInputsOptionsTypes {
+    name: string,
+    lable: string
+}
+
+export const AvailableCategory: SelectInputsOptionsTypes[] = [
+    {
+        name: "books",
+        lable: "Books"
+    },
+    {
+        name: "phones",
+        lable: "Phones"
+    }
+]
+
+export const ProductStatusList: SelectInputsOptionsTypes[] = [
+    {
+        name: "ACTIVE",
+        lable: "Active"
+    },
+    {
+        name: "OUT_OF_STOCK",
+        lable: "Out of stock"
+    },
+    {
+        name: "PENDING_REVIEW",
+        lable: "Pending Review"
+    },
+    {
+        name: "ARCHIVED",
+        lable: "Archived"
+    }
+]

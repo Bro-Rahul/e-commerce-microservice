@@ -1,7 +1,5 @@
 
 "use client"
-
-import { useEffect, useState } from "react"
 import {
   BookOpenText,
   CheckCircle2,
@@ -10,12 +8,9 @@ import {
   RotateCcw,
   ShieldCheck,
   Truck,
-  Upload,
 } from "lucide-react"
 
-import type { ProductDataType, ProductMetaDetailsType } from "@/types/ProductDisplayTypes"
-import type { BookAuthorTableType } from "@/types/dexie/bookAuthorTableType"
-import db from "@/lib/dexie/db"
+import type { ProductDataType } from "@/types/ProductDisplayTypes"
 
 import ImageDisplay from "../ImageDisplay"
 import Imagecarousel from "../Imagecarousel"
@@ -24,7 +19,6 @@ import useProductVariantProvider from "@/hooks/context/useProductVariantProvider
 import KeyAttributes from "../keyAttributes"
 import SubmitProductBtn from "../../SubmitProductBtn"
 import useFormateData from "@/hooks/seller/useFormateData"
-import { Button } from "@/components/ui/button"
 import { createProduct } from "@/http/seller/productHttp"
 
 interface BookProductProps {
@@ -36,10 +30,6 @@ const BookProduct = ({ productData }: BookProductProps) => {
     useProductVariantProvider()
 
   const { getProductSubmissionData } = useFormateData({ category: "book" })
-
-  const [authorProfile, setAuthorProfile] = useState<
-    (BookAuthorTableType & { imageUrl: string }) | null
-  >(null)
 
   const attributes = productData?.productMetaDetails?.attribute ?? {}
   const productTitle =
@@ -58,38 +48,8 @@ const BookProduct = ({ productData }: BookProductProps) => {
       }).format(price)
       : "Price unavailable"
 
-  useEffect(() => {
-    let active = true
-    let imageUrl: string | undefined
-
-    const loadAuthorProfile = async () => {
-      const profile = await db.bookAuthor.toCollection().first()
-
-      if (!profile || !active) return
-
-      imageUrl = URL.createObjectURL(profile.profile)
-      setAuthorProfile({ ...profile, imageUrl })
-    }
-
-    void loadAuthorProfile().catch(() => undefined)
-
-    return () => {
-      active = false
-      if (imageUrl) URL.revokeObjectURL(imageUrl)
-    }
-  }, []);
-
   const handleSubmit = async () => {
-    const formData = getProductSubmissionData((_, formData, payload) => {
-      payload.author = {
-        name: authorProfile?.name,
-        description: authorProfile?.description
-      }
-      if (authorProfile?.profile) {
-        formData.append("extraAssets", authorProfile.profile, `author`)
-      }
-    });
-
+    const formData = await getProductSubmissionData();
     try {
       const response = await createProduct(formData);
       console.log(response)
@@ -385,7 +345,7 @@ const BookProduct = ({ productData }: BookProductProps) => {
           </section>
 
           {/* Author */}
-          {authorProfile && (
+          {productData?.productMetaDetails?.author && (
             <section
               className="border-t border-border px-4 py-6 md:px-6"
               aria-labelledby="about-author-heading"
@@ -399,8 +359,8 @@ const BookProduct = ({ productData }: BookProductProps) => {
 
               <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-start">
                 <img
-                  src={authorProfile.imageUrl}
-                  alt={authorProfile.name}
+                  src={productData?.productMetaDetails?.author?.profilePicture}
+                  alt={productData?.productMetaDetails?.author?.name}
                   className="size-20 shrink-0 rounded-full object-cover"
                 />
 
@@ -410,11 +370,11 @@ const BookProduct = ({ productData }: BookProductProps) => {
                       aria-hidden="true"
                       className="size-4 text-primary"
                     />
-                    {authorProfile.name}
+                    {productData?.productMetaDetails?.author?.name}
                   </h3>
 
                   <p className="mt-2 whitespace-pre-line text-sm leading-7 text-muted-foreground">
-                    {authorProfile.description}
+                    {productData?.productMetaDetails?.author?.description}
                   </p>
                 </div>
               </div>

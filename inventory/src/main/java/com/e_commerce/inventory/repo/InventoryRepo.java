@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.e_commerce.inventory.model.Inventory;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface InventoryRepo extends JpaRepository<Inventory, String> {
-    Optional<List<Inventory>> findByProductId(String productId);
+    Optional<List<Inventory>> findByVariantId(String variantId);
 }

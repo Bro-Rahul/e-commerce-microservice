@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductInventory {
 
-    private String id;
+    private String variantId;
 
     private String sku;
 

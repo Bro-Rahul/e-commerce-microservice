@@ -18,6 +18,7 @@ public interface ProductVariantsMapper {
     @Mapping(target = "description", source = "request.baseDetail.description")
     @Mapping(target = "category", source = "request.baseDetail.category")
     @Mapping(target = "aboutItem", source = "request.baseDetail.aboutItem")
+    @Mapping(target = "metaDetails", source = "request.productMetaDetail")
 
     ProductsVariants toEntity(ProductCreationRequest request, String productId);
 

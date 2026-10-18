@@ -1,9 +1,6 @@
 package com.e_commerce.catalog.config;
 
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -37,7 +34,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(inventoryQueue())
                 .to(exchange())
-                .with("catalog.created");
+                .with("catalog.product.created");
     }
 
     @Bean
@@ -45,18 +42,6 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(searchQueue())
                 .to(exchange())
-                .with("catalog.*");
-    }
-
-    @Bean
-    public JacksonJsonMessageConverter messageConverter() {
-        return new JacksonJsonMessageConverter();
-    }
-
-    @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(messageConverter());
-        return template;
+                .with("catalog.product.*");
     }
 }

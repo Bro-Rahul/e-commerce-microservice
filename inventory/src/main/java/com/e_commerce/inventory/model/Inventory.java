@@ -18,10 +18,7 @@ import lombok.NoArgsConstructor;
 public class Inventory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    private String productId;
+    private String variantId;
 
     private String sku;
 

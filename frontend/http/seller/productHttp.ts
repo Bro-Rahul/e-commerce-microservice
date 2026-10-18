@@ -1,18 +1,34 @@
-import { apiFetch } from "../authHelper"
-import baseURL from "../baseURL"
-
-const catalogServiceURL = "http://localhost:8080"
-
-const catalogPrefix = "/catalog"
-
-const catalogURL = baseURL ? `${baseURL}${catalogPrefix}` : `${catalogServiceURL}${catalogPrefix}`
+import { SellerProductListFilterType } from "@/types/searchFilter/sellerFilterTypes";
+import { apiFetch } from "../api"
+import { baseURL } from "../baseURL";
+import { SellerProductListingType } from "@/types/products/SellerProductListType";
 
 
 
 export const createProduct = (payload: FormData) => {
 
-    return apiFetch(`${catalogURL}/seller/products`, {
+    return apiFetch(`${baseURL.catalogBaseUrl}/seller/products`, {
         body: payload,
         method: "POST"
     });
+}
+
+
+export const sellerRepository = {
+    async createProduct(payload: FormData) {
+        return await apiFetch(`${baseURL.catalogBaseUrl}/seller/products`, {
+            body: payload,
+            method: "POST"
+        });
+    },
+
+    async getSellerProductList(filter: SellerProductListFilterType): Promise<SellerProductListingType[]> {
+        return await apiFetch(`${baseURL.searchBaseUrl}/seller/products`, {
+            method: "POST",
+            body: JSON.stringify(filter),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
 }

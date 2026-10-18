@@ -1,6 +1,8 @@
 package com.e_commerce.catalog.services.seller;
 
+import com.e_commerce.catalog.dto.events.publisher.product.ProductCreatedEvent;
 import com.e_commerce.catalog.dto.product.AssetsMetaDetails;
+import com.e_commerce.catalog.dto.product.KeyValuePair;
 import com.e_commerce.catalog.dto.product.ProductBaseDetail;
 import com.e_commerce.catalog.dto.product.ProductCreationRequest;
 import com.e_commerce.catalog.model.Products;
@@ -14,10 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -31,13 +34,28 @@ public class ProductService {
     public ResponseEntity<?> createProduct(
             List<ProductCreationRequest> productVariants,
             List<MultipartFile> images,
-            List<MultipartFile> extraAssets,
             List<AssetsMetaDetails> imageDetail) {
 
         Products product = productRepo.save(new Products());
         var variants = productVariantService.addProductVariants(productVariants,
-                images, extraAssets, imageDetail, product);
+                images, imageDetail, product);
 
+        var variantInventory = productVariants.stream()
+                .map(ProductCreationRequest::getInventory).toList();
+
+        Map<String, Map<String, String>> variantInfo = new HashMap<>();
+
+        for (int i = 0; i < variants.size(); i++) {
+            var inventory = variantInventory.get(i);
+            inventory.setVariantId(variants.get(i).getVariantId());
+
+            var values = Stream.of(variantInventory.get(i).getAdditionalFields())
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toMap(KeyValuePair::getKey, KeyValuePair::getValue));
+            variantInfo.put(variants.get(i).getVariantId(), values);
+
+        }
+        eventPublisher.publishEvent(new ProductCreatedEvent(variants, variantInfo,variantInventory));
         return ResponseEntity.ok(variants);
     }
 

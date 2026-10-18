@@ -1,23 +1,24 @@
 package com.e_commerce.search.rabbitmq.eventDispatcher;
 
+import com.e_commerce.search.dto.events.consumer.product.ProductCreatedEventConsumer;
+import org.springframework.amqp.core.Message;
 import org.springframework.stereotype.Component;
-
-import com.e_commerce.search.dto.events.Event;
-import com.e_commerce.search.dto.events.product.ProductCreatedEvent;
 import com.e_commerce.search.services.product.ProductService;
 
 import lombok.RequiredArgsConstructor;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @RequiredArgsConstructor
 public class ProductEventDispatcher {
 
     private final ProductService productService;
+    private final ObjectMapper objectMapper;
 
-    public void dispatchEvent(Event event) {
-        switch (event.getRoutingKey()) {
-            case "catalog.created":
-                processProductCreatedEvent((ProductCreatedEvent) event);
+    public void dispatchEvent(Message message,String routingKey) {
+        switch (routingKey) {
+            case "catalog.product.created":
+                processProductCreatedEvent(message);
                 break;
 
             default:
@@ -25,7 +26,8 @@ public class ProductEventDispatcher {
         }
     }
 
-    public void processProductCreatedEvent(ProductCreatedEvent event) {
-        productService.createProductDocument(event);
+    public void processProductCreatedEvent(Message message) {
+        ProductCreatedEventConsumer consumer = objectMapper.readValue(message.getBody(),ProductCreatedEventConsumer.class);
+        productService.createProductDocument(consumer);
     }
 }

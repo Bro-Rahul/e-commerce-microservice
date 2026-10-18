@@ -12,7 +12,7 @@ import java.util.Map;
 public class ProductsVariants {
 
     @Id
-    private String id;
+    private String variantId;
 
     private String productId;
 

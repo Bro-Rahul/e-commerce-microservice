@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.e_commerce.catalog.dto.product.AssetsMetaDetails;
 import com.e_commerce.catalog.dto.product.ProductCreationRequest;
 import com.e_commerce.catalog.mapper.productVariants.ProductVariantsMapper;
+import com.e_commerce.catalog.model.ImageType;
 import com.e_commerce.catalog.model.ProductMediaAssets;
 import com.e_commerce.catalog.model.Products;
 import com.e_commerce.catalog.model.ProductsVariants;
@@ -31,7 +32,6 @@ public class ProductVariantService {
     public List<ProductsVariants> addProductVariants(
             List<ProductCreationRequest> productCreationRequests,
             List<MultipartFile> imageFiles,
-            List<MultipartFile> extraAssets,
             List<AssetsMetaDetails> imageDetails,
             Products products) {
         Map<Integer, List<AssetsMetaDetails>> imagesByIndex = imageDetails.stream()
@@ -40,29 +40,26 @@ public class ProductVariantService {
         List<ProductsVariants> variants = new ArrayList<>();
         for (int i = 0; i < productCreationRequests.size(); i++) {
             var variantImages = imagesByIndex.getOrDefault(i + 1, List.of());
+            var imagesTypes = variantImages.stream().collect(Collectors.groupingBy(AssetsMetaDetails::getType));
 
-            var carouselImages = variantImages.stream()
-                    .filter(item -> item.getType().equals("Carousel"))
-                    .map(item -> imageFiles.get(item.getIndex()))
-                    .toList();
-            var displayImage = variantImages.stream()
-                    .filter(item -> !item.getType().equals("Carousel"))
-                    .map(item -> imageFiles.get(item.getIndex()))
-                    .toList();
-            var coverImage = variantImages.stream()
-                    .filter(item -> item.getType().equals("CoverImage"))
-                    .map(item -> imageFiles.get(item.getIndex()))
-                    .findFirst();
+            var carouselImagesAssets = imagesTypes.getOrDefault(ImageType.Carousel, List.of());
+            var displayImageAssets = imagesTypes.getOrDefault(ImageType.ImageCollection, List.of());
+            var coverImageAssets = imagesTypes.getOrDefault(ImageType.CoverImage, List.of());
 
-            if (coverImage.isEmpty())
+            if (coverImageAssets.isEmpty())
                 throw new RuntimeException("Cover Image of variant " + i + 1 + " is not provided");
+
+            var coverImage = imageFiles.get(coverImageAssets.get(0).getIndex());
+            var displayImage = displayImageAssets.stream().map(item -> imageFiles.get(item.getIndex())).toList();
+            var carouselImages = carouselImagesAssets.stream().map(item -> imageFiles.get(item.getIndex())).toList();
 
             List<String> carouselImagesUrl = fileService.storeAll(carouselImages);
             List<String> displayImagesUrl = fileService.storeAll(displayImage);
-            String coverImageURL = fileService.store(coverImage.get());
+            String coverImageURL = fileService.store(coverImage);
 
             ProductMediaAssets assets = new ProductMediaAssets(carouselImagesUrl, displayImagesUrl);
-            ProductsVariants variant = productVariantsMapper.toEntity(productCreationRequests.get(i), products.getId());
+            ProductsVariants variant = productVariantsMapper.toEntity(productCreationRequests.get(i),
+                    products.getId());
             variant.setCoverImageURL(coverImageURL);
             variant.setAssets(assets);
 

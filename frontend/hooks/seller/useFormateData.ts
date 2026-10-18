@@ -9,6 +9,7 @@ import {
 import useProductImage from "../dexies/useProductImage"
 import useImageLoader from "../dexies/useImageLoader"
 import { keyValuePairType } from "@/validators/specificationValidator"
+import { ImagePlaceType } from "@/types/dexie/mediaAssetsTypes"
 
 
 const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
@@ -64,35 +65,36 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
         }, {});
     }
 
-    const filterVariantImage = (productId: string) => {
-        return images?.filter(image => image.variantId === productId)
+    const filterVariantImage = (productId: string, imageType: ImagePlaceType) => {
+        return images?.filter(image => image.variantId === productId && image.imageType === imageType) ?? [];
     }
 
-    const getProductSubmissionData = (
-        loadExtraData?: (variantId: string, formData: FormData, payload: ProductMetaDetailsType) => void
-    ) => {
+    const getProductSubmissionData = async () => {
         const formData = new FormData();
         const assetsMeta: any[] = [];
         let index: number = 0, variantId: number = 1;
 
         const variantsData: ProductDetailsType[] = []
         Object.entries(variants).forEach(([productId, productData]) => {
-            if (loadExtraData) loadExtraData(productId, formData, productData.productMetaDetail);
             variantsData.push(productData);
 
-            const caouselImage = (filterVariantImage(productId) ?? []).filter(image => image.imageType === "Carousel");
+            const caouselImage = filterVariantImage(productId, "Carousel")
             for (const image of caouselImage) {
                 assetsMeta.push({ index: index, name: image.fileName, type: image.imageType, isCover: false, variantId: variantId })
-                formData.append("image", image.file);
+                formData.append("images", image.file);
                 index++;
             }
 
-            const imageDisplay = (filterVariantImage(productId) ?? []).filter(image => image.imageType !== "Carousel");
+            const imageDisplay = filterVariantImage(productId, "ImageCollection")
             for (const image of imageDisplay) {
                 assetsMeta.push({ index: index, name: image.fileName, type: image.imageType, isCover: image.imageType === "CoverImage", variantId: variantId })
-                formData.append("image", image.file);
+                formData.append("images", image.file);
                 index++;
             }
+            const coverImage = filterVariantImage(productId, "CoverImage").pop();
+            assetsMeta.push({ index: index, name: coverImage?.fileName, type: coverImage!.imageType, isCover: coverImage!.imageType === "CoverImage", variantId: variantId })
+            formData.append("images", coverImage?.file!);
+            index++
             variantId++;
         })
         formData.append("variants", new Blob([
@@ -108,7 +110,14 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
 
         for (const entry of formData.entries()) {
             console.log("key: " + entry[0])
-            console.log("value: " + entry[1])
+            if (entry[1] instanceof Blob) {
+                console.log("value")
+                if (entry[1].type === "application/json") {
+                    console.log(JSON.parse(await entry[1].text()))
+                } else {
+                    console.log("file value")
+                }
+            }
         }
 
         return formData;

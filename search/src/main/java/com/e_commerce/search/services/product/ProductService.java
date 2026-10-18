@@ -1,13 +1,17 @@
 package com.e_commerce.search.services.product;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.e_commerce.search.dto.events.consumer.product.ProductCreatedEventConsumer;
+import com.e_commerce.search.dto.inventory.ProductInventoryRequest;
+import com.e_commerce.search.dto.product.ProductVariantRequest;
+import com.e_commerce.search.mapper.InventoryMapper;
+import com.e_commerce.search.mapper.ProductsMapper;
+import com.e_commerce.search.model.ProductInventory;
+import com.e_commerce.search.model.Products;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.e_commerce.search.dto.events.inventory.InventoryCreatedEvent;
-import com.e_commerce.search.dto.events.product.ProductCreatedEvent;
-import com.e_commerce.search.model.Products;
 import com.e_commerce.search.repo.ProductRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -17,32 +21,23 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
 
     private final ProductRepo repo;
+    private final InventoryMapper inventoryMapper;
+    private final ProductsMapper mapper;
 
     @Transactional
-    public void createProductDocument(ProductCreatedEvent productCreatedEvent) {
-        Products product = new Products();
+    public void createProductDocument(ProductCreatedEventConsumer productCreatedEventConsumer) {
+        List<Products> productsList = new ArrayList<>();
 
-        product.setTitle(productCreatedEvent.getProduct().getTitle());
-        product.setAboutItem(productCreatedEvent.getProduct().getAboutItem());
-        product.setAssets(productCreatedEvent.getProduct().getAssets());
-        product.setCategory(productCreatedEvent.getProduct().getCategory());
-        product.setCoverImageURL(productCreatedEvent.getProduct().getCoverImageURL());
-        product.setDescription(productCreatedEvent.getProduct().getDescription());
-        product.setProductId(productCreatedEvent.getProduct().getId());
-        product.setMetaDetails(productCreatedEvent.getProduct().getMetaDetails());
-        product.setProductStatus(productCreatedEvent.getProduct().getProductStatus());
-        repo.save(product);
+        List<ProductVariantRequest> productVariantRequestList = productCreatedEventConsumer.getProducts();
+        List<ProductInventoryRequest> inventoryRequests = productCreatedEventConsumer.getProductInventory();
+        for (int i = 0; i < productVariantRequestList.size(); i++) {
+            Products product = mapper.toEntity(productVariantRequestList.get(i));
+            product.setInventory(inventoryMapper.toEntity(inventoryRequests.get(i)));
+            product.setVariantInfo(productCreatedEventConsumer.getVariantInfo());
+            productsList.add(product);
+        }
+
+        repo.saveAll(productsList);
     }
 
-    @Transactional
-    public void createInventory(String productId, InventoryCreatedEvent inventoryRequest) {
-        Optional<Products> optionalProduct = repo.findByProductId(productId);
-        if (optionalProduct.isEmpty())
-            throw new RuntimeException("Product not found");
-
-        Products product = optionalProduct.get();
-        product.setInventory(inventoryRequest.getInventories());
-        repo.save(product);
-
-    }
 }

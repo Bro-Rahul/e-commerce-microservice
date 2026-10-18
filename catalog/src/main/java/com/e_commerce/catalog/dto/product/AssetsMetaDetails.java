@@ -1,5 +1,7 @@
 package com.e_commerce.catalog.dto.product;
 
+import com.e_commerce.catalog.model.ImageType;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ public class AssetsMetaDetails {
 
     private String name;
 
-    private String type;
+    private ImageType type;
 
     private Boolean isCoverImage;
 

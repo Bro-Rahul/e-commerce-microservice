@@ -1,24 +1,34 @@
 package com.e_commerce.search.config;
 
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 public class RabbitMQConfig {
 
+    @Value("${search-exchange}")
+    private String exchangeName;
+
     @Bean
-    public JacksonJsonMessageConverter messageConverter() {
-        return new JacksonJsonMessageConverter();
+    public TopicExchange exchange(){
+        return new TopicExchange(exchangeName);
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(messageConverter());
-        return rabbitTemplate;
+    public Queue searchQueue(){
+        return new Queue("inventory.searchQueue");
     }
 
+    @Bean
+    public Binding searchBinding(){
+        return BindingBuilder
+                .bind(searchQueue())
+                .to(exchange())
+                .with("inventory.stock.*");
+    }
 }
