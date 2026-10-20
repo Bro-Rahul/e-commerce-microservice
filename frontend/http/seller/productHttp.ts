@@ -2,6 +2,7 @@ import { SellerProductListFilterType } from "@/types/searchFilter/sellerFilterTy
 import { apiFetch } from "../api"
 import { baseURL } from "../baseURL";
 import { SellerProductListingType } from "@/types/products/SellerProductListType";
+import { PaginatedResponse } from "@/types/paginatedResponseType";
 
 
 
@@ -22,7 +23,7 @@ export const sellerRepository = {
         });
     },
 
-    async getSellerProductList(filter: SellerProductListFilterType): Promise<SellerProductListingType[]> {
+    async getSellerProductList(filter: SellerProductListFilterType): Promise<PaginatedResponse<SellerProductListingType>> {
         return await apiFetch(`${baseURL.searchBaseUrl}/seller/products`, {
             method: "POST",
             body: JSON.stringify(filter),
@@ -31,4 +32,4 @@ export const sellerRepository = {
             }
         });
     }
-}
+}   

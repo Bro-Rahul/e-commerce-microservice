@@ -13,6 +13,7 @@ import FormCard from '../productForms/FormCard'
 import JsonUploadBtn from '../JsonUploadBtn'
 
 
+
 const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: AvailableCategoryType; advanceOnSave?: boolean }) => {
     const { products, addBaseDetail } = useAddProduct();
     const { currentVariant } = products[category]

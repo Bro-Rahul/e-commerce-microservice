@@ -11,6 +11,7 @@ export const productStateDefaults: ProductDetailsType = {
         description: '',
         title: ''
     },
+    isMainVariant: false,
     inventory: inventoryFieldsDefaults,
     productMetaDetail: {}
 }

@@ -1,16 +1,20 @@
 package com.e_commerce.search.services.search;
 
-import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.e_commerce.search.dto.product.SellerProduct;
+import com.e_commerce.search.dto.search.PaginatedResponse;
 import com.e_commerce.search.dto.search.SearchFilter;
 import com.e_commerce.search.model.Products;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -20,14 +24,14 @@ public class SellerSearch {
 
     private final ElasticsearchOperations elasticsearchOperations;
 
-    private List<SellerProduct> getSellerProducts(NativeQuery query) {
+    private PaginatedResponse<SellerProduct> getSellerProducts(NativeQuery query) {
         SearchHits<Products> hits =
                 elasticsearchOperations.search(
                         query,
                         Products.class
                 );
 
-        return hits.getSearchHits().stream()
+        var content = hits.getSearchHits().stream()
                 .map(hit -> {
                     Products product = hit.getContent();
 
@@ -59,38 +63,28 @@ public class SellerSearch {
                     return dto;
                 })
                 .toList();
+
+        PaginatedResponse<SellerProduct> pageResponse = getPageResponse(query, content, hits);
+        return pageResponse;
     }
 
-    public List<SellerProduct> getPendingProducts() {
-        NativeQuery query = NativeQuery.builder()
-                .withQuery(q -> q
-                        .term(t -> t
-                                .field("productStatus.keyword")
-                                .value("PENDING_REVIEW")
-                        )
-                )
-                .withSourceFilter(new FetchSourceFilter(
-                        true,
-                        new String[]{
-                                "id",
-                                "productId",
-                                "variantId",
-                                "title",
-                                "coverImage",
-                                "description",
-                                "productStatus",
-                                "inventory.price",
-                                "inventory.quantity"
-                        },
-                        null
-                ))
-                .build();
-
-        return getSellerProducts(query);
+    private static @NonNull PaginatedResponse<SellerProduct> getPageResponse(NativeQuery query, List<SellerProduct> content, SearchHits<Products> hits) {
+        Page<SellerProduct> response = new PageImpl<>(
+                content,
+                query.getPageable(),
+                hits.getTotalHits()
+        );
+        PaginatedResponse<SellerProduct> pageResponse = new PaginatedResponse<>();
+        pageResponse.setContent(response.getContent());
+        pageResponse.setCurrentPage(response.getNumber());
+        pageResponse.setFirst(response.isFirst());
+        pageResponse.setLast(response.isLast());
+        pageResponse.setTotalPages(response.getTotalPages());
+        pageResponse.setPageSize(response.getSize());
+        return pageResponse;
     }
 
-
-    public List<SellerProduct> getProducts(SearchFilter filter) {
+    public PaginatedResponse<SellerProduct> getProducts(SearchFilter filter, Pageable pageable) {
         Query finalQuery = Query.of(q -> q.bool(b -> {
 
             // 1. Category filter
@@ -98,7 +92,7 @@ public class SellerSearch {
                     && !filter.getCategory().isBlank()) {
 
                 b.filter(f -> f.term(t -> t
-                        .field("category.keyword")
+                        .field("category")
                         .value(filter.getCategory())
                 ));
             }
@@ -152,6 +146,7 @@ public class SellerSearch {
 
         NativeQuery query = NativeQuery.builder()
                 .withQuery(finalQuery)
+                .withPageable(pageable)
                 .build();
 
         return getSellerProducts(query);

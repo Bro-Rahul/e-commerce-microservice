@@ -4,5 +4,7 @@ export type SellerProductListFilterType = {
     category: string | null,
     createdAt: string | null,
     status: string | null,
-    productSearch: string | null
+    productSearch: string | null,
+    page: string,
+    pageSize: string;
 }

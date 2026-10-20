@@ -14,10 +14,11 @@ import { persist } from "zustand/middleware";
 export interface ProductDetailsType {
   baseDetail: ProductBaseFieldsType;
   inventory: InventoryFieldType;
+  isMainVariant: boolean,
   productMetaDetail: ProductMetaDetailsType;
 }
 
-type ProductVariantsType = {
+export type ProductVariantsType = {
   variants: Record<string, ProductDetailsType>;
   mainVariant: string;
   currentVariant: string;

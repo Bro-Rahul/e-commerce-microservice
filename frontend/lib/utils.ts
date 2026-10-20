@@ -1,4 +1,5 @@
 import { SelectedOptionsType, VariantOptionsType } from "@/context/ProductVariantProvider";
+import { ProductStatusType } from "@/types/searchFilter/sellerFilterTypes";
 import { keyValuePairType } from "@/validators/specificationValidator";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -68,3 +69,34 @@ export const getDefaultSelectedOptions = (
 
   return defaultSelectedOptions
 }
+export function getStockHealth(stock: number) {
+  if (stock === 0) return { label: 'Empty', color: 'text-destructive', barColor: 'bg-destructive', width: '0%' }
+  if (stock < 25) return { label: 'Critical low', color: 'text-destructive', barColor: 'bg-destructive', width: '8%' }
+  if (stock < 600) return { label: 'Moderate', color: 'text-amber-700 dark:text-amber-300', barColor: 'bg-amber-500 dark:bg-amber-400', width: '45%' }
+  return { label: 'Healthy', color: 'text-emerald-700 dark:text-emerald-400', barColor: 'bg-emerald-600 dark:bg-emerald-400', width: '85%' }
+}
+
+export function getStatusStyle(status: ProductStatusType) {
+  if (status === 'ACTIVE') return 'border-tertiary-container/30 bg-tertiary-container/10 text-tertiary-container dark:border-tertiary-container dark:bg-tertiary-container/50 dark:text-white'
+  if (status === 'PENDING_REVIEW' || status === 'DRAFT') return 'border-secondary/30 bg-secondary/15 text-secondary-container dark:border-secondary-container dark:bg-secondary-container/50 dark:text-white'
+  if (status === 'OUT_OF_STOCK') return 'border-destructive/30 bg-destructive/10 text-destructive'
+  return 'border-outline-variant bg-surface-container-high text-on-surface-variant dark:border-outline dark:bg-surface-container-high dark:text-white'
+}
+
+export function formatStatus(status: ProductStatusType) {
+  return status
+    .toLowerCase()
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+export const toCsvCell = (value: string | number) => {
+  const cell = String(value)
+  const safeCell = typeof value === 'string' && /^[\t\r\n ]*[=+\-@]/.test(cell)
+    ? `'${cell}`
+    : cell
+
+  return `"${safeCell.replaceAll('"', '""')}"`
+}
+

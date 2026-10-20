@@ -13,4 +13,6 @@ public class SearchFilter {
   private ProductStatus status;
   private String lastModified;
   private String productSearch;
+  private String page;
+  private String pageSize;
 }

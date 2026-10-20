@@ -16,7 +16,7 @@ import {
 // Sidebar Navigations Links 
 export const SideBarNavigations = [
     { name: "Dashboard", icon: LayoutDashboard, href: "/seller/dashboard" },
-    { name: "Products", icon: PackageSearch, href: "/seller/products" },
+    { name: "Products", icon: PackageSearch, href: "/seller/products/?page=0&pageSize=5" },
     { name: "Add A product", icon: PackagePlus, href: "/seller/add-product" },
 ]
 

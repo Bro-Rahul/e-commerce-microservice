@@ -37,8 +37,12 @@ public class ProductService {
             List<AssetsMetaDetails> imageDetail) {
 
         Products product = productRepo.save(new Products());
-        var variants = productVariantService.addProductVariants(productVariants,
-                images, imageDetail, product);
+        var variants = productVariantService.addProductVariants(
+                productVariants,
+                images,
+                imageDetail,
+                product
+        );
 
         var variantInventory = productVariants.stream()
                 .map(ProductCreationRequest::getInventory).toList();

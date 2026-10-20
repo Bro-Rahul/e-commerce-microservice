@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AvailableCategory, ProductStatusList } from '@/constants/data/ui';
@@ -17,6 +16,7 @@ const SearchFilterInputs = () => {
         createdAt: searchParams.get('createdAt'),
         productSearch: searchParams.get('productSearch'),
         status: searchParams.get('status'),
+        page: searchParams.get("page") ?? '1'
     }
 
 
@@ -35,7 +35,7 @@ const SearchFilterInputs = () => {
         const query = params.toString();
 
         router.replace(query ? `${pathname}?${query}` : pathname, {
-            scroll: false,
+            scroll: false
         });
     };
 

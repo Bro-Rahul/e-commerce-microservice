@@ -34,6 +34,7 @@ public class ProductVariantService {
             List<MultipartFile> imageFiles,
             List<AssetsMetaDetails> imageDetails,
             Products products) {
+
         Map<Integer, List<AssetsMetaDetails>> imagesByIndex = imageDetails.stream()
                 .collect(Collectors.groupingBy(AssetsMetaDetails::getVariantId));
 
@@ -58,11 +59,12 @@ public class ProductVariantService {
             String coverImageURL = fileService.store(coverImage);
 
             ProductMediaAssets assets = new ProductMediaAssets(carouselImagesUrl, displayImagesUrl);
-            ProductsVariants variant = productVariantsMapper.toEntity(productCreationRequests.get(i),
-                    products.getId());
+            ProductsVariants variant = productVariantsMapper.toEntity(
+                    productCreationRequests.get(i),
+                    products.getId()
+            );
             variant.setCoverImageURL(coverImageURL);
             variant.setAssets(assets);
-
             variants.add(variant);
         }
 

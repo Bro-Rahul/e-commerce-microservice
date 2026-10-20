@@ -16,7 +16,6 @@ import { phoneAttributeDefaults } from '@/constants/data/phoneData'
 const PhoneAttributesForm = () => {
     const { addProductMetaDetail, products } = useAddProduct()
     const { currentVariant, variants } = products['phone']
-    const { productMetaDetail } = variants[currentVariant]
     const { control, handleSubmit, reset } = useForm<PhoneAttributeType>({
         defaultValues: phoneAttributeDefaults,
         resolver: zodResolver(phoneAttributeValidator)

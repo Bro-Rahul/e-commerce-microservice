@@ -1,5 +1,7 @@
 package com.e_commerce.search.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -19,16 +21,21 @@ public class Products {
 
     @Id
     private String id;
-    
+
     private String productId;
 
     private String variantId;
 
+    private Boolean isMainVariant;
+
     private String title;
 
+    @Field(type = FieldType.Keyword)
     private String category;
 
     private String description;
+
+    private LocalDateTime createdAt;
 
     private String aboutItem;
 
@@ -37,12 +44,14 @@ public class Products {
     @Field(type = FieldType.Nested)
     private Map<String, Object> metaDetails;
 
+    @Field(type = FieldType.Keyword)
     private ProductStatus productStatus = ProductStatus.PENDING_REVIEW;
 
     private ProductMediaAssets assets;
 
+    @Field(type = FieldType.Nested)
     private ProductInventory inventory;
 
+    @Field(type = FieldType.Object)
     private Map<String,Object> variantInfo;
-
 }

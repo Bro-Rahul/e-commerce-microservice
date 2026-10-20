@@ -1,10 +1,13 @@
 package com.e_commerce.catalog.model;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data
@@ -19,6 +22,10 @@ public class ProductsVariants {
     private String title;
 
     private String category;
+
+    private Boolean isMainVariant;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     private String description;
 

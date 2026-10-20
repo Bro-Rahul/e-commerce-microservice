@@ -1,5 +1,6 @@
 package com.e_commerce.search.dto.product;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import com.e_commerce.search.model.ProductMediaAssets;
@@ -21,6 +22,10 @@ public class ProductVariantRequest {
     private String title;
 
     private String category;
+
+    private Boolean isMainVariant;
+
+    private LocalDateTime createdAt;
 
     private String description;
 

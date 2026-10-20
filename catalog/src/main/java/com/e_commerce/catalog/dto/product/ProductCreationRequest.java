@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.e_commerce.catalog.dto.inventory.ProductInventoryRequest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,9 @@ public class ProductCreationRequest {
     private ProductBaseDetail baseDetail;
 
     private ProductInventoryRequest inventory;
+
+    @JsonProperty("isMainVariant")
+    private Boolean isMainVariant;
 
     private Map<String, Object> productMetaDetail;
 

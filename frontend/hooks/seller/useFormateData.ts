@@ -4,7 +4,6 @@ import {
     ProductDataType,
     ProductDisplayImageType,
     ProductImageType,
-    ProductMetaDetailsType,
 } from "@/types/ProductDisplayTypes"
 import useProductImage from "../dexies/useProductImage"
 import useImageLoader from "../dexies/useImageLoader"
@@ -13,7 +12,7 @@ import { ImagePlaceType } from "@/types/dexie/mediaAssetsTypes"
 
 
 const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
-    const { variantKeys, variants } = useAddProduct(
+    const { variantKeys, variants, mainVariant } = useAddProduct(
         (state) => state.products[category]
     )
     const { getImageByCategory } = useProductImage();
@@ -76,8 +75,7 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
 
         const variantsData: ProductDetailsType[] = []
         Object.entries(variants).forEach(([productId, productData]) => {
-            variantsData.push(productData);
-
+            variantsData.push({ ...productData, isMainVariant: productId === mainVariant });
             const caouselImage = filterVariantImage(productId, "Carousel")
             for (const image of caouselImage) {
                 assetsMeta.push({ index: index, name: image.fileName, type: image.imageType, isCover: false, variantId: variantId })

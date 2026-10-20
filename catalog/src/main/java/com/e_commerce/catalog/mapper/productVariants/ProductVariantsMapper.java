@@ -9,7 +9,6 @@ import com.e_commerce.catalog.model.ProductsVariants;
 @Mapper(componentModel = "spring")
 public interface ProductVariantsMapper {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "productStatus", ignore = true)
     @Mapping(target = "coverImageURL", ignore = true)
     @Mapping(target = "assets", ignore = true)
@@ -19,7 +18,7 @@ public interface ProductVariantsMapper {
     @Mapping(target = "category", source = "request.baseDetail.category")
     @Mapping(target = "aboutItem", source = "request.baseDetail.aboutItem")
     @Mapping(target = "metaDetails", source = "request.productMetaDetail")
-
+    @Mapping(target = "isMainVariant", source = "request.isMainVariant")
     ProductsVariants toEntity(ProductCreationRequest request, String productId);
 
 }
