@@ -19,17 +19,22 @@ export interface SpecificationForm {
     data: SpecificationType
 }
 
+interface SpecificationFormProps {
+    defaultValue: SpecificationType,
+    handleFormSubmit: (data: SpecificationType) => void
+}
+
 const specificationFormValidator = z.object({
     data: specificationValidator
 })
 
-const SpecificationForm = ({ category }: { category: AvailableCategoryType }) => {
-    const { addProductMetaDetail, products } = useAddProduct();
-    const { currentVariant } = products[category];
+const SpecificationForm = ({ defaultValue, handleFormSubmit, }: SpecificationFormProps) => {
+    // const { addProductMetaDetail, products } = useAddProduct();
+    // const { currentVariant } = products[category];
 
     const methods = useForm<SpecificationForm>({
-        defaultValues: {
-            data: []
+        values: {
+            data: defaultValue
         },
         resolver: zodResolver(specificationFormValidator)
     })
@@ -40,33 +45,8 @@ const SpecificationForm = ({ category }: { category: AvailableCategoryType }) =>
     })
 
 
-    useEffect(() => {
-        const setProductValues = () => {
-            const { variants, currentVariant } = useAddProduct.getState().products[category]
-            const metaDetail = variants[currentVariant].productMetaDetail
-            const specification = metaDetail?.specifications ?? productStateDefaults.productMetaDetail
-            methods.reset({
-                data: specification
-            })
-        }
-
-        if (useAddProduct.persist.hasHydrated()) {
-            setProductValues()
-            return
-        }
-
-        const unsubscribe =
-            useAddProduct.persist.onFinishHydration(() => {
-                setProductValues()
-            })
-
-        return unsubscribe
-    }, [category, currentVariant, methods.reset])
-
     const handleSubmit = (specifications: SpecificationForm) => {
-        addProductMetaDetail(category, {
-            "specifications": specifications.data
-        });
+        handleFormSubmit(specifications.data)
         toast.success("Specifications Data Saved!", {
             position: 'bottom-right',
             duration: 5000

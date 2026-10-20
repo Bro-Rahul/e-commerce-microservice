@@ -8,46 +8,23 @@ import { Save, Smartphone } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import FormCard from '../FormCard'
 import JsonUploadBtn from '../../JsonUploadBtn'
-import useAddProduct from '@/store/useAddProduct'
-import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { phoneAttributeDefaults } from '@/constants/data/phoneData'
 
-const PhoneAttributesForm = () => {
-    const { addProductMetaDetail, products } = useAddProduct()
-    const { currentVariant, variants } = products['phone']
+interface PhoneAttributesFormProps {
+    defaultAttribute: PhoneAttributeType,
+    handleAttributeSubmit: (data: PhoneAttributeType) => void;
+}
+
+const PhoneAttributesForm = ({ defaultAttribute, handleAttributeSubmit }: PhoneAttributesFormProps) => {
     const { control, handleSubmit, reset } = useForm<PhoneAttributeType>({
-        defaultValues: phoneAttributeDefaults,
+        values: { ...phoneAttributeDefaults, ...defaultAttribute },
         resolver: zodResolver(phoneAttributeValidator)
     })
 
-    useEffect(() => {
-        const setProductValues = () => {
-            const { currentVariant, variants } = useAddProduct.getState().products.phone
-            const metaDetail = variants[currentVariant].productMetaDetail
-            const attribute = metaDetail?.attribute ?? {}
-
-            reset({ ...phoneAttributeDefaults, ...attribute })
-        }
-
-        if (useAddProduct.persist.hasHydrated()) {
-            setProductValues()
-            return
-        }
-
-        const unsubscribe =
-            useAddProduct.persist.onFinishHydration(() => {
-                setProductValues()
-            })
-
-        return unsubscribe;
-
-    }, [reset, currentVariant])
 
     const onSubmit = (data: PhoneAttributeType) => {
-        addProductMetaDetail("phone", {
-            "attribute": data
-        });
+        handleAttributeSubmit(data);
         toast.success("Product Attribute has been Saved", {
             position: 'bottom-right',
             duration: 5000

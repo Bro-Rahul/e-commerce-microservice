@@ -100,3 +100,11 @@ export const toCsvCell = (value: string | number) => {
   return `"${safeCell.replaceAll('"', '""')}"`
 }
 
+
+export const getImageUrlFromFile = (files: File[] | string[]) => {
+  return files.map(file =>
+    file instanceof File
+      ? URL.createObjectURL(file)
+      : file
+  );
+}

@@ -8,7 +8,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import FormCard from "../productForms/FormCard"
 import JsonUploadBtn from "../JsonUploadBtn"
-import { useEffect } from "react"
+
 
 export interface ArrayDataType {
   value: string
@@ -33,15 +33,11 @@ const ArrayFields = ({ description, title, searchKey, values, onSave }: ArrayFie
     formState: { errors }
 
   } = useForm<ArrayFieldsForm>({
-    defaultValues: {
+    values: {
       arrayData: values ?? [],
     },
     resolver: zodResolver(arrayFieldsValidator),
   })
-
-  useEffect(() => {
-    reset({ arrayData: values })
-  }, [values])
 
   const { fields, append, remove } = useFieldArray({
     control,

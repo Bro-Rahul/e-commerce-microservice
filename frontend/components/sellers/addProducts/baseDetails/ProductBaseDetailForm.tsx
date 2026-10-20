@@ -1,65 +1,35 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import useAddProduct from '@/store/useAddProduct'
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 import productBaseFieldsValidator, { ProductBaseFieldsType } from '@/validators/ProductBaseFieldsValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Save, SquareText } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../productForms/FormCard'
 import JsonUploadBtn from '../JsonUploadBtn'
 
 
+interface ProductBaseDetailFormProps {
+    formDefaults: ProductBaseFieldsType,
+    handleOnSubmit: (payload: ProductBaseFieldsType) => void,
+    resetAfterSubmit?: boolean
+}
 
-const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: AvailableCategoryType; advanceOnSave?: boolean }) => {
-    const { products, addBaseDetail } = useAddProduct();
-    const { currentVariant } = products[category]
+const ProductBaseDetailForm = ({ formDefaults, handleOnSubmit, resetAfterSubmit }: ProductBaseDetailFormProps) => {
+
     const { push } = useRouter();
     const { handleSubmit, register, control, reset } = useForm<ProductBaseFieldsType>({
-        defaultValues: {
-            about: '',
-            category,
-            description: '',
-            title: ''
-        },
+        values: formDefaults,
         resolver: zodResolver(productBaseFieldsValidator)
     });
-    useEffect(() => {
-        const setProductValues = () => {
-            const { variants, currentVariant } = useAddProduct.getState().products[category]
-            const { baseDetail } = variants[currentVariant]
-
-            reset({
-                about: baseDetail.about || '',
-                category,
-                description: baseDetail.description || "",
-                title: baseDetail.title || "",
-            })
-        }
-        if (useAddProduct.persist.hasHydrated()) {
-            setProductValues()
-            return
-        }
-
-        const unsubscribe = useAddProduct.persist.onFinishHydration(() => {
-            setProductValues()
-        })
-
-        return unsubscribe
-    }, [reset, currentVariant, category])
 
     const onSubmit = (data: ProductBaseFieldsType) => {
-        addBaseDetail(category, data);
+        handleOnSubmit(data)
         toast.success("Product Details Updated", {
             position: 'bottom-right',
             duration: 5000
         });
-        if (advanceOnSave) {
-            push(`/seller/add-product/${category}/media-assets`)
-        }
     }
 
     return (
@@ -118,7 +88,7 @@ const ProductBaseDetailForm = ({ category, advanceOnSave = true }: { category: A
                                         id="category"
                                         className="inputfields"
                                         {...field}
-                                        value={category.toUpperCase()}
+                                        value={formDefaults.category.toUpperCase()}
                                         disabled
                                     />
 

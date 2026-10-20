@@ -2,47 +2,30 @@ import { Button } from '@/components/ui/button'
 import { Save, Package2 } from 'lucide-react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAddProduct from '@/store/useAddProduct'
-import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { inventoryFields } from '@/constants/formFields/inventoryFields'
 import { InventoryFieldType, inventoryFieldValidator } from '@/validators/inventoryValidator'
 import FormCard from '../productForms/FormCard'
 import AdditionalFieldsForm from './AdditionalFieldsForm'
 import Field from '@/components/auth/Field'
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 import JsonUploadBtn from '../JsonUploadBtn'
-import { inventoryFieldsDefaults } from '@/constants/data/inventoryData'
 
-const InventoryForm = ({ category }: { category: AvailableCategoryType }) => {
-    const { addInventory, products } = useAddProduct();
-    const { currentVariant } = products[category]
+
+interface InventoryFormProps {
+    inventoryDefault: InventoryFieldType,
+    handleInventorySave: (data: InventoryFieldType) => void
+}
+
+
+const InventoryForm = ({ inventoryDefault, handleInventorySave }: InventoryFormProps) => {
     const methods = useForm<InventoryFieldType>({
         resolver: zodResolver(inventoryFieldValidator),
-        defaultValues: inventoryFieldsDefaults,
+        values: inventoryDefault,
     });
 
-    useEffect(() => {
-        const setProductValues = () => {
-            const { variants, currentVariant } = useAddProduct.getState().products[category]
-            const inventory = variants[currentVariant].inventory ?? inventoryFieldsDefaults
-            methods.reset(inventory)
-        }
-
-        if (useAddProduct.persist.hasHydrated()) {
-            setProductValues()
-            return
-        }
-
-        const unsubscribe = useAddProduct.persist.onFinishHydration(() => {
-            setProductValues()
-        })
-
-        return unsubscribe
-    }, [category, currentVariant, methods.reset])
 
     const handleSubmit = (data: InventoryFieldType) => {
-        addInventory(category, data)
+        handleInventorySave(data)
         toast.success('Inventory Data Saved!', {
             position: 'bottom-right',
             duration: 5000,

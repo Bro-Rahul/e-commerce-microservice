@@ -1,44 +1,33 @@
 "use client"
-import useProductImage from '@/hooks/dexies/useProductImage'
 import ImagePicker from './ImagePicker'
-import useImageLoader from '@/hooks/dexies/useImageLoader';
-import { AvailableCategoryType } from '@/types/inventoryTypes';
-import { MediaAssetsType } from '@/types/dexie/mediaAssetsTypes';
 
-const CoverImage = ({ variantId, category }: { variantId: string, category: AvailableCategoryType }) => {
-    const { addCoverImage, getImage } = useProductImage();
-    const images = useImageLoader<MediaAssetsType>({
-        dependency: [category, variantId],
-        loaderFn: async () => await getImage(category, "CoverImage", variantId)
-    })
+
+interface CoverImageProps {
+    image?: File | string
+    onImageLoaded: (files: File[]) => void
+}
+
+
+const CoverImage = ({ onImageLoaded, image }: CoverImageProps) => {
 
     const handleImage = async (files: File[]) => {
-        const imageData: MediaAssetsType = {
-            category,
-            variantId,
-            file: files[0],
-            fileName: files[0].name,
-            imageType: 'CoverImage'
-        }
-        await addCoverImage(imageData, category, variantId);
+        // const imageData: MediaAssetsType = {
+        //     category,
+        //     variantId,
+        //     file: files[0],
+        //     fileName: files[0].name,
+        //     imageType: 'CoverImage'
+        // }
+        // await addCoverImage(imageData, category, variantId);
+        onImageLoaded(files);
     }
 
-    const formattedImage = () => {
-        if (!images?.file) {
-            return [];
-        }
+    const formateImage = () => {
+        if (!image) return [];
+        if (image instanceof File) return [image]
+        return [image];
+    }
 
-        const file = new File(
-            [images.file],
-            "image.jpg",
-            {
-                type: images.file.type,
-                lastModified: Date.now(),
-            }
-        );
-
-        return [file];
-    };
     return (
         <section className="space-y-3" aria-labelledby="primary-image-heading">
             <div>
@@ -50,7 +39,7 @@ const CoverImage = ({ variantId, category }: { variantId: string, category: Avai
                 </p>
             </div>
             <ImagePicker
-                files={formattedImage()}
+                files={formateImage()}
                 htmlFor="Primary Image"
                 onImageLoad={handleImage}
             />

@@ -2,11 +2,9 @@
 import { Button } from '@/components/ui/button'
 import { defaultBookAttributes } from '@/constants/data/bookData'
 import { bookAttributesFields } from '@/constants/formFields/bookFields'
-import useAddProduct from '@/store/useAddProduct'
 import { BookAttributesType, bookAttributesValidator } from '@/validators/products/bookValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BookOpenText, Save } from 'lucide-react'
-import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../FormCard'
@@ -14,26 +12,22 @@ import JsonUploadBtn from '../../JsonUploadBtn'
 import Field from '@/components/auth/Field'
 
 
-const BookAttributesForm = () => {
-    const { addProductMetaDetail, products } = useAddProduct()
-    const { currentVariant } = products.book
+interface BookAttributesFormProps {
+    defaultValue: BookAttributesType,
+    handleAttributeSubmit: (data: BookAttributesType) => void
+
+}
+
+const BookAttributesForm = ({ defaultValue, handleAttributeSubmit }: BookAttributesFormProps) => {
 
     const { handleSubmit, register, control, reset, formState: { errors } } = useForm<BookAttributesType>({
         resolver: zodResolver(bookAttributesValidator),
-        defaultValues: defaultBookAttributes,
+        values: { ...defaultBookAttributes, ...defaultValue }
     })
 
-    useEffect(() => {
-        const { variants, currentVariant } = useAddProduct.getState().products.book
-        const metaDetail = variants[currentVariant].productMetaDetail
-        const attribute = metaDetail?.attribute
-        reset({ ...defaultBookAttributes, ...attribute })
-    }, [reset, currentVariant])
 
     const onSubmit = (data: BookAttributesType) => {
-        addProductMetaDetail('book', {
-            "attribute": data
-        })
+        handleAttributeSubmit(data)
         toast.success('Book details saved!', {
             position: 'bottom-right',
             duration: 5000,

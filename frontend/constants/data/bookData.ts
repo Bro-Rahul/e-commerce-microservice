@@ -1,4 +1,4 @@
-import { BookAttributesType } from "@/validators/products/bookValidator";
+import { BookAttributesType, BookAuthorType } from "@/validators/products/bookValidator";
 
 export const defaultBookAttributes: BookAttributesType = {
     author: '',
@@ -20,6 +20,12 @@ export const defaultBookAttributes: BookAttributesType = {
     width: undefined,
     thickness: undefined,
     weight: undefined,
+}
+
+export const defaultBookAuthor: BookAuthorType = {
+    name: '',
+    description: '',
+    profilePicture: '',
 }
 
 

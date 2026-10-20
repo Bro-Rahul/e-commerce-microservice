@@ -1,5 +1,4 @@
 "use client"
-import useAddProduct from '@/store/useAddProduct'
 import { AvailableCategoryType } from '@/types/inventoryTypes'
 import FormCard from '../productForms/FormCard'
 import { Images } from 'lucide-react'
@@ -7,9 +6,78 @@ import CoverImage from './CoverImage'
 import ImageCarousel from './ImageCarousel'
 import ImageCollection from './ImageCollection'
 import SaveAssetsBtn from './SaveAssetsBtn'
+import useImageLoader from '@/hooks/dexies/useImageLoader'
+import { ImagePlaceType, MediaAssetsType } from '@/types/dexie/mediaAssetsTypes'
+import useProductImage from '@/hooks/dexies/useProductImage'
 
-const AssetsForm = ({ category }: { category: AvailableCategoryType }) => {
-    const { currentVariant } = useAddProduct((state) => state.products[category])
+interface AssetsFormProps {
+    currentVariantId: string,
+    category: AvailableCategoryType
+}
+
+const AssetsForm = ({ category, currentVariantId }: AssetsFormProps) => {
+    const {
+        addCoverImage,
+        addCarouselImages,
+        addImageCollection,
+        getVariantImagesForAnCategory
+    } = useProductImage();
+    const images = useImageLoader<MediaAssetsType[]>({
+        dependency: [category, currentVariantId],
+        loaderFn: async () => await getVariantImagesForAnCategory(currentVariantId, category)
+    })
+    console.log(images)
+
+    const handleImageUpload = async (files: File[], imageType: ImagePlaceType) => {
+        const payload: MediaAssetsType[] = [];
+        files.forEach(file => {
+            const imageData: MediaAssetsType = {
+                category,
+                variantId: currentVariantId,
+                file: file,
+                fileName: file.name,
+                imageType
+            }
+            payload.push(imageData);
+        });
+
+        switch (imageType) {
+            case 'CoverImage':
+                await addCoverImage(payload[0], category, currentVariantId);
+                break;
+            case 'Carousel':
+                await addCarouselImages(payload, category, currentVariantId);
+                break;
+            case 'ImageCollection':
+                await addImageCollection(payload, category, currentVariantId);
+                break;
+        }
+
+    }
+
+    const getCoverImageFile = (asset: MediaAssetsType | undefined) => {
+        if (!asset) return undefined;
+        return new File(
+            [asset.file],
+            asset.fileName,
+            {
+                type: asset.file.type
+            }
+        )
+    }
+
+    const filterImages = (imageType: ImagePlaceType) => {
+        if (!images) return undefined;
+        return images
+            .filter(image => image.imageType === imageType)
+            .map(image => new File(
+                [image.file],
+                image.fileName, {
+                type: image.file.type
+            }
+            ));
+    }
+
     return (
         <FormCard
             Icon={Images}
@@ -18,22 +86,22 @@ const AssetsForm = ({ category }: { category: AvailableCategoryType }) => {
         >
             <div className="space-y-8 p-5 sm:p-8">
                 <CoverImage
-                    category={category}
-                    variantId={currentVariant}
+                    onImageLoaded={(files) => handleImageUpload(files, "CoverImage")}
+                    image={getCoverImageFile(images?.find(image => image.imageType === "CoverImage"))}
                 />
                 <ImageCarousel
-                    category={category}
-                    variantId={currentVariant}
+                    onImageLoaded={(files) => handleImageUpload(files, "Carousel")}
+                    images={filterImages("Carousel")}
                 />
                 <ImageCollection
-                    category={category}
-                    variantId={currentVariant}
+                    onImageLoaded={(files) => handleImageUpload(files, "ImageCollection")}
+                    images={filterImages("ImageCollection")}
                 />
             </div>
             <SaveAssetsBtn
                 slug={category}
                 advanceOnSave={false}
-                variantId={currentVariant}
+                variantId={currentVariantId}
             />
         </FormCard>
     )

@@ -4,55 +4,26 @@ import { Button } from '@/components/ui/button'
 import { BookAuthorType, BookAuthorValidator } from '@/validators/products/bookValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImagePlus, Save, UserRound } from 'lucide-react'
-import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../FormCard'
-import useAddProduct from '@/store/useAddProduct'
+import { defaultBookAuthor } from '@/constants/data/bookData'
 
-const defaultBookAuthor: BookAuthorType = {
-  name: '',
-  description: '',
-  profilePicture: '',
+interface BookAuthorsProps {
+  defaultValue: BookAuthorType,
+  handleSubmitAuthor: (data: BookAuthorType) => void
 }
 
-const BookAuthors = () => {
+const BookAuthors = ({ defaultValue, handleSubmitAuthor }: BookAuthorsProps) => {
 
-  const { addProductMetaDetail, products } = useAddProduct();
-  const { currentVariant } = products.book
   const { handleSubmit, register, reset, watch, formState: { errors } } = useForm<BookAuthorType>({
     resolver: zodResolver(BookAuthorValidator),
-    defaultValues: defaultBookAuthor,
+    values: { ...defaultBookAuthor, ...defaultValue }
   })
   const imagePreview = watch("profilePicture");
 
-  useEffect(() => {
-    const setProductValues = () => {
-      const { variants, currentVariant } = useAddProduct.getState().products.book
-      const metaDetail = variants[currentVariant].productMetaDetail
-      const authorData = metaDetail?.author ?? defaultBookAuthor
-      reset({
-        ...authorData
-      })
-    }
-
-    if (useAddProduct.persist.hasHydrated()) {
-      setProductValues()
-      return
-    }
-
-    const unsubscribe =
-      useAddProduct.persist.onFinishHydration(() => {
-        setProductValues()
-      })
-
-    return unsubscribe
-  }, [currentVariant, reset])
-
   const onSubmit = async (data: BookAuthorType) => {
-    addProductMetaDetail("book", {
-      "author": data
-    })
+    handleSubmitAuthor(data);
     toast.success('Author profile saved!', {
       position: 'bottom-right',
       duration: 5000,

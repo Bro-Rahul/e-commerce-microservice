@@ -1,11 +1,12 @@
 import ProductBaseDetailForm from '@/components/sellers/addProducts/baseDetails/ProductBaseDetailForm'
 import Heading from '@/components/sellers/addProducts/Heading'
-import ProductSpecificForm from '@/components/sellers/addProducts/productForms/ProductSpecificAttributeForm'
 import MainVariantCheckbox from '@/components/sellers/addProducts/MainVariantCheckbox'
 import { AvailableCategoryType } from '@/types/inventoryTypes'
 import { ClipboardList, Images } from 'lucide-react'
 import AssetsForm from '@/components/sellers/addProducts/mediaAssets/AssetsForm'
 import ViewProductBtn from '@/components/sellers/addProducts/ViewProductBtn'
+import ProductFormRenderer from '@/components/sellers/addProducts/productForms/ProductFormRenderer'
+import MainFormWrapper from '@/components/sellers/addProducts/MainFormWrapper'
 
 interface ProductFormPageProps {
     params: Promise<{
@@ -29,12 +30,7 @@ const page = async ({ params }: ProductFormPageProps) => {
                     <MainVariantCheckbox category={slug} />
                 </span>
             </Heading>
-
-            <div className="space-y-6">
-                <ProductBaseDetailForm category={slug} advanceOnSave={false} />
-                <AssetsForm category={slug} />
-                <ProductSpecificForm category={slug} />
-            </div>
+            <MainFormWrapper category={slug} />
             <ViewProductBtn category={slug} />
         </main>
     )

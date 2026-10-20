@@ -80,7 +80,7 @@ const useProductImage = () => {
 
     const getVariantImagesForAnCategory = async (
         variantId: string,
-        category: string
+        category: AvailableCategoryType
     ) => {
         const images = await db.mediaAssets
             .where(["category+variantId"])
@@ -90,7 +90,7 @@ const useProductImage = () => {
     }
 
     const getImageByCategory = async (
-        category: string
+        category: AvailableCategoryType
     ) => {
         const images = await db.mediaAssets
             .where("category")
@@ -101,7 +101,7 @@ const useProductImage = () => {
 
     const deleteVariantImages = async (
         variantId: string,
-        category: string
+        category: AvailableCategoryType
     ) => {
         const images = await db.mediaAssets
             .where(["category+variantId"])

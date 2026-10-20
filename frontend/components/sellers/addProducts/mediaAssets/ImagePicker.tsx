@@ -1,57 +1,50 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import ImageViewer from './ImageViewer'
+import { getImageUrlFromFile } from '@/lib/utils';
 
 interface ImagePickerProps {
     multiple?: boolean,
     htmlFor: string,
-    files?: File[]
+    files?: File[] | string[],
     onImageLoad?: (files: File[]) => void;
     render?: (images: string[]) => React.ReactNode
 }
 
+
+
 const ImagePicker = ({ multiple, htmlFor, files, render, onImageLoad }: ImagePickerProps) => {
-    const [imageFiles, setImageFiles] = useState<File[]>(files ?? []);
-    const [imageUrls, setImageUrls] = useState<string[]>([]);
+    const [imageUrls, setImageUrls] = useState<string[]>(() => getImageUrlFromFile(files ?? []));
 
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files
-
         if (!fileList) return
 
         const files = Array.from(fileList)
         if (onImageLoad) onImageLoad(files);
-        setImageFiles(files)
+        setImageUrls(pre => {
+            pre.forEach(file => URL.revokeObjectURL(file));
+
+            return files.map(file =>
+                URL.createObjectURL(file)
+            );
+        })
     }
 
     useEffect(() => {
-        setImageFiles(files ?? [])
-    }, [files])
-
-    useEffect(() => {
-        if (imageFiles.length === 0) {
-            setImageUrls([]);
-            return;
-        }
-
-        const urls = imageFiles.map(file =>
-            URL.createObjectURL(file)
-        );
-
-        setImageUrls(urls);
-
+        setImageUrls(getImageUrlFromFile(files ?? []))
         return () => {
-            urls.forEach(url => {
+            imageUrls.forEach(url => {
                 URL.revokeObjectURL(url);
             });
         };
-    }, [imageFiles]);
+    }, [files]);
 
 
     return (
 
         <label
-            className={`group relative flex min-h-64 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low px-6 py-8 text-center transition hover:border-secondary hover:bg-secondary/5 ${imageFiles ? "border-solid" : ""}`}
+            className={`group relative flex min-h-64 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low px-6 py-8 text-center transition hover:border-secondary hover:bg-secondary/5 ${imageUrls ? "border-solid" : ""}`}
             htmlFor={htmlFor}
         >
 
@@ -67,7 +60,6 @@ const ImagePicker = ({ multiple, htmlFor, files, render, onImageLoad }: ImagePic
                 className="sr-only"
                 id={htmlFor}
                 onChange={handleChange}
-                required={!imageFiles}
                 type="file"
                 multiple={multiple}
             />
