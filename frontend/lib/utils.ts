@@ -108,3 +108,15 @@ export const getImageUrlFromFile = (files: File[] | string[]) => {
       : file
   );
 }
+
+export const verifyImageURL = async (url: string) => {
+  try {
+    const response = await fetch(url, {
+      method: "HEAD"
+    })
+    if (response.headers.get("Content-Type")?.startsWith("image/")) return true;
+    throw Error("Url is not an image ");
+  } catch (err) {
+    throw Error("Fetch fail can't reach to server")
+  }
+}

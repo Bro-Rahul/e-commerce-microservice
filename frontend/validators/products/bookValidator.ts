@@ -1,3 +1,4 @@
+import { verifyImageURL } from "@/lib/utils";
 import z from "zod";
 
 
@@ -141,8 +142,19 @@ export const BookAuthorValidator = z.object({
         .min(1, "Please enter an author description"),
 
     profilePicture: z
-        .string({ error: "Please upload the author's profile picture" })
-        .min(1, "Please upload the author's profile picture"),
+        .string()
+        .refine(
+            async (url) => {
+                try {
+                    return await verifyImageURL(url);
+                } catch {
+                    return false;
+                }
+            },
+            {
+                message: "URL is not a valid image URL!",
+            }
+        ),
 });
 
 export type BookAuthorType = z.infer<typeof BookAuthorValidator>;

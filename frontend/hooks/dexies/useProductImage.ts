@@ -67,7 +67,7 @@ const useProductImage = () => {
         category: AvailableCategoryType,
         variantId: string,
     ) => {
-        addImages(images, category, "Carousel", variantId)
+        addImages(images, category, "CarouselImages", variantId)
     }
 
     const addImageCollection = async (
@@ -75,7 +75,7 @@ const useProductImage = () => {
         category: AvailableCategoryType,
         variantId: string,
     ) => {
-        addImages(images, category, "ImageCollection", variantId)
+        addImages(images, category, "CollectionImages", variantId)
     }
 
     const getVariantImagesForAnCategory = async (

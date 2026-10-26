@@ -25,7 +25,7 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
     const getDisplayImage = (
         variantsId: string,
     ): ProductDisplayImageType[] => {
-        return images?.filter(image => image.imageType !== "Carousel" && image.variantId === variantsId)
+        return images?.filter(image => image.imageType !== "CarouselImages" && image.variantId === variantsId)
             .map((image) => ({
                 imageURL: URL.createObjectURL(image.file),
                 isCoverImage: image.imageType === "CoverImage",
@@ -35,7 +35,7 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
 
 
     const getCarouselImages = (variantsId: string): ProductImageType[] => {
-        return images?.filter(image => image.imageType === "Carousel" && image.variantId === variantsId)
+        return images?.filter(image => image.imageType === "CarouselImages" && image.variantId === variantsId)
             .map((image) => ({
                 imageURL: URL.createObjectURL(image.file),
                 name: image.fileName,
@@ -76,14 +76,14 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
         const variantsData: ProductDetailsType[] = []
         Object.entries(variants).forEach(([productId, productData]) => {
             variantsData.push({ ...productData, isMainVariant: productId === mainVariant });
-            const caouselImage = filterVariantImage(productId, "Carousel")
+            const caouselImage = filterVariantImage(productId, "CarouselImages")
             for (const image of caouselImage) {
                 assetsMeta.push({ index: index, name: image.fileName, type: image.imageType, isCover: false, variantId: variantId })
                 formData.append("images", image.file);
                 index++;
             }
 
-            const imageDisplay = filterVariantImage(productId, "ImageCollection")
+            const imageDisplay = filterVariantImage(productId, "CollectionImages")
             for (const image of imageDisplay) {
                 assetsMeta.push({ index: index, name: image.fileName, type: image.imageType, isCover: image.imageType === "CoverImage", variantId: variantId })
                 formData.append("images", image.file);
@@ -95,6 +95,9 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
             index++
             variantId++;
         })
+
+        formData.append("category", category);
+
         formData.append("variants", new Blob([
             JSON.stringify(variantsData)
         ], {

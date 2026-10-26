@@ -45,10 +45,10 @@ const AssetsForm = ({ category, currentVariantId }: AssetsFormProps) => {
             case 'CoverImage':
                 await addCoverImage(payload[0], category, currentVariantId);
                 break;
-            case 'Carousel':
+            case 'CarouselImages':
                 await addCarouselImages(payload, category, currentVariantId);
                 break;
-            case 'ImageCollection':
+            case 'CollectionImages':
                 await addImageCollection(payload, category, currentVariantId);
                 break;
         }
@@ -90,12 +90,12 @@ const AssetsForm = ({ category, currentVariantId }: AssetsFormProps) => {
                     image={getCoverImageFile(images?.find(image => image.imageType === "CoverImage"))}
                 />
                 <ImageCarousel
-                    onImageLoaded={(files) => handleImageUpload(files, "Carousel")}
-                    images={filterImages("Carousel")}
+                    onImageLoaded={(files) => handleImageUpload(files, "CarouselImages")}
+                    images={filterImages("CarouselImages")}
                 />
                 <ImageCollection
-                    onImageLoaded={(files) => handleImageUpload(files, "ImageCollection")}
-                    images={filterImages("ImageCollection")}
+                    onImageLoaded={(files) => handleImageUpload(files, "CollectionImages")}
+                    images={filterImages("CollectionImages")}
                 />
             </div>
             <SaveAssetsBtn

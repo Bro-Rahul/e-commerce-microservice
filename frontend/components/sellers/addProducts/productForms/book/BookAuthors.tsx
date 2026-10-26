@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button'
 import { BookAuthorType, BookAuthorValidator } from '@/validators/products/bookValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImagePlus, Save, UserRound } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../FormCard'
 import { defaultBookAuthor } from '@/constants/data/bookData'
+import Field from '@/components/auth/Field'
 
 interface BookAuthorsProps {
   defaultValue: BookAuthorType,
@@ -16,7 +17,7 @@ interface BookAuthorsProps {
 
 const BookAuthors = ({ defaultValue, handleSubmitAuthor }: BookAuthorsProps) => {
 
-  const { handleSubmit, register, reset, watch, formState: { errors } } = useForm<BookAuthorType>({
+  const { handleSubmit, register, watch, control } = useForm<BookAuthorType>({
     resolver: zodResolver(BookAuthorValidator),
     values: { ...defaultBookAuthor, ...defaultValue }
   })
@@ -27,68 +28,94 @@ const BookAuthors = ({ defaultValue, handleSubmitAuthor }: BookAuthorsProps) => 
     toast.success('Author profile saved!', {
       position: 'bottom-right',
       duration: 5000,
-
     })
   }
 
+  const onErr = (err: any) => {
+    console.log(err)
+  }
   return (
     <FormCard
       Icon={UserRound}
       heading="Author profile"
       description="Add the author information shown on the book page."
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, onErr)}>
         <div className="grid grid-cols-1 gap-7 p-5 sm:p-8 md:grid-cols-[180px_1fr]">
           <div className="space-y-2">
-            <label className="block text-sm font-bold text-on-surface" htmlFor="author-profile-picture">
-              Profile picture URL
-            </label>
-            <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-outline-variant bg-surface-container-low">
-              {imagePreview ? (
-                <img alt="Author profile preview" className="h-full w-full object-cover" src={imagePreview} />
-              ) : (
-                <div className="flex flex-col items-center gap-2 p-4 text-center">
-                  <ImagePlus className="text-on-surface-variant" />
-                  <span className="text-xs font-bold text-on-surface-variant">Enter an image URL below</span>
-                </div>
-              )}
-            </div>
-            <input
-              className="inputfields"
-              id="author-profile-picture"
-              type="url"
-              {...register('profilePicture')}
-              placeholder="https://example.com/author.jpg"
+            <Controller
+              control={control}
+              name='profilePicture'
+              render={({ field, fieldState: { error } }) =>
+                <Field
+                  htmlFor='author-profile-picture'
+                  label='Profile picture URL'
+                  error={error?.message}
+                  required
+                >
+                  <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-outline-variant bg-surface-container-low">
+                    {imagePreview ? (
+                      <img alt="Author profile preview" className="h-full w-full object-cover" src={imagePreview} />
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 p-4 text-center">
+                        <ImagePlus className="text-on-surface-variant" />
+                        <span className="text-xs font-bold text-on-surface-variant">Enter an image URL below</span>
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    className="inputfields"
+                    id="author-profile-picture"
+                    type="url"
+                    {...field}
+                    placeholder="https://example.com/author.jpg"
+                  />
+                </Field>}
             />
-            {errors.profilePicture?.message && <p className="error">Please enter the author's profile picture URL.</p>}
           </div>
 
           <div className="grid grid-cols-1 gap-7 content-start">
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-on-surface" htmlFor="author-name">
-                Author Name
-              </label>
-              <input
-                className="inputfields"
-                id="author-name"
-                {...register('name')}
-                placeholder="Enter author name"
-              />
-              {errors.name?.message && <p className="error">{errors.name.message}</p>}
-            </div>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-on-surface" htmlFor="author-description">
-                About the Author
-              </label>
-              <textarea
-                className="textareafield min-h-32"
-                id="author-description"
-                {...register('description')}
-                placeholder="Share a short biography or introduction"
-              />
-              {errors.description?.message && <p className="error">{errors.description.message}</p>}
-            </div>
+            <Controller
+
+              control={control}
+              name='name'
+              render={({ field, fieldState: { error } }) =>
+                <Field
+                  error={error?.message}
+                  htmlFor='author-name'
+                  label='Author Name'
+                  optionalText='Author Name'
+                >
+                  <input
+                    className="inputfields"
+                    id="author-name"
+                    {...field}
+                    placeholder="Enter author name"
+                  />
+                </Field>}
+            />
+
+
+            <Controller
+              control={control}
+              name='description'
+              render={({ field, fieldState: { error } }) =>
+                <Field
+                  htmlFor='author-description'
+                  label='About the Author'
+                  error={error?.message}
+                  optionalText='About the Author'
+                >
+                  <textarea
+                    className="textareafield min-h-32"
+                    id="author-description"
+                    {...field}
+                    placeholder="Share a short biography or introduction"
+                  />
+                </Field>
+              }
+            />
           </div>
         </div>
 

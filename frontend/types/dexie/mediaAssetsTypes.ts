@@ -1,6 +1,6 @@
 import { AvailableCategoryType } from "../inventoryTypes"
 
-export type ImagePlaceType = "CoverImage" | "Carousel" | "ImageCollection"
+export type ImagePlaceType = "CoverImage" | "CarouselImages" | "CollectionImages"
 
 
 export type MediaAssetsType = {

@@ -11,7 +11,8 @@ import ProductVariants from '../ProductVariants'
 import { cn } from '@/lib/utils'
 import SubmitProductBtn from '../../SubmitProductBtn'
 import useFormateData from '@/hooks/seller/useFormateData'
-import { createProduct } from '@/http/seller/productHttp'
+import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import toast from 'react-hot-toast'
 
 
 const trustBadges = [
@@ -29,10 +30,16 @@ const PhoneProduct = ({ productData }: { productData: ProductDataType }) => {
   const handleSubmit = async () => {
     const formData = await getProductSubmissionData();
     try {
-      const response = await createProduct(formData);
-      console.log(response)
-    } catch (err) {
-      console.log(err)
+      await sellerRepository.createProduct(formData);
+      toast.success("Product Created", {
+        position: "bottom-right",
+        duration: 5000
+      })
+    } catch (err: any) {
+      toast.error(err.message, {
+        position: "bottom-right",
+        duration: 5000
+      })
     }
   }
 

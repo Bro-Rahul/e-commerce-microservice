@@ -1,5 +1,5 @@
-import { ApiError } from "@/http/apiError";
-import { loginUser } from "@/http/auth/authHttp";
+import { ApiError } from "@/repositary/apiError";
+import { authRepositary } from "@/repositary/auth/authHttp";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -10,7 +10,7 @@ const options: NextAuthOptions = {
             name: "Sign in with ShopDirect",
             async authorize(credentials, req) {
                 try {
-                    const response = await loginUser({
+                    const response = await authRepositary.loginUser({
                         email: credentials?.username ?? "",
                         password: credentials?.password ?? "",
                     });

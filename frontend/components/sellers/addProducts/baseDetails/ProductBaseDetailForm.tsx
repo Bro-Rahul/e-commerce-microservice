@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import productBaseFieldsValidator, { ProductBaseFieldsType } from '@/validators/ProductBaseFieldsValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Save, SquareText } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormCard from '../productForms/FormCard'
@@ -18,7 +17,6 @@ interface ProductBaseDetailFormProps {
 
 const ProductBaseDetailForm = ({ formDefaults, handleOnSubmit, resetAfterSubmit }: ProductBaseDetailFormProps) => {
 
-    const { push } = useRouter();
     const { handleSubmit, register, control, reset } = useForm<ProductBaseFieldsType>({
         values: formDefaults,
         resolver: zodResolver(productBaseFieldsValidator)

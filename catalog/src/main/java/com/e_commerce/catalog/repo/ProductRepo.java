@@ -1,7 +1,8 @@
 package com.e_commerce.catalog.repo;
 
 import com.e_commerce.catalog.model.Products;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepo extends MongoRepository<Products, String> {
+
+public interface ProductRepo extends JpaRepository<Products,String>  {
 }

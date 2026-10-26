@@ -19,7 +19,8 @@ import useProductVariantProvider from "@/hooks/context/useProductVariantProvider
 import KeyAttributes from "../keyAttributes"
 import SubmitProductBtn from "../../SubmitProductBtn"
 import useFormateData from "@/hooks/seller/useFormateData"
-import { createProduct } from "@/http/seller/productHttp"
+import toast from "react-hot-toast"
+import { sellerRepository } from "@/repositary/seller/sellerHttp"
 
 interface BookProductProps {
   productData: ProductDataType
@@ -51,10 +52,16 @@ const BookProduct = ({ productData }: BookProductProps) => {
   const handleSubmit = async () => {
     const formData = await getProductSubmissionData();
     try {
-      const response = await createProduct(formData);
-      console.log(response)
-    } catch (err) {
-      console.log(err)
+      await sellerRepository.createProduct(formData);
+      toast.success("Product Created", {
+        position: "bottom-right",
+        duration: 5000
+      })
+    } catch (err: any) {
+      toast.error(err.message, {
+        position: "bottom-right",
+        duration: 5000
+      })
     }
   }
 

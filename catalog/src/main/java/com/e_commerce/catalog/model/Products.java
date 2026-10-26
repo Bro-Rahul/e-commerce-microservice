@@ -1,10 +1,9 @@
 package com.e_commerce.catalog.model;
 
-import java.util.Map;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("products")
+@Entity
 public class Products {
 
     @Id
-    private String id;
-
-    private Map<String, Object> metaDetails;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String productId;
 }

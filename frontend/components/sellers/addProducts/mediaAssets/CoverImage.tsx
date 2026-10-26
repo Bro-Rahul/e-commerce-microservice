@@ -11,14 +11,6 @@ interface CoverImageProps {
 const CoverImage = ({ onImageLoaded, image }: CoverImageProps) => {
 
     const handleImage = async (files: File[]) => {
-        // const imageData: MediaAssetsType = {
-        //     category,
-        //     variantId,
-        //     file: files[0],
-        //     fileName: files[0].name,
-        //     imageType: 'CoverImage'
-        // }
-        // await addCoverImage(imageData, category, variantId);
         onImageLoaded(files);
     }
 
