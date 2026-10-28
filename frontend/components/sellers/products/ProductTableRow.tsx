@@ -1,7 +1,9 @@
 import Image from "next/image"
 import { SellerProductListingType } from '@/types/products/SellerProductListType'
 import { formatStatus, getStatusStyle, getStockHealth } from '@/lib/utils'
-import { baseURL } from "@/http/baseURL"
+import { baseURL } from "@/repositary/baseURL"
+import Link from "next/link"
+
 
 interface ProductTableRowProps {
     product: SellerProductListingType
@@ -25,25 +27,27 @@ const ProductTableRow = ({ product, isSelected, onSelectionChange }: ProductTabl
                 />
             </td>
             <td className="px-3 py-3.5">
-                <div className="flex min-w-64 items-center gap-3">
-                    {product.coverImage ? (
-                        <Image
-                            src={`${baseURL.assetsBaseURL}${product.coverImage}`}
-                            alt={`${product.title} cover`}
-                            width={56}
-                            height={56}
-                            unoptimized
-                            className="size-14 shrink-0 border border-outline-variant/70 object-cover"
-                        />
-                    ) : (
-                        <div aria-hidden="true" className="size-14 shrink-0 border border-outline-variant/70 bg-surface-container-high" />
-                    )}
-                    <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-foreground">{product.title}</p>
-                        <p className="mt-0.5 truncate text-xs text-muted-foreground">{product.description}</p>
-                        <p className="mt-0.5 text-[10px] text-muted-foreground">Product ID: {product.productId}</p>
+                <Link href={`/seller/products/${product.variantId}`}>
+                    <div className="flex min-w-64 items-center gap-3">
+                        {product.coverImage ? (
+                            <Image
+                                src={`${baseURL.assetsBaseURL}${product.coverImage}`}
+                                alt={`${product.title} cover`}
+                                width={56}
+                                height={56}
+                                unoptimized
+                                className="size-14 shrink-0 border border-outline-variant/70 object-cover"
+                            />
+                        ) : (
+                            <div aria-hidden="true" className="size-14 shrink-0 border border-outline-variant/70 bg-surface-container-high" />
+                        )}
+                        <div className="min-w-0">
+                            <p className="truncate text-sm font-semibold text-foreground">{product.title}</p>
+                            <p className="mt-0.5 truncate text-xs text-muted-foreground">{product.description}</p>
+                            <p className="mt-0.5 text-[10px] text-muted-foreground">Product ID: {product.productId}</p>
+                        </div>
                     </div>
-                </div>
+                </Link>
             </td>
             <td className="px-3 py-3.5 text-sm text-foreground">{product.inventory.sku}</td>
             <td className="px-3 py-3.5">

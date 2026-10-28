@@ -1,9 +1,8 @@
-package com.e_commerce.catalog.controllers.seller;
+package com.e_commerce.catalog.controllers.seller.product;
 
 import com.e_commerce.catalog.dto.assets.AssetsMetaDetails;
 import com.e_commerce.catalog.dto.product.seller.ProductCreationRequest;
-import com.e_commerce.catalog.dto.product.seller.SellerProductList;
-import com.e_commerce.catalog.services.seller.product.SellerProductService;
+import com.e_commerce.catalog.services.seller.product.SellerProductCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/seller")
 @RequiredArgsConstructor
-public class SellerProductController {
+public class SellerProductCommandController {
 
-    private final SellerProductService productService;
+    private final SellerProductCommandService productService;
 
 
     @PostMapping("/product")
@@ -29,8 +28,4 @@ public class SellerProductController {
         return productService.createProduct(category,productVariants,images,imageDetail);
     }
 
-    @GetMapping("/product")
-    public ResponseEntity<List<SellerProductList>> getProducts(){
-        return productService.getProductList();
-    }
 }

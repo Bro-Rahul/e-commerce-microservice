@@ -1,34 +1,56 @@
 package com.e_commerce.inventory.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.beans.factory.annotation.Value;
+import com.e_commerce.commons.constants.RabbitMQConstants;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.retry.MessageRecoverer;
+import org.springframework.amqp.rabbit.retry.RepublishMessageRecoverer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
 
-    @Value("${inventory-exchange}")
-    private String exchangeName;
-
     @Bean
     public TopicExchange exchange(){
-        return new TopicExchange(exchangeName);
+        return new TopicExchange(RabbitMQConstants.INVENTORY_EXCHANGE);
+    }
+
+
+    @Bean
+    public Queue inventoryProductQueue(){
+        return QueueBuilder
+                .durable("inventory.ProductQueue")
+                .deadLetterExchange(RabbitMQConstants.INVENTORY_EXCHANGE)
+                .deadLetterRoutingKey(RabbitMQConstants.INVENTORY_DLX_ROUTING_KEY)
+                .build();
     }
 
     @Bean
-    public Queue searchQueue(){
-        return new Queue("inventory.searchQueue");
+    public Queue inventoryDLQ(){
+        return QueueBuilder
+                .durable("inventory.dlq")
+                .build();
     }
 
     @Bean
-    public Binding searchBinding(){
+    public Binding inventoryProductBinding(){
         return BindingBuilder
-                .bind(searchQueue())
+                .bind(inventoryProductQueue())
                 .to(exchange())
                 .with("inventory.stock.*");
+    }
+
+    @Bean
+    public Binding inventoryDLQBinding(){
+        return BindingBuilder
+                .bind(inventoryDLQ())
+                .to(exchange())
+                .with(RabbitMQConstants.INVENTORY_DLX_ROUTING_KEY);
+    }
+
+    @Bean
+    public MessageRecoverer messageRecoverer(RabbitTemplate template){
+        return new RepublishMessageRecoverer(template,RabbitMQConstants.INVENTORY_EXCHANGE,RabbitMQConstants.INVENTORY_DLX_ROUTING_KEY);
     }
 }

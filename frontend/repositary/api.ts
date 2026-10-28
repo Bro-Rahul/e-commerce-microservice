@@ -2,10 +2,10 @@
 import { ApiError, ApiErrorResponse } from "./apiError";
 import { getDefaultErrorCode, getDefaultErrorMessage } from "./errorCode";
 
-export async function apiFetch<T>(
+export async function apiFetch(
     url: string,
     options?: RequestInit
-): Promise<T> {
+): Promise<Response> {
 
     let response: Response;
 
@@ -23,13 +23,11 @@ export async function apiFetch<T>(
         });
     }
 
-    const data = await response.json();
-
 
     if (!response.ok) {
-
+        const data = await response.json();
         const errorData = data as Partial<ApiErrorResponse>;
-
+        console.log(data)
         throw new ApiError({
             message:
                 errorData?.message ??
@@ -42,8 +40,7 @@ export async function apiFetch<T>(
                 getDefaultErrorCode(response.status),
 
             errors: errorData?.errors,
-            data,
         });
     }
-    return data as T;
+    return response;
 }

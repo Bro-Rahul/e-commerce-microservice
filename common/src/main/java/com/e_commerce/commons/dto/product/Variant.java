@@ -16,6 +16,8 @@ public class Variant {
 
     private String productId;
 
+    private String userId;
+
     private String title;
 
     private String category;

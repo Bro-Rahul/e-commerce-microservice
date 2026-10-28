@@ -1,5 +1,6 @@
 package com.e_commerce.search.rabbitmq.eventDispatcher;
 
+import com.e_commerce.commons.events.products.ProductCreatedEvent;
 import com.e_commerce.search.dto.events.consumer.product.ProductCreatedEventConsumer;
 import org.springframework.amqp.core.Message;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class ProductEventDispatcher {
     }
 
     public void processProductCreatedEvent(Message message) {
-        ProductCreatedEventConsumer consumer = objectMapper.readValue(message.getBody(),ProductCreatedEventConsumer.class);
+        ProductCreatedEvent consumer = objectMapper.readValue(message.getBody(), ProductCreatedEvent.class);
         productService.createProductDocument(consumer);
     }
 }

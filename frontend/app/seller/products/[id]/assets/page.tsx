@@ -1,10 +1,20 @@
-import ProductEditPlaceholder from '@/components/sellers/products/ProductEditPlaceholder'
+import UpdateAssetsForm from "@/components/sellers/products/assets/UpdateAssetsForm";
+import { sellerRepository } from "@/repositary/seller/sellerHttp";
 
-const ProductAssetsPage = () => (
-    <ProductEditPlaceholder
-        title="Assets"
-        description="Manage the product cover image, gallery, and image collection."
-    />
-)
+interface ProductAssetsPageProps {
+    params: Promise<{
+        id: string
+    }>
+}
 
+
+const ProductAssetsPage = async ({ params }: ProductAssetsPageProps) => {
+    const { id } = await params;
+    const response = await sellerRepository.getProductVariantAssets(id);
+    return (
+        <UpdateAssetsForm
+            productAssets={response}
+        />
+    )
+}
 export default ProductAssetsPage

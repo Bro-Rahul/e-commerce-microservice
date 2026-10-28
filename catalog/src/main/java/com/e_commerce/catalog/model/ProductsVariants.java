@@ -18,11 +18,15 @@ public class ProductsVariants {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String variantId;
 
-    private String productId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Products product;
 
     private String title;
 
-    private String category;
+    private String userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     private Boolean isMainVariant;
 

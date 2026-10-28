@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface CategoryRepo extends JpaRepository<Category, String> {
 
     Optional<Category> findByNameIgnoreCase(String name);
-    Boolean existsByNameIgnoreCase(String name);
 
     public List<Category> findByParentCategoryId(String id);
 }

@@ -3,6 +3,8 @@ package com.e_commerce.catalog.exceptions;
 import com.e_commerce.catalog.dto.error.ApiErrorResponse;
 import com.e_commerce.catalog.exceptions.category.CategoryAlreadyExistsException;
 import com.e_commerce.catalog.exceptions.category.CategoryNotFoundException;
+import com.e_commerce.catalog.exceptions.products.ProductCoverImageRequiredException;
+import com.e_commerce.catalog.exceptions.products.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -46,6 +48,24 @@ public class GlobalException {
 
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleCategoryNotFoundException(CategoryNotFoundException ex){
+        ApiErrorResponse err = new ApiErrorResponse();
+        err.setMessage(ex.getMessage());
+        err.setPath(ex.getPath());
+        err.setStatus(400);
+        return ResponseEntity.badRequest().body(err);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleProductNotFoundException(ProductNotFoundException ex){
+        ApiErrorResponse err = new ApiErrorResponse();
+        err.setMessage(ex.getMessage());
+        err.setPath(ex.getPath());
+        err.setStatus(400);
+        return ResponseEntity.badRequest().body(err);
+    }
+
+    @ExceptionHandler(ProductCoverImageRequiredException.class)
+    public ResponseEntity<ApiErrorResponse> handleProductCoverImageRequiredException(ProductCoverImageRequiredException ex){
         ApiErrorResponse err = new ApiErrorResponse();
         err.setMessage(ex.getMessage());
         err.setPath(ex.getPath());

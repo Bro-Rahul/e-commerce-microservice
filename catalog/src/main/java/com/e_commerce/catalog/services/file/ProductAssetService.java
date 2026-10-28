@@ -50,12 +50,9 @@ public class ProductAssetService {
 
         List<String> carouselURL = fileService.storeAll(carouselImage);
 
-        List<String> imageDisplayURL =
-                new ArrayList<>(fileService.storeAll(imageDisplay));
+        List<String> imageDisplayURL = fileService.storeAll(imageDisplay);
 
         String coverImageURL = fileService.store(coverImage);
-
-        imageDisplayURL.add(coverImageURL);
 
         return new SavedAssetsDTO(
                 carouselURL,
@@ -66,5 +63,16 @@ public class ProductAssetService {
 
     public void deleteImages(List<String> imageUrls){
         fileService.deleteAll(imageUrls);
+    }
+
+    public String storeCoverImage(String previousCoverImage,MultipartFile coverImage){
+        fileService.delete(previousCoverImage);
+        return fileService.store(coverImage);
+    }
+
+
+    public List<String> storeOtherImages(List<String> oldImages,List<MultipartFile> newImages){
+        if(!oldImages.isEmpty()) deleteImages(oldImages);
+        return fileService.storeAll(newImages);
     }
 }

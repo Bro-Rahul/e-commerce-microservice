@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useRef, useState } from 'react'
-import { sellerRepository } from '@/http/seller/productHttp'
 import { PaginatedResponse } from '@/types/paginatedResponseType'
 import { SellerProductListingType } from '@/types/products/SellerProductListType'
 import { ArrowDownToLine } from 'lucide-react'
@@ -11,6 +10,7 @@ import { SellerProductListFilterType } from '@/types/searchFilter/sellerFilterTy
 import ProductTableSkeleton from './ProductTableSkeleton'
 import useClientFetcher from '@/hooks/useClientFetcher'
 import { formatStatus, toCsvCell } from '@/lib/utils'
+import { sellerRepository } from '@/repositary/seller/sellerHttp'
 
 
 

@@ -32,5 +32,4 @@ public class AdminCategoryController {
     public ResponseEntity<?> updateCategory(@PathVariable String id, @Valid @RequestBody UpdateCategoryRequest updateCategoryRequest){
         return adminCategoryService.updateCategory(id,updateCategoryRequest);
     }
-
 }

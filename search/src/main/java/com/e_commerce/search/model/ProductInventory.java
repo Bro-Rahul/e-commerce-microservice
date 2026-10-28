@@ -2,6 +2,7 @@ package com.e_commerce.search.model;
 
 import java.util.List;
 
+import com.e_commerce.commons.dto.util.KeyValuePair;
 import lombok.Data;
 
 @Data

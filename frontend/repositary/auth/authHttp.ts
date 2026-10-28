@@ -1,6 +1,5 @@
 import { LoginRequestType } from "@/validators/auth/LoginRequestValidator";
 import { apiFetch } from "../api";
-import { LoginResponseType } from "@/types/authType";
 import { baseURL } from "../baseURL";
 
 
@@ -9,12 +8,14 @@ export const authRepositary = {
 
     loginUser: async (payload: LoginRequestType) => {
 
-        return apiFetch<LoginResponseType>(
+        const response = await apiFetch(
             `${baseURL.userBaseURL}/auth/login`,
             {
                 method: "POST",
                 body: JSON.stringify(payload),
             }
         );
+
+        return await response.json();
     }
 }

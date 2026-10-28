@@ -2,7 +2,6 @@ package com.e_commerce.catalog.rabbitmq;
 
 import com.e_commerce.commons.events.Event;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -12,16 +11,20 @@ import tools.jackson.databind.ObjectMapper;
 @RequiredArgsConstructor
 public class EventPublisher {
 
-    @Value("${catalog.exchange}")
-    private String exchangeName;
-
     private final RabbitTemplate rabbitTemplate;
+    private final ObjectMapper objectMapper;
 
-    public void publishEvent(Event event){
+    public void publishEvent(Event event) {
+        String json = objectMapper.writeValueAsString(event);
         rabbitTemplate.convertAndSend(
                 event.getExchangeName(),
                 event.getRoutingKey(),
-                event
-        );
+                json,
+                message -> {
+                    message
+                            .getMessageProperties()
+                            .setContentType("application/json");
+                    return message;
+                });
     }
 }

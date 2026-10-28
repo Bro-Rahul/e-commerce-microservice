@@ -1,7 +1,6 @@
 package com.e_commerce.catalog.dto.product.seller;
-import com.e_commerce.commons.dto.product.ProductStatus;
 
-public interface SellerProductList {
+public interface ProductResponseDTO {
 
     String getProductId();
 
@@ -11,5 +10,8 @@ public interface SellerProductList {
 
     String getDescription();
 
-    ProductStatus getProductStatus();
+    String getAbout();
+
+    String getCategory();
+
 }

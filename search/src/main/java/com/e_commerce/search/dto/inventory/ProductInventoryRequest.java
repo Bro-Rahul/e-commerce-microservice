@@ -2,8 +2,7 @@ package com.e_commerce.search.dto.inventory;
 
 import java.util.List;
 
-import com.e_commerce.search.model.KeyValuePair;
-
+import com.e_commerce.commons.dto.util.KeyValuePair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

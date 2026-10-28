@@ -1,9 +1,10 @@
 package com.e_commerce.search.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
+import com.e_commerce.commons.dto.product.ProductMediaAssets;
+import com.e_commerce.commons.dto.product.ProductStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -26,6 +27,8 @@ public class Products {
 
     private String variantId;
 
+    private String userId;
+
     private Boolean isMainVariant;
 
     private String title;
@@ -45,7 +48,7 @@ public class Products {
     private Map<String, Object> metaDetails;
 
     @Field(type = FieldType.Keyword)
-    private ProductStatus productStatus = ProductStatus.PENDING_REVIEW;
+    private ProductStatus productStatus;
 
     private ProductMediaAssets assets;
 

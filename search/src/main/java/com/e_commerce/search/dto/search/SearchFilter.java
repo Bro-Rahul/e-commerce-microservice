@@ -1,6 +1,6 @@
 package com.e_commerce.search.dto.search;
 
-import com.e_commerce.search.model.ProductStatus;
+import com.e_commerce.commons.dto.product.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
