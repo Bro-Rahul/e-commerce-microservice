@@ -1,8 +1,8 @@
 package com.e_commerce.commons.events.inventory;
 
+
 import com.e_commerce.commons.constants.RabbitMQConstants;
 import com.e_commerce.commons.events.Event;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +19,7 @@ public class ProductInventoryCreatedEvent implements Event {
 
     @Override
     public String getRoutingKey() {
-        return "inventory.stock.created";
+        return "inventory.created";
     }
 
     @Override

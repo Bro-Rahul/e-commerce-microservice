@@ -28,10 +28,6 @@ const BookAttributesForm = ({ defaultValue, handleAttributeSubmit }: BookAttribu
 
     const onSubmit = (data: BookAttributesType) => {
         handleAttributeSubmit(data)
-        toast.success('Book details saved!', {
-            position: 'bottom-right',
-            duration: 5000,
-        })
     }
 
     return (

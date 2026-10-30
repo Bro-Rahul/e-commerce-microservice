@@ -2,9 +2,11 @@ package com.e_commerce.catalog.services.seller.variant;
 
 import com.e_commerce.catalog.dto.assets.SavedAssetsDTO;
 import com.e_commerce.catalog.dto.product.seller.ProductBaseDetailsDTO;
+import com.e_commerce.catalog.dto.product.seller.ProductVariantStatusDTO;
 import com.e_commerce.catalog.exceptions.products.ProductNotFoundException;
 import com.e_commerce.catalog.model.ProductsVariants;
 import com.e_commerce.catalog.repo.ProductVariantsRepo;
+import com.e_commerce.commons.dto.product.ProductStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,18 @@ public class SellerProductVariantQueryService {
         var response = variants.getMetaDetails();
         response.put("category",variants.getCategory().getName());
         return ResponseEntity.ok(variants.getMetaDetails());
+    }
+
+
+    public ResponseEntity<ProductVariantStatusDTO> getProductStatus(String variantId) {
+        ProductStatus status = variantsRepo.fetchProductStatusByVariantId(variantId)
+                .orElseThrow(()->
+                        new ProductNotFoundException(
+                                "No Such product Variant Exits",
+                                "VARIANT_NOT_FOUND",
+                                "/seller/product-variant/{id}/assets"
+                        )
+                );
+        return ResponseEntity.ok(new ProductVariantStatusDTO(status));
     }
 }

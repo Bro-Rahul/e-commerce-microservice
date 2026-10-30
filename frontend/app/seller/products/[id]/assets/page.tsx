@@ -10,9 +10,10 @@ interface ProductAssetsPageProps {
 
 const ProductAssetsPage = async ({ params }: ProductAssetsPageProps) => {
     const { id } = await params;
-    const response = await sellerRepository.getProductVariantAssets(id);
+    const response = await sellerRepository.getRequests.getProductVariantAssets(id);
     return (
         <UpdateAssetsForm
+            variantId={id}
             productAssets={response}
         />
     )

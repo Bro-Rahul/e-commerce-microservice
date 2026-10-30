@@ -3,6 +3,7 @@ package com.e_commerce.catalog.services.seller.variant;
 import com.e_commerce.catalog.dto.assets.AssetsMetaDetails;
 import com.e_commerce.catalog.dto.assets.SavedAssetsDTO;
 import com.e_commerce.catalog.dto.product.seller.ProductCreationRequest;
+import com.e_commerce.catalog.dto.product.seller.ProductVariantStatusDTO;
 import com.e_commerce.catalog.exceptions.products.ProductNotFoundException;
 import com.e_commerce.catalog.mapper.product.ProductVariantMapper;
 import com.e_commerce.catalog.model.Category;
@@ -17,7 +18,7 @@ import com.e_commerce.commons.dto.product.ProductBaseDetail;
 import com.e_commerce.commons.dto.product.ProductMediaAssets;
 import com.e_commerce.commons.dto.product.ProductStatus;
 import com.e_commerce.commons.dto.product.Variant;
-import com.e_commerce.commons.events.products.ProductCreatedEvent;
+import com.e_commerce.commons.events.products.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -108,7 +109,14 @@ public class SellerProductVariantCommandService {
         variant.setDescription(productBaseDetail.getDescription());
         variant.setAbout(productBaseDetail.getAbout());
         repo.save(variant);
-        // publish an update event for search service to updates its own copy
+        ProductVariantBaseDetailUpdateEvent event = new ProductVariantBaseDetailUpdateEvent(
+                variantId,
+                productBaseDetail.getTitle(),
+                productBaseDetail.getCategory(),
+                productBaseDetail.getDescription(),
+                productBaseDetail.getAbout()
+        );
+        eventPublisher.publishEvent(event);
     }
 
 
@@ -119,7 +127,10 @@ public class SellerProductVariantCommandService {
             throw new ProductNotFoundException("No Such Product Variant Exists ","PRODUCT_VARIANT_NOT_FOUND","/seller/product-variant/{id}");
         ProductsVariants variant = optionalVariant.get();
         variant.setMetaDetails(productMetaDetails);
+
         repo.save(variant);
+        ProductVariantMetaDetailsUpdatesEvent event = new ProductVariantMetaDetailsUpdatesEvent(variantId,productMetaDetails);
+        eventPublisher.publishEvent(event);
         // publish an update event for search service to updates its own copy
     }
 
@@ -152,13 +163,13 @@ public class SellerProductVariantCommandService {
         ProductsVariants variant = optionalVariant.get();
 
         var imagesIndex = metaDetails.stream().collect(Collectors.groupingBy(AssetsMetaDetails::getType));
-        if(!imagesIndex.get(ImageType.CoverImage).isEmpty()){
+        if(imagesIndex.get(ImageType.CoverImage) !=null && !imagesIndex.get(ImageType.CoverImage).isEmpty()){
             int coverIndex = imagesIndex.get(ImageType.CoverImage).getFirst().getIndex();
             String newCoverImage = assetService.storeCoverImage(variant.getCoverImageURL(),images.get(coverIndex));
             variant.setCoverImageURL(newCoverImage);
         }
 
-        if(!imagesIndex.get(ImageType.CarouselImages).isEmpty()){
+        if(imagesIndex.get(ImageType.CarouselImages) !=null && !imagesIndex.get(ImageType.CarouselImages).isEmpty()){
             List<MultipartFile> newImages = imagesIndex
                     .get(ImageType.CarouselImages)
                     .stream()
@@ -169,7 +180,7 @@ public class SellerProductVariantCommandService {
             variant.getAssets().setCarouselImages(newImagesURLS);
         }
 
-        if(!imagesIndex.get(ImageType.CollectionImages).isEmpty()){
+        if(imagesIndex.get(ImageType.CollectionImages) !=null && !imagesIndex.get(ImageType.CollectionImages).isEmpty()){
             List<MultipartFile> newImages = imagesIndex
                     .get(ImageType.CollectionImages)
                     .stream()
@@ -180,7 +191,26 @@ public class SellerProductVariantCommandService {
             variant.getAssets().setImageCollections(newImagesURLS);
         }
 
+        ProductsVariants updatedVariant = repo.save(variant);
+        ProductVariantAssetsUpdateEvent event = new ProductVariantAssetsUpdateEvent(
+                variantId,
+                updatedVariant.getCoverImageURL(),
+                updatedVariant.getAssets().getCarouselImages(),
+                updatedVariant.getAssets().getImageCollections()
+        );
+        eventPublisher.publishEvent(event);
+    }
+
+    @Transactional
+    public void updateProductVariantStatus(String variantId, @Valid ProductVariantStatusDTO req) {
+        ProductsVariants variant = repo.findById(variantId).orElseThrow(()->
+                new ProductNotFoundException(
+                        "No Such Product Variant Exists ",
+                        "PRODUCT_VARIANT_NOT_FOUND",
+                        "/seller/product-variant/{id}/status")
+        );
+        variant.setProductStatus(req.getStatus());
         repo.save(variant);
-        // publish an update event for search service to updates its own copy
+        eventPublisher.publishEvent(new ProductVariantStatusUpdateEvent(variantId,req.getStatus()));
     }
 }

@@ -9,6 +9,7 @@ import useProductImage from "../dexies/useProductImage"
 import useImageLoader from "../dexies/useImageLoader"
 import { keyValuePairType } from "@/validators/specificationValidator"
 import { ImagePlaceType } from "@/types/dexie/mediaAssetsTypes"
+import { AssetsMetaDetails } from "@/types/products/SellerProductListType"
 
 
 const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
@@ -70,7 +71,7 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
 
     const getProductSubmissionData = async () => {
         const formData = new FormData();
-        const assetsMeta: any[] = [];
+        const assetsMeta: AssetsMetaDetails[] = [];
         let index: number = 0, variantId: number = 1;
 
         const variantsData: ProductDetailsType[] = []
@@ -90,7 +91,7 @@ const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
                 index++;
             }
             const coverImage = filterVariantImage(productId, "CoverImage").pop();
-            assetsMeta.push({ index: index, name: coverImage?.fileName, type: coverImage!.imageType, isCover: coverImage!.imageType === "CoverImage", variantId: variantId })
+            assetsMeta.push({ index: index, name: coverImage?.fileName!, type: coverImage!.imageType, isCover: coverImage!.imageType === "CoverImage", variantId: variantId })
             formData.append("images", coverImage?.file!);
             index++
             variantId++;

@@ -55,10 +55,4 @@ public class RabbitMQConfig {
         return new RepublishMessageRecoverer(template,RabbitMQConstants.SEARCH_EXCHANGE,RabbitMQConstants.SEARCH_DLX_ROUTING_KEY);
     }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory){
-        RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        return template;
-    }
-
 }

@@ -3,6 +3,8 @@ package com.e_commerce.catalog.repo;
 import com.e_commerce.catalog.dto.assets.SavedAssetsDTO;
 import com.e_commerce.catalog.dto.product.seller.ProductBaseDetailsDTO;
 import com.e_commerce.catalog.dto.product.seller.ProductVariantAssetsDTO;
+import com.e_commerce.catalog.dto.product.seller.ProductVariantStatusDTO;
+import com.e_commerce.commons.dto.product.ProductStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.e_commerce.catalog.model.ProductsVariants;
 import org.springframework.data.jpa.repository.Query;
@@ -41,4 +43,13 @@ public interface ProductVariantsRepo extends JpaRepository<ProductsVariants, Str
     Optional<ProductsVariants> findByVariantId(String variantId);
 
     List<ProductsVariants> findByProduct_id(String productId);
+
+    @Query("""
+    SELECT pv.productStatus
+    FROM ProductsVariants pv
+    WHERE pv.variantId = :variantId
+    """)
+    Optional<ProductStatus> fetchProductStatusByVariantId(
+            @Param("variantId") String variantId
+    );
 }

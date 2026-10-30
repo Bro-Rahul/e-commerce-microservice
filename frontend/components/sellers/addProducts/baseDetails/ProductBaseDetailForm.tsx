@@ -24,10 +24,6 @@ const ProductBaseDetailForm = ({ formDefaults, handleOnSubmit, resetAfterSubmit 
 
     const onSubmit = (data: ProductBaseFieldsType) => {
         handleOnSubmit(data)
-        toast.success("Product Details Updated", {
-            position: 'bottom-right',
-            duration: 5000
-        });
     }
 
     return (

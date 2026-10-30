@@ -10,9 +10,10 @@ interface ProductInventoryPageProps {
 
 const ProductInventoryPage = async ({ params }: ProductInventoryPageProps) => {
     const { id } = await params;
-    const response = await sellerRepository.getProductVariantInventory(id);
+    const response = await sellerRepository.getRequests.getProductVariantInventory(id);
     return (
         <UpdateInventoryForm
+            variantId={id}
             inventoryDefaults={response}
 
         />

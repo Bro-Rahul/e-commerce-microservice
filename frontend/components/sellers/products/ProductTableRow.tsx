@@ -3,6 +3,7 @@ import { SellerProductListingType } from '@/types/products/SellerProductListType
 import { formatStatus, getStatusStyle, getStockHealth } from '@/lib/utils'
 import { baseURL } from "@/repositary/baseURL"
 import Link from "next/link"
+import { IndianRupee } from "lucide-react"
 
 
 interface ProductTableRowProps {
@@ -53,7 +54,7 @@ const ProductTableRow = ({ product, isSelected, onSelectionChange }: ProductTabl
             <td className="px-3 py-3.5">
                 <span className="inline-block bg-surface-container-high px-2 py-1 text-[10px] font-bold uppercase text-on-surface-variant">{product.category}</span>
             </td>
-            <td className="px-3 py-3.5 text-base font-semibold tabular-nums text-foreground">${product.inventory.price.toFixed(2)}</td>
+            <td className="px-3 py-3 text-base font-semibold tabular-nums text-foreground"><p className="inline-flex place-items-center"><IndianRupee size={14} />{product.inventory.price.toFixed(2)}</p></td>
             <td className="px-3 py-3.5">
                 <div className="space-y-1.5">
                     <div className="flex items-center justify-between gap-3 text-[11px] font-semibold">

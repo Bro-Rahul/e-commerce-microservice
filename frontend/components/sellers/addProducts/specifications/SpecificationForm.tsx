@@ -8,12 +8,8 @@ import z from 'zod'
 import SpecificationNameDialog from './SpecificationNameDialog'
 import toast from 'react-hot-toast'
 import SpecificationKeyValuePair from './SpecificationKeyValuePair'
-import { useEffect } from 'react'
-import useAddProduct from '@/store/useAddProduct'
 import FormCard from '../productForms/FormCard'
 import JsonUploadBtn from '../JsonUploadBtn'
-import { AvailableCategoryType } from '@/types/inventoryTypes'
-import { productStateDefaults } from '@/constants/data/productData'
 
 export interface SpecificationForm {
     data: SpecificationType
@@ -29,8 +25,6 @@ const specificationFormValidator = z.object({
 })
 
 const SpecificationForm = ({ defaultValue, handleFormSubmit, }: SpecificationFormProps) => {
-    // const { addProductMetaDetail, products } = useAddProduct();
-    // const { currentVariant } = products[category];
 
     const methods = useForm<SpecificationForm>({
         values: {
@@ -47,10 +41,6 @@ const SpecificationForm = ({ defaultValue, handleFormSubmit, }: SpecificationFor
 
     const handleSubmit = (specifications: SpecificationForm) => {
         handleFormSubmit(specifications.data)
-        toast.success("Specifications Data Saved!", {
-            position: 'bottom-right',
-            duration: 5000
-        })
     }
 
     const onErr = (err: any) => {

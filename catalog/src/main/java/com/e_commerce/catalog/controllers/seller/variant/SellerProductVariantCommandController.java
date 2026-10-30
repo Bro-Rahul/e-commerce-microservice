@@ -1,9 +1,11 @@
 package com.e_commerce.catalog.controllers.seller.variant;
 
 import com.e_commerce.catalog.dto.assets.AssetsMetaDetails;
+import com.e_commerce.catalog.dto.product.seller.ProductVariantStatusDTO;
 import com.e_commerce.catalog.services.seller.variant.SellerProductVariantCommandService;
 import com.e_commerce.commons.dto.product.ProductBaseDetail;
 import com.e_commerce.commons.dto.product.ProductStatus;
+import com.e_commerce.commons.events.products.ProductVariantStatusUpdateEvent;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +35,14 @@ public class SellerProductVariantCommandController {
     }
 
     @PatchMapping("/{variantId}/status")
-    public ResponseEntity<Void> updateProductVariantStatus(@PathVariable String variantId, @RequestBody ProductStatus status){
-        service.updateVariantStatus(variantId,status);
+    public ResponseEntity<Void> updateVariantStatus(
+            @PathVariable String variantId,
+            @Valid @RequestBody ProductVariantStatusDTO request
+    ){
+        service.updateProductVariantStatus(variantId,request);
         return ResponseEntity.ok().build();
     }
+
 
     @PatchMapping("/{variantId}/assets")
     public ResponseEntity<Void> updateProductAssets(
@@ -47,12 +53,5 @@ public class SellerProductVariantCommandController {
         service.updateVariantAssets(variantId,images,metaDetails);
         return ResponseEntity.ok().build();
     }
-
-    @DeleteMapping("/{variantId}")
-    public ResponseEntity<Void> deleteProductVariant(@PathVariable String variantId){
-        service.deleteProductVariant(variantId);
-        return ResponseEntity.ok().build();
-    }
-
 
 }

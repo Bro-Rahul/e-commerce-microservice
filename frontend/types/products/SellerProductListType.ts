@@ -1,7 +1,8 @@
 import { inventoryFields } from "@/constants/formFields/inventoryFields"
 import { AvailableCategoryType } from "../inventoryTypes"
-import { ProductStatusType } from "../searchFilter/sellerFilterTypes"
 import { InventoryFieldType } from "@/validators/inventoryValidator"
+import { ImagePlaceType } from "../dexie/mediaAssetsTypes"
+import { ProductStatusType } from "../searchFilter/sellerFilterTypes"
 
 
 export interface SellerProductListingType {
@@ -30,6 +31,13 @@ export interface ProductAssetsResponseType {
     coverImage: string
 }
 
+export interface AssetsMetaDetails {
+    index: number,
+    name: string,
+    type: ImagePlaceType,
+    isCover: boolean,
+    variantId?: number
+}
 
 export type ProductInventoryResponseType = {
     variantId: string;

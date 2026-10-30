@@ -34,6 +34,7 @@ const CoverImage = ({ onImageLoaded, image }: CoverImageProps) => {
                 files={formateImage()}
                 htmlFor="Primary Image"
                 onImageLoad={handleImage}
+                multiple={false}
             />
         </section>
     )

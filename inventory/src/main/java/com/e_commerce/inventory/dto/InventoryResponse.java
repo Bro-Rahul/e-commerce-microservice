@@ -1,6 +1,6 @@
 package com.e_commerce.inventory.dto;
 
-import com.e_commerce.inventory.model.KeyValuePair;
+import com.e_commerce.inventory.model.AdditionalFields;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +23,6 @@ public class InventoryResponse {
 
     private Integer quantity;
 
-    private List<KeyValuePair> additionalFields;
+    private List<AdditionalFields> additionalFields;
 
 }

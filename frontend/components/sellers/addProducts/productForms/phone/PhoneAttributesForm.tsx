@@ -25,10 +25,6 @@ const PhoneAttributesForm = ({ defaultAttribute, handleAttributeSubmit }: PhoneA
 
     const onSubmit = (data: PhoneAttributeType) => {
         handleAttributeSubmit(data);
-        toast.success("Product Attribute has been Saved", {
-            position: 'bottom-right',
-            duration: 5000
-        })
     }
     return (
         <FormCard

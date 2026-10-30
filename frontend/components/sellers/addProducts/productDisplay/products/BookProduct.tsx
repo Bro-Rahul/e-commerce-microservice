@@ -52,7 +52,7 @@ const BookProduct = ({ productData }: BookProductProps) => {
   const handleSubmit = async () => {
     const formData = await getProductSubmissionData();
     try {
-      await sellerRepository.createProduct(formData);
+      await sellerRepository.postRequests.createProduct(formData);
       toast.success("Product Created", {
         position: "bottom-right",
         duration: 5000

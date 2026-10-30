@@ -16,7 +16,6 @@ public class EventPublisher {
 
     public void publishEvent(Event event){
         String json = mapper.writeValueAsString(event);
-        System.out.println("Publish event");
         template.convertAndSend(
                 event.getExchangeName(),
                 event.getRoutingKey(),

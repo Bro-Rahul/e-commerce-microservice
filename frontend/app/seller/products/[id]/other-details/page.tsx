@@ -1,4 +1,4 @@
-import UpdateProductMetaDetailsFrom from "@/components/sellers/products/otherDetails/UpdateProductMetaDetailsFrom"
+import UpdateProductMetaDetailsForm from "@/components/sellers/products/otherDetails/UpdateProductMetaDetailsForm"
 import { sellerRepository } from "@/repositary/seller/sellerHttp"
 
 
@@ -9,10 +9,12 @@ interface ProductOtherDetailsPageProps {
 }
 const ProductOtherDetailsPage = async ({ params }: ProductOtherDetailsPageProps) => {
     const { id } = await params
-    const response = await sellerRepository.getProductVariantMetaDetail(id);
+    const response = await sellerRepository.getRequests.getProductVariantMetaDetail(id);
     return (
-        <UpdateProductMetaDetailsFrom
+
+        <UpdateProductMetaDetailsForm
             metaDetails={response}
+            variantId={id}
         />
     )
 }

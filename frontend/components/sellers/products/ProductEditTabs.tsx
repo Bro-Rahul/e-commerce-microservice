@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
-import { Boxes, ClipboardList, Images, ListChecks } from 'lucide-react'
+import { BadgeCheck, Boxes, ClipboardList, Images, ListChecks } from 'lucide-react'
 
 const productTabs = [
     { id: 'base', label: 'Product base details', icon: ClipboardList },
     { id: 'inventory', label: 'Inventory', icon: Boxes },
     { id: 'assets', label: 'Assets', icon: Images },
     { id: 'other-details', label: 'Other details', icon: ListChecks },
+    { id: 'product-status', label: 'Product status', icon: BadgeCheck },
 ] as const
 
 interface ProductEditTabsProps {

@@ -32,7 +32,7 @@ const ProductTable = () => {
     const query = searchParams.toString()
     const filterKey = query ? `${pathname}?${query}` : pathname
     const { data, error, isLoading } = useClientFetcher<PaginatedResponse<SellerProductListingType>>({
-        fetcherFn: () => sellerRepository.getSellerProductList(searchFilter),
+        fetcherFn: () => sellerRepository.getRequests.getSellerProductList(searchFilter),
         fallbackData: {
             content: [],
             currentPage: 0,

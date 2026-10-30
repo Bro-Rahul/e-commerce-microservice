@@ -27,6 +27,15 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue inventoryProductIndexQueue(){
+        return QueueBuilder
+                .durable("inventory.ProductIndexQueue")
+                .deadLetterExchange(RabbitMQConstants.INVENTORY_EXCHANGE)
+                .deadLetterRoutingKey(RabbitMQConstants.INVENTORY_DLX_ROUTING_KEY)
+                .build();
+    }
+
+    @Bean
     public Queue inventoryDLQ(){
         return QueueBuilder
                 .durable("inventory.dlq")
@@ -37,6 +46,14 @@ public class RabbitConfig {
     public Binding inventoryProductBinding(){
         return BindingBuilder
                 .bind(inventoryProductQueue())
+                .to(exchange())
+                .with("inventory.created");
+    }
+
+    @Bean
+    public Binding inventoryProductIndexBinding(){
+        return BindingBuilder
+                .bind(inventoryProductIndexQueue())
                 .to(exchange())
                 .with("inventory.stock.*");
     }

@@ -8,6 +8,7 @@ import com.e_commerce.commons.dto.inventory.ProductInventoryRequest;
 import com.e_commerce.commons.dto.product.ProductStatus;
 import com.e_commerce.commons.dto.product.Variant;
 import com.e_commerce.commons.events.products.ProductCreatedEvent;
+import com.e_commerce.commons.events.products.ProductVariantBaseDetailUpdateEvent;
 import com.e_commerce.commons.events.search.ProductIndexCreatedEvent;
 import com.e_commerce.search.dto.product.ProductVariantRequest;
 import com.e_commerce.search.mapper.ProductsMapper;
@@ -48,5 +49,4 @@ public class ProductService {
         );
         eventPublisher.publishEvent(event);
     }
-
 }

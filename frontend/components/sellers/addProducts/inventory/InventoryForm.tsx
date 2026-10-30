@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { Save, Package2 } from 'lucide-react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import toast from 'react-hot-toast'
 import { inventoryFields } from '@/constants/formFields/inventoryFields'
 import { InventoryFieldType, inventoryFieldValidator } from '@/validators/inventoryValidator'
 import FormCard from '../productForms/FormCard'
@@ -26,10 +25,6 @@ const InventoryForm = ({ inventoryDefault, handleInventorySave }: InventoryFormP
 
     const handleSubmit = (data: InventoryFieldType) => {
         handleInventorySave(data)
-        toast.success('Inventory Data Saved!', {
-            position: 'bottom-right',
-            duration: 5000,
-        })
     }
 
     const onErr = (err: any) => {

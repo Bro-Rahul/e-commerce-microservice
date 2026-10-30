@@ -42,6 +42,7 @@ public class ProductsVariants {
     @Column(columnDefinition = "json")
     private Map<String, Object> metaDetails;
 
+    @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.PROCESSING;
 
     @JdbcTypeCode(SqlTypes.JSON)

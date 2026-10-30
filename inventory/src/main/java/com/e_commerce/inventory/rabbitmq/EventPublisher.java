@@ -22,7 +22,8 @@ public class EventPublisher {
                 event.getRoutingKey(),
                 json,
                 message -> {
-                    message.getMessageProperties().setContentType("application/json");
+                    message.getMessageProperties()
+                            .setContentType("application/json");
                     return message;
                 }
         );

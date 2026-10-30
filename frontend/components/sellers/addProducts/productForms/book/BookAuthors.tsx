@@ -25,10 +25,6 @@ const BookAuthors = ({ defaultValue, handleSubmitAuthor }: BookAuthorsProps) => 
 
   const onSubmit = async (data: BookAuthorType) => {
     handleSubmitAuthor(data);
-    toast.success('Author profile saved!', {
-      position: 'bottom-right',
-      duration: 5000,
-    })
   }
 
   const onErr = (err: any) => {

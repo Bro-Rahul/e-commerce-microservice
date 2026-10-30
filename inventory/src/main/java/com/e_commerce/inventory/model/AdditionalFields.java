@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Embeddable
-public class KeyValuePair {
+public class AdditionalFields {
 
     private String key;
 

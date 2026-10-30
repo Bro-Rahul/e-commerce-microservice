@@ -1,13 +1,14 @@
 package com.e_commerce.inventory.model;
 
 import java.util.List;
-
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Data
 @AllArgsConstructor
@@ -28,7 +29,9 @@ public class Inventory {
 
     private Integer quantity;
 
-    @ElementCollection
-    private List<KeyValuePair> additionalFields;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "json")
+    private List<AdditionalFields> additionalFields;
 
 }

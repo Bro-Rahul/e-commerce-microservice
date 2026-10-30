@@ -1,10 +1,8 @@
 package com.e_commerce.catalog.rabbitmq.dispatcher;
 
-import com.e_commerce.catalog.model.Products;
 import com.e_commerce.catalog.model.ProductsVariants;
 import com.e_commerce.catalog.repo.ProductVariantsRepo;
 import com.e_commerce.commons.dto.product.ProductStatus;
-import com.e_commerce.commons.events.Event;
 import com.e_commerce.commons.events.inventory.ProductInventoryCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
@@ -23,7 +21,7 @@ public class InventoryDispatcher {
 
     public void dispatchEvent(Message message, String routingKey) {
         switch (routingKey) {
-            case "inventory.stock.created" -> consumeInventoryCreatedEvent(message);
+            case "inventory.created" -> consumeInventoryCreatedEvent(message);
         }
     }
 

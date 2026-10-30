@@ -18,7 +18,6 @@ import java.util.Map;
 public class GlobalException {
 
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         ApiErrorResponse err = new ApiErrorResponse();

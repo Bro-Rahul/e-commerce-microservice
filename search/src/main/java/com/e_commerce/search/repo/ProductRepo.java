@@ -12,4 +12,7 @@ import com.e_commerce.search.model.Products;
 public interface ProductRepo extends ElasticsearchRepository<Products, String> {
 
     Optional<Products> findByProductId(String productId);
+
+    Optional<Products> findByVariantId(String variantId);
+
 }
