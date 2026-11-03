@@ -17,7 +17,7 @@ function Field({
 }) {
     return (
         <div className="min-w-0 space-y-1 my-3">
-            <div className="flex min-h-4 items-center justify-between gap-2">
+            <div className="flex min-h-4 items-center justify-between gap-3">
                 <label className="text-sm font-semibold text-on-surface" htmlFor={htmlFor}>
                     {label}{required && <span className="ml-0.5 text-error">*</span>}
                 </label>

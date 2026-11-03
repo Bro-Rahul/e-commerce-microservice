@@ -1,5 +1,5 @@
 import UpdateAssetsForm from "@/components/sellers/products/assets/UpdateAssetsForm";
-import { sellerRepository } from "@/repositary/seller/sellerHttp";
+import { sellerRepository } from "@/repositary/seller/sellerRepositary";
 
 interface ProductAssetsPageProps {
     params: Promise<{

@@ -139,7 +139,6 @@ const ArrayFields = ({ description, title, searchKey, values, onSave }: ArrayFie
           {fields.length > 0 && (
             <div className="flex w-full justify-end border-t border-outline-variant bg-surface-container-low px-3 py-4 sm:px-4">
               <Button
-                className="w-full max-w-xs bg-card font-bold text-on-secondary hover:bg-secondary/90 sm:w-fit"
                 variant={'outline'}
                 type='submit'
               >

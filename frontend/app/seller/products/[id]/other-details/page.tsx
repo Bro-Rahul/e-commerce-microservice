@@ -1,5 +1,5 @@
 import UpdateProductMetaDetailsForm from "@/components/sellers/products/otherDetails/UpdateProductMetaDetailsForm"
-import { sellerRepository } from "@/repositary/seller/sellerHttp"
+import { sellerRepository } from "@/repositary/seller/sellerRepositary"
 
 
 interface ProductOtherDetailsPageProps {

@@ -1,7 +1,7 @@
 "use client"
 import { ProductBaseFieldsType } from '@/validators/ProductBaseFieldsValidator'
 import ProductBaseDetailForm from '../../addProducts/baseDetails/ProductBaseDetailForm'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import toast from 'react-hot-toast'
 
 interface UpdateProductBaseDetailFromProps {

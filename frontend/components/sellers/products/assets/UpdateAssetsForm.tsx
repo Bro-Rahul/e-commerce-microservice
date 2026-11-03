@@ -9,7 +9,7 @@ import { baseURL } from '@/repositary/baseURL'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { ImagePlaceType } from '@/types/dexie/mediaAssetsTypes'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import toast from 'react-hot-toast'
 
 interface UpdateAssetsFormProps {

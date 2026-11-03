@@ -68,7 +68,7 @@ const PhoneAttributesForm = ({ defaultAttribute, handleAttributeSubmit }: PhoneA
 
                 <div className="flex justify-end border-t border-outline-variant bg-surface-container-low px-5 py-4 sm:px-8">
                     <Button
-                        className="w-fit bg-card font-bold text-on-secondary hover:bg-secondary/90"
+
                         variant={'outline'}
                         type='submit'
                     >

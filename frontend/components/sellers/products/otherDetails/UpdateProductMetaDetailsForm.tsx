@@ -11,12 +11,12 @@ interface UpdateProductMetaDetailsFromProps {
 const UpdateProductMetaDetailsForm = ({ variantId, metaDetails }: UpdateProductMetaDetailsFromProps) => {
 
   switch (metaDetails.category.toLowerCase()) {
-    case 'book':
+    case 'books':
       return <UpdateBookForm
         variantId={variantId}
         metaDetails={metaDetails}
       />
-    case 'phone':
+    case 'phones':
       return <UpdatePhoneForm
         variantId={variantId}
         metaDetails={metaDetails}

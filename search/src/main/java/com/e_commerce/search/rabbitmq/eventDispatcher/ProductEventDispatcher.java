@@ -1,10 +1,10 @@
 package com.e_commerce.search.rabbitmq.eventDispatcher;
 
 import com.e_commerce.commons.events.products.*;
-import com.e_commerce.search.services.variant.ProductVariantService;
+import com.e_commerce.search.services.variant.ProductVariantCommandService;
 import org.springframework.amqp.core.Message;
 import org.springframework.stereotype.Component;
-import com.e_commerce.search.services.product.ProductService;
+import com.e_commerce.search.services.product.ProductCommandService;
 
 import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
@@ -13,8 +13,8 @@ import tools.jackson.databind.ObjectMapper;
 @RequiredArgsConstructor
 public class ProductEventDispatcher {
 
-    private final ProductService productService;
-    private final ProductVariantService variantService;
+    private final ProductCommandService productService;
+    private final ProductVariantCommandService variantService;
     private final ObjectMapper objectMapper;
 
     public void dispatchEvent(Message message,String routingKey) {

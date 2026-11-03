@@ -2,18 +2,18 @@ import BookAttributesForm from '@/components/sellers/addProducts/productForms/bo
 import BookAuthors from '@/components/sellers/addProducts/productForms/book/BookAuthors'
 import useAddProduct from '@/store/useAddProduct'
 
-const BookForm = () => {
-    const { products, addProductMetaDetail } = useAddProduct()
-    const { currentVariant, variants } = products.book;
+const BookForm = ({ category }: { category: string }) => {
+    const { getProductData, addProductMetaDetail } = useAddProduct()
+    const { currentVariant, variants } = getProductData(category);
     return (
         <>
             <BookAttributesForm
                 defaultValue={variants[currentVariant].productMetaDetail?.['attribute']}
-                handleAttributeSubmit={(data) => addProductMetaDetail("book", { "attribute": data })}
+                handleAttributeSubmit={(data) => addProductMetaDetail("books", { "attribute": data })}
             />
             <BookAuthors
                 defaultValue={variants[currentVariant].productMetaDetail?.['author']}
-                handleSubmitAuthor={(data) => addProductMetaDetail("book", {
+                handleSubmitAuthor={(data) => addProductMetaDetail("books", {
                     "author": data
                 })}
             />

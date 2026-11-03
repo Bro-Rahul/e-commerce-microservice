@@ -11,7 +11,7 @@ import ProductVariants from '../ProductVariants'
 import { cn } from '@/lib/utils'
 import SubmitProductBtn from '../../SubmitProductBtn'
 import useFormateData from '@/hooks/seller/useFormateData'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import toast from 'react-hot-toast'
 
 
@@ -25,7 +25,7 @@ const trustBadges = [
 
 const PhoneProduct = ({ productData }: { productData: ProductDataType }) => {
   const { availableOptions, selectedOptions, stockAvailable } = useProductVariantProvider();
-  const { getProductSubmissionData } = useFormateData({ category: "phone" })
+  const { getProductSubmissionData } = useFormateData({ category: "phones" })
 
   const handleSubmit = async () => {
     const formData = await getProductSubmissionData();

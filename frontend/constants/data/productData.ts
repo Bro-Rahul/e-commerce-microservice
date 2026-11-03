@@ -1,6 +1,5 @@
-import { AvailableCategoryType } from "@/types/inventoryTypes";
 import { inventoryFieldsDefaults } from "./inventoryData";
-import { ProductDetailsType, ProductType } from "@/store/useAddProduct";
+import { ProductDetailsType, ProductType, ProductVariantsType } from "@/store/useAddProduct";
 import { bookVariantKeyOptions } from "./bookData";
 import { phoneVariantKeyOptions } from "./phoneData";
 
@@ -17,32 +16,21 @@ export const productStateDefaults: ProductDetailsType = {
 }
 
 
-export const getProductsDefaults = (): ProductType => {
+export const getProductsDefaults = (category: string): ProductVariantsType => {
     const randomUUID = crypto.randomUUID();
-    const productData: ProductType = {
-        book: {
-            variants: {
-                [randomUUID]: productStateDefaults
-            },
-            currentVariant: randomUUID,
-            mainVariant: randomUUID,
-            variantKeys: [randomUUID]
+    return {
+        variants: {
+            [randomUUID]: productStateDefaults
         },
-        phone: {
-            variants: {
-                [randomUUID]: productStateDefaults
-            },
-            currentVariant: randomUUID,
-            mainVariant: randomUUID,
-            variantKeys: [randomUUID]
-        }
-    };
-    return productData;
+        currentVariant: randomUUID,
+        mainVariant: randomUUID,
+        variantKeys: [randomUUID]
+    }
 }
 
 export const productVariantsOptions: {
-    [k in AvailableCategoryType]: string[]
+    [k: string]: string[]
 } = {
-    "book": bookVariantKeyOptions,
-    "phone": phoneVariantKeyOptions
+    "books": bookVariantKeyOptions,
+    "phones": phoneVariantKeyOptions
 }

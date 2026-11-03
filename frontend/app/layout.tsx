@@ -3,12 +3,11 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
-import Navbar from "@/components/common/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { ToastBar, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/context/AuthProvider";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,7 +50,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               enableSystem
               disableTransitionOnChange
             >
-              <Navbar />
               <Toaster />
               {children}
 

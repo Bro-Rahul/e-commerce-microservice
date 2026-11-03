@@ -1,21 +1,19 @@
-import ProductBaseDetailForm from '@/components/sellers/addProducts/baseDetails/ProductBaseDetailForm'
 import Heading from '@/components/sellers/addProducts/Heading'
 import MainVariantCheckbox from '@/components/sellers/addProducts/MainVariantCheckbox'
-import { AvailableCategoryType } from '@/types/inventoryTypes'
-import { ClipboardList, Images } from 'lucide-react'
-import AssetsForm from '@/components/sellers/addProducts/mediaAssets/AssetsForm'
+import { ClipboardList } from 'lucide-react'
 import ViewProductBtn from '@/components/sellers/addProducts/ViewProductBtn'
-import ProductFormRenderer from '@/components/sellers/addProducts/productForms/ProductFormRenderer'
 import MainFormWrapper from '@/components/sellers/addProducts/MainFormWrapper'
 
 interface ProductFormPageProps {
     params: Promise<{
-        slug: AvailableCategoryType
+        slug: string
     }>
 }
 
 const page = async ({ params }: ProductFormPageProps) => {
     const { slug } = await params
+
+    const category = decodeURIComponent(slug);
 
     return (
         <main className="mx-auto w-[80%] flex-1 px-4 pb-32 pt-6 sm:px-6 md:px-10 md:pt-10">
@@ -27,11 +25,11 @@ const page = async ({ params }: ProductFormPageProps) => {
                             Enter the details, images, and product-specific information.
                         </span>
                     </span>
-                    <MainVariantCheckbox category={slug} />
+                    <MainVariantCheckbox category={category} />
                 </span>
             </Heading>
-            <MainFormWrapper category={slug} />
-            <ViewProductBtn category={slug} />
+            <MainFormWrapper category={category} />
+            <ViewProductBtn category={category} />
         </main>
     )
 }

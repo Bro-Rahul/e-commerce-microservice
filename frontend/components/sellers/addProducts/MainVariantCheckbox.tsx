@@ -2,18 +2,17 @@
 
 import { Plus, X } from "lucide-react"
 import useAddProduct from "@/store/useAddProduct"
-import { AvailableCategoryType } from "@/types/inventoryTypes"
 import useProductImage from "@/hooks/dexies/useProductImage"
 
-const MainVariantCheckbox = ({ category }: { category: AvailableCategoryType }) => {
+const MainVariantCheckbox = ({ category }: { category: string }) => {
     const {
         removeVariant,
         setCurrentVariant,
         setAsMainVariant,
         addNewVariant,
-        products
+        getProductData
     } = useAddProduct();
-    const { currentVariant, mainVariant, variantKeys } = products[category];
+    const { currentVariant, mainVariant, variantKeys } = getProductData(category);
 
     const { deleteVariantImages } = useProductImage();
 
@@ -45,8 +44,6 @@ const MainVariantCheckbox = ({ category }: { category: AvailableCategoryType }) 
                             <button
                                 key={variantNumber}
                                 type="button"
-                                aria-label={`Select variant ${variantNumber}`}
-                                aria-pressed={isCurrentVariant}
                                 onClick={() => setCurrentVariant(category, variantId)}
                                 className={`flex h-7 min-w-7 items-center justify-center rounded-md px-2 text-sm font-bold transition-colors ${isCurrentVariant
                                     ? 'bg-primary text-on-primary'

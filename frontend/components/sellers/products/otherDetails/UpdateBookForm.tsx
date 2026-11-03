@@ -1,7 +1,7 @@
 import { ProductMetaDetailResponseType } from '@/types/products/SellerProductListType'
 import BookAttributesForm from '../../addProducts/productForms/book/BookAttributesForm'
 import BookAuthors from '../../addProducts/productForms/book/BookAuthors'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import { ProductMetaDetailsType } from '@/types/ProductDisplayTypes'
 import toast from 'react-hot-toast'
 

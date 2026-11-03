@@ -3,11 +3,9 @@ import {
   productStateDefaults,
 } from "@/constants/data/productData";
 
-import { AvailableCategoryType } from "@/types/inventoryTypes";
 import { ProductMetaDetailsType } from "@/types/ProductDisplayTypes";
 import { InventoryFieldType } from "@/validators/inventoryValidator";
 import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator";
-
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -25,50 +23,78 @@ export type ProductVariantsType = {
   variantKeys: string[];
 };
 
+// export type ProductType = {
+//   [K in AvailableCategoryType]: ProductVariantsType;
+// };
+
 export type ProductType = {
-  [K in AvailableCategoryType]: ProductVariantsType;
+  [K: string]: ProductVariantsType;
 };
+
 
 type UseAddProductContextType = {
   products: ProductType;
 
+  getProductData: (category: string) => ProductVariantsType,
+
   addNewVariant: (
-    category: AvailableCategoryType
+    category: string
   ) => void;
 
   removeVariant: (
-    category: AvailableCategoryType
+    category: string
   ) => void;
 
   setCurrentVariant: (
-    category: AvailableCategoryType,
+    category: string,
     variantId: string
   ) => void;
 
   setAsMainVariant: (
-    category: AvailableCategoryType
+    category: string
   ) => void;
 
   addInventory: (
-    category: AvailableCategoryType,
+    category: string,
     payload: InventoryFieldType
   ) => void;
 
   addBaseDetail: (
-    category: AvailableCategoryType,
+    category: string,
     payload: ProductBaseFieldsType
   ) => void;
 
   addProductMetaDetail: (
-    category: AvailableCategoryType,
+    category: string,
     payload: ProductMetaDetailsType
   ) => void;
 };
 
 const useAddProduct = create<UseAddProductContextType>()(
   persist(
-    (set) => ({
-      products: getProductsDefaults(),
+    (set, get) => ({
+      products: {},
+
+      getProductData(category) {
+        const { products } = get();
+
+        // Return existing product data
+        if (category in products) {
+          return products[category];
+        }
+        // Generate default data
+        const categoryData = getProductsDefaults(category);
+
+        set((state) => ({
+          ...state,
+          products: {
+            ...state.products,
+            [category]: categoryData
+          }
+        }))
+
+        return categoryData;
+      },
 
       // -----------------------------
       // ADD NEW VARIANT

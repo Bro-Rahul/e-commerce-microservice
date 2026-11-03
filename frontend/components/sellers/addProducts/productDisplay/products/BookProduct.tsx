@@ -20,7 +20,7 @@ import KeyAttributes from "../keyAttributes"
 import SubmitProductBtn from "../../SubmitProductBtn"
 import useFormateData from "@/hooks/seller/useFormateData"
 import toast from "react-hot-toast"
-import { sellerRepository } from "@/repositary/seller/sellerHttp"
+import { sellerRepository } from "@/repositary/seller/sellerRepositary"
 
 interface BookProductProps {
   productData: ProductDataType
@@ -30,7 +30,7 @@ const BookProduct = ({ productData }: BookProductProps) => {
   const { availableOptions, selectedOptions, stockAvailable } =
     useProductVariantProvider()
 
-  const { getProductSubmissionData } = useFormateData({ category: "book" })
+  const { getProductSubmissionData } = useFormateData({ category: "books" })
 
   const attributes = productData?.productMetaDetails?.attribute ?? {}
   const productTitle =

@@ -1,13 +1,16 @@
+import CategoryBranch from "@/components/sellers/addProducts/CategoryBranch";
 import CategoryList from "@/components/sellers/addProducts/CategoryList"
+import ROUTES from "@/constants/data/routes";
+import { sellerRepository } from "@/repositary/seller/sellerRepositary"
 import {
     ArrowRight,
     Plus,
 } from "lucide-react"
 
 
-export default function DashboardPage() {
+const AddProductPage = async () => {
+    const categories = await sellerRepository.getRequests.getCategoryList();
     return (
-
         <main className="min-w-0 flex-1 overflow-y-auto">
             <div className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8 lg:px-10">
                 <div className="mb-8 flex items-center justify-between gap-4 sm:mb-10">
@@ -35,9 +38,17 @@ export default function DashboardPage() {
                             <h2 id="category-heading" className="headline-md text-foreground">Choose a category</h2>
                             <p className="body-md mt-1 text-muted-foreground">You can refine this after creating your listing.</p>
                         </div>
-                        <span className="hidden text-sm text-muted-foreground sm:block">7 popular categories</span>
                     </div>
-                    <CategoryList />
+                    <CategoryList
+                        categories={categories}
+                        renderer={(category) =>
+                            <CategoryBranch
+                                key={category.name}
+                                category={category}
+                                href={ROUTES.SELLER.PRODUCTS.ADD_PRODUCT.PRODUCT_FORM(category.name)}
+                            />
+                        }
+                    />
                 </section>
 
                 <section className="mt-8 overflow-hidden rounded-xl border border-outline-variant bg-primary p-6 text-primary-foreground sm:mt-10 sm:p-8">
@@ -59,3 +70,5 @@ export default function DashboardPage() {
         </main>
     )
 }
+
+export default AddProductPage

@@ -1,5 +1,4 @@
 "use client"
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 import FormCard from '../productForms/FormCard'
 import { Images } from 'lucide-react'
 import CoverImage from './CoverImage'
@@ -12,7 +11,7 @@ import useProductImage from '@/hooks/dexies/useProductImage'
 
 interface AssetsFormProps {
     currentVariantId: string,
-    category: AvailableCategoryType
+    category: string
 }
 
 const AssetsForm = ({ category, currentVariantId }: AssetsFormProps) => {

@@ -1,7 +1,8 @@
+import ROUTES from '@/constants/data/routes'
 import { redirect } from 'next/navigation'
 
 const page = () => {
-    redirect("/seller/dashboard")
+    redirect(ROUTES.SELLER.DASHBOARD)
 }
 
 export default page

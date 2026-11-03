@@ -1,5 +1,5 @@
 import UpdateProductBaseDetailFrom from '@/components/sellers/products/base/UpdateProductBaseDetailFrom'
-import { sellerRepository } from '@/repositary/seller/sellerHttp';
+import { sellerRepository } from '@/repositary/seller/sellerRepositary';
 
 interface ProductBaseDetailsPageProps {
     params: Promise<{

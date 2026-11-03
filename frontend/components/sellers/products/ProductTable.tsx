@@ -10,7 +10,7 @@ import { SellerProductListFilterType } from '@/types/searchFilter/sellerFilterTy
 import ProductTableSkeleton from './ProductTableSkeleton'
 import useClientFetcher from '@/hooks/useClientFetcher'
 import { formatStatus, toCsvCell } from '@/lib/utils'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 
 
 
@@ -19,6 +19,7 @@ const ProductTable = () => {
     const selectAllRef = useRef<HTMLInputElement>(null)
     const pathname = usePathname()
     const searchParams = useSearchParams()
+    searchParams.toString()
 
     const searchFilter: SellerProductListFilterType = {
         category: searchParams.get('category'),
@@ -32,7 +33,7 @@ const ProductTable = () => {
     const query = searchParams.toString()
     const filterKey = query ? `${pathname}?${query}` : pathname
     const { data, error, isLoading } = useClientFetcher<PaginatedResponse<SellerProductListingType>>({
-        fetcherFn: () => sellerRepository.getRequests.getSellerProductList(searchFilter),
+        fetcherFn: () => sellerRepository.getRequests.getSellerProductList(searchParams.toString()),
         fallbackData: {
             content: [],
             currentPage: 0,
@@ -45,8 +46,8 @@ const ProductTable = () => {
     })
 
     const { content: products, currentPage, isFirst, isLast, totalPages, pageSize } = data
-    const selectedOnPageCount = products.filter((product) => selectedProductIds.has(product.variantId)).length
-    const allProductsOnPageSelected = products.length > 0 && selectedOnPageCount === products.length
+    const selectedOnPageCount = products?.filter((product) => selectedProductIds.has(product.variantId)).length
+    const allProductsOnPageSelected = products?.length > 0 && selectedOnPageCount === products.length
     const someProductsOnPageSelected = selectedOnPageCount > 0 && !allProductsOnPageSelected
 
     useEffect(() => {
@@ -82,13 +83,13 @@ const ProductTable = () => {
     }
 
     const exportCsv = () => {
-        const headers = ['Product ID', 'Product', 'Description', 'SKU', 'Category', 'Price', 'Quantity', 'Status']
+        const headers = ['Product ID', 'Product', 'Description', 'SKU', 'productCategories', 'Price', 'Quantity', 'Status']
         const rows = products.map((product) => [
             product.productId,
             product.title,
             product.description,
             product.inventory.sku,
-            product.category,
+            product.productCategories,
             product.inventory.price,
             product.inventory.quantity,
             formatStatus(product.productStatus),

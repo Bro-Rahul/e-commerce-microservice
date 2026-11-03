@@ -2,14 +2,13 @@
 import { Button } from '@/components/ui/button'
 import useImageLoader from '@/hooks/dexies/useImageLoader'
 import useProductImage from '@/hooks/dexies/useProductImage'
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 import { Save } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 
 interface SaveAssetsBtnProps {
-    slug: AvailableCategoryType
+    slug: string
     variantId: string,
     advanceOnSave?: boolean
 }

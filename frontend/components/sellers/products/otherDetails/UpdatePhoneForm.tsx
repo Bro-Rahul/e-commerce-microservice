@@ -3,7 +3,7 @@ import PhoneAttributesForm from '../../addProducts/productForms/phone/PhoneAttri
 import WhatIsInBoxForm from '../../addProducts/productForms/phone/WhatIsInBoxForm'
 import SpecificationForm from '../../addProducts/specifications/SpecificationForm'
 import { ProductMetaDetailsType } from '@/types/ProductDisplayTypes'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import toast from 'react-hot-toast'
 
 interface UpdatePhoneFormProps {

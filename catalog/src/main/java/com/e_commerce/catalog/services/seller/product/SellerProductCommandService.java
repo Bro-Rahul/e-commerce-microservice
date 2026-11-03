@@ -6,7 +6,7 @@ import com.e_commerce.catalog.exceptions.category.CategoryNotFoundException;
 import com.e_commerce.catalog.model.Category;
 import com.e_commerce.catalog.model.Products;
 import com.e_commerce.catalog.repo.ProductRepo;
-import com.e_commerce.catalog.services.seller.category.SellerCategoryService;
+import com.e_commerce.catalog.services.seller.category.SellerCategoryQueryService;
 import com.e_commerce.catalog.services.seller.variant.SellerProductVariantCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class SellerProductCommandService {
 
     private final ProductRepo repo;
     private final SellerProductVariantCommandService variantService;
-    private final SellerCategoryService categoryService;
+    private final SellerCategoryQueryService categoryService;
 
     public Optional<Category> isCategoryAvailable(String name) {
         return categoryService.isCategoryPresent(name);

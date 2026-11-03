@@ -1,14 +1,12 @@
-import { inventoryFields } from "@/constants/formFields/inventoryFields"
-import { AvailableCategoryType } from "../inventoryTypes"
 import { InventoryFieldType } from "@/validators/inventoryValidator"
 import { ImagePlaceType } from "../dexie/mediaAssetsTypes"
 import { ProductStatusType } from "../searchFilter/sellerFilterTypes"
 
 
 export interface SellerProductListingType {
-    category: string,
+    productCategories: string[],
     description: string,
-    coverImage: string,
+    coverImageURL: string,
     inventory: {
         price: number,
         quantity: number,
@@ -21,7 +19,7 @@ export interface SellerProductListingType {
 }
 
 export interface ProductMetaDetailResponseType {
-    category: AvailableCategoryType,
+    category: string,
     [k: string]: any
 }
 
@@ -42,3 +40,13 @@ export interface AssetsMetaDetails {
 export type ProductInventoryResponseType = {
     variantId: string;
 } & InventoryFieldType
+
+
+export type HierarchyCategoryResponseType = {
+    name: string,
+    childCategories: HierarchyCategoryResponseType[]
+}
+
+export type CategoryNamesResponseType = {
+    name: string
+}

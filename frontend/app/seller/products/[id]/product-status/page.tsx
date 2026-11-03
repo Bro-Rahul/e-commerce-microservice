@@ -1,5 +1,5 @@
 import ProductStatusForm from '@/components/sellers/products/status/ProductStatusForm'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 
 interface ProductStatusPageProps {
     params: Promise<{ id: string }>

@@ -1,7 +1,7 @@
 "use client"
 import useSWR from "swr"
 
-interface UseFetchDebounceProps<R> {
+interface UseClientFetcherProps<R> {
     fetcherFn: () => Promise<R>;
     fallbackData: R;
     url: string,
@@ -12,7 +12,7 @@ const useClientFetcher = <R>({
     fallbackData,
     url,
 
-}: UseFetchDebounceProps<R>) => {
+}: UseClientFetcherProps<R>) => {
 
     const { data, isLoading, isValidating, error } = useSWR(url, fetcherFn, {
         suspense: true,

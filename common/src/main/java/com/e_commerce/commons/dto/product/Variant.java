@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -21,6 +22,8 @@ public class Variant {
     private String title;
 
     private String category;
+
+    private List<String> productCategories;
 
     private Boolean isMainVariant;
 

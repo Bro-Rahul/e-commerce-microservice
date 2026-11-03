@@ -4,7 +4,6 @@ import productBaseFieldsValidator, { ProductBaseFieldsType } from '@/validators/
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Save, SquareText } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import FormCard from '../productForms/FormCard'
 import JsonUploadBtn from '../JsonUploadBtn'
 

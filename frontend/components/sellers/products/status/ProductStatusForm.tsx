@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import FormCard from '@/components/sellers/addProducts/productForms/FormCard'
 import { formatStatus } from '@/lib/utils'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import { ProductStatusType } from '@/types/searchFilter/sellerFilterTypes'
 import { BadgeCheck, Save } from 'lucide-react'
 import React, { useState } from 'react'

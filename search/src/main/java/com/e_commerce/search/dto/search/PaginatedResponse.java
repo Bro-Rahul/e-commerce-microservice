@@ -3,11 +3,12 @@ package com.e_commerce.search.dto.search;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class PaginatedResponse<T> {
-    private List<T> content;
+    private List<T> content = new ArrayList<>();
 
     @JsonProperty("isFirst")
     private boolean isFirst;

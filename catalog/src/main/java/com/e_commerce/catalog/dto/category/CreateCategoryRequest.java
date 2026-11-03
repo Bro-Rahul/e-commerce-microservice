@@ -9,5 +9,8 @@ public class CreateCategoryRequest {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String description;
+
     private String parentCategoryName;
 }

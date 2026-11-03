@@ -1,4 +1,3 @@
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 import React, {
     createContext,
     useEffect,
@@ -15,7 +14,7 @@ export type SelectedOptionsType = {
 
 interface ProductVariantProviderProps {
     children: React.ReactNode
-    category: AvailableCategoryType
+    category: string
     variantsData: Record<string, Record<string, string>>
     allVariantOptions: VariantOptionsType,
     optionsKeys: string[]
@@ -26,7 +25,7 @@ interface ProductVariantProviderProps {
 interface ProductVariantState {
     variantsData: Record<string, Record<string, string>>
     optionsKeys: string[]
-    category: AvailableCategoryType | null
+    category: string | null
     currentVariant: string,
     stockAvailable: boolean,
     availableOptions: VariantOptionsType

@@ -1,3 +1,4 @@
+import ROUTES from "@/constants/data/routes"
 import { redirect } from "next/navigation"
 
 interface AddProductPageProps {
@@ -8,7 +9,7 @@ interface AddProductPageProps {
 
 const page = async ({ params }: AddProductPageProps) => {
     const { slug } = await params
-    redirect(`/seller/add-product/${slug}/product-form`)
+    redirect(ROUTES.SELLER.PRODUCTS.ADD_PRODUCT.PRODUCT_FORM(decodeURIComponent(slug)))
 }
 
 export default page

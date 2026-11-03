@@ -30,9 +30,9 @@ const ProductTableRow = ({ product, isSelected, onSelectionChange }: ProductTabl
             <td className="px-3 py-3.5">
                 <Link href={`/seller/products/${product.variantId}`}>
                     <div className="flex min-w-64 items-center gap-3">
-                        {product.coverImage ? (
+                        {product.coverImageURL ? (
                             <Image
-                                src={`${baseURL.assetsBaseURL}${product.coverImage}`}
+                                src={`${baseURL.assetsBaseURL}${product.coverImageURL}`}
                                 alt={`${product.title} cover`}
                                 width={56}
                                 height={56}
@@ -52,7 +52,8 @@ const ProductTableRow = ({ product, isSelected, onSelectionChange }: ProductTabl
             </td>
             <td className="px-3 py-3.5 text-sm text-foreground">{product.inventory.sku}</td>
             <td className="px-3 py-3.5">
-                <span className="inline-block bg-surface-container-high px-2 py-1 text-[10px] font-bold uppercase text-on-surface-variant">{product.category}</span>
+                {product.productCategories.map(category => <span key={category} className="inline-block bg-surface-container-high px-2 py-1 text-[10px] font-bold uppercase text-on-surface-variant">{category}</span>
+                )}
             </td>
             <td className="px-3 py-3 text-base font-semibold tabular-nums text-foreground"><p className="inline-flex place-items-center"><IndianRupee size={14} />{product.inventory.price.toFixed(2)}</p></td>
             <td className="px-3 py-3.5">

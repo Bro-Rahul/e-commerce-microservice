@@ -23,7 +23,7 @@ public interface ProductVariantsRepo extends JpaRepository<ProductsVariants, Str
         pv.about,
         c.name as "category"
     FROM products_variants pv
-    LEFT JOIN category c on pv.category_id = c.id
+    LEFT JOIN category c on pv.category_name = c.name
     WHERE pv.variant_id =:variantId
 """,nativeQuery = true)
     ProductBaseDetailsDTO getVariantById(@Param("variantId") String variantId);
@@ -36,7 +36,7 @@ public interface ProductVariantsRepo extends JpaRepository<ProductsVariants, Str
         pv.about,
         c.name as "category"
     FROM products_variants pv
-    LEFT JOIN category c on pv.category_id = c.id
+    LEFT JOIN category c on pv.category_name = c.name
 """,nativeQuery = true)
     List<ProductBaseDetailsDTO> findAllBy();
 

@@ -1,20 +1,19 @@
 import { PaginatedResponse } from "@/types/paginatedResponseType";
-import { SellerProductListingType, ProductMetaDetailResponseType, ProductAssetsResponseType, ProductInventoryResponseType } from "@/types/products/SellerProductListType";
-import { ProductStatusType, SellerProductListFilterType } from "@/types/searchFilter/sellerFilterTypes";
+import { ProductMetaDetailResponseType, ProductAssetsResponseType, ProductInventoryResponseType, HierarchyCategoryResponseType, SellerProductListingType } from "@/types/products/SellerProductListType";
+import { ProductStatusType } from "@/types/searchFilter/sellerFilterTypes";
 import { ProductBaseFieldsType } from "@/validators/ProductBaseFieldsValidator";
 import { apiFetch } from "../api";
 import { baseURL } from "../baseURL";
 
 export const sellerGets = {
-    async getSellerProductList(filter: SellerProductListFilterType): Promise<PaginatedResponse<SellerProductListingType>> {
-        const response = await apiFetch(`${baseURL.searchBaseUrl}/seller/products`, {
-            method: "POST",
-            body: JSON.stringify(filter),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
 
+    async getCategoryList(): Promise<HierarchyCategoryResponseType[]> {
+        const response = await apiFetch(`${baseURL.catalogBaseUrl}/seller/category`);
+        return await response.json();
+    },
+
+    async getSellerProductList(filterString: string): Promise<PaginatedResponse<SellerProductListingType>> {
+        const response = await apiFetch(`${baseURL.searchBaseUrl}/seller/products?${filterString}`);
         return await response.json();
     },
 

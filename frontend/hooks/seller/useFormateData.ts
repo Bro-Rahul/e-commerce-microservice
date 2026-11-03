@@ -1,5 +1,4 @@
 import useAddProduct, { ProductDetailsType } from "@/store/useAddProduct"
-import { AvailableCategoryType } from "@/types/inventoryTypes"
 import {
     ProductDataType,
     ProductDisplayImageType,
@@ -12,10 +11,9 @@ import { ImagePlaceType } from "@/types/dexie/mediaAssetsTypes"
 import { AssetsMetaDetails } from "@/types/products/SellerProductListType"
 
 
-const useFormateData = ({ category }: { category: AvailableCategoryType }) => {
-    const { variantKeys, variants, mainVariant } = useAddProduct(
-        (state) => state.products[category]
-    )
+const useFormateData = ({ category }: { category: string }) => {
+    const {getProductData:variantsData} = useAddProduct()
+    const { variantKeys, variants, mainVariant } = variantsData(category)
     const { getImageByCategory } = useProductImage();
     const images = useImageLoader({
         dependency: [category],

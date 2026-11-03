@@ -1,5 +1,5 @@
 import UpdateInventoryForm from "@/components/sellers/products/inventory/UpdateInventoryForm";
-import { sellerRepository } from "@/repositary/seller/sellerHttp";
+import { sellerRepository } from "@/repositary/seller/sellerRepositary";
 import { InventoryFieldType } from "@/validators/inventoryValidator"
 
 interface ProductInventoryPageProps {

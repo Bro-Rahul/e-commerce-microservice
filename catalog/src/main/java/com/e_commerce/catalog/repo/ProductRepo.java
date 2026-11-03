@@ -25,7 +25,7 @@ public interface ProductRepo extends JpaRepository<Products,String>  {
     LEFT JOIN products_variants pv
         ON p.id = pv.product_id
     LEFT JOIN category c
-        ON pv.category_id = c.id
+        ON pv.category_name = c.name
 """,nativeQuery = true)
     List<ProductResponseDTO> findAllBy();
 
@@ -41,7 +41,7 @@ public interface ProductRepo extends JpaRepository<Products,String>  {
     LEFT JOIN products_variants pv
         ON p.id = pv.product_id
     LEFT JOIN category c
-        ON pv.category_id = c.id
+        ON pv.category_name = c.name
     WHERE p.id =:id
 """,nativeQuery = true)
     List<ProductResponseDTO> findBy(@Param("id") String id);

@@ -1,11 +1,10 @@
 import db from '@/lib/dexie/db'
 import { MediaAssetsType, ImagePlaceType } from '@/types/dexie/mediaAssetsTypes'
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 
 const useProductImage = () => {
     const addImages = async (
         images: MediaAssetsType[],
-        category: AvailableCategoryType,
+        category: string,
         imageType: ImagePlaceType,
         variantId: string,
 
@@ -20,7 +19,7 @@ const useProductImage = () => {
 
     const addImage = async (
         image: MediaAssetsType,
-        category: AvailableCategoryType,
+        category: string,
         imageType: ImagePlaceType,
         variantId: string
     ) => {
@@ -33,7 +32,7 @@ const useProductImage = () => {
     }
 
     const getImage = async (
-        category: AvailableCategoryType,
+        category: string,
         imageType: ImagePlaceType,
         variantId: string
     ) => {
@@ -44,7 +43,7 @@ const useProductImage = () => {
     }
 
     const getImages = async (
-        category: AvailableCategoryType,
+        category: string,
         imageType: ImagePlaceType,
         variantId: string
     ) => {
@@ -56,7 +55,7 @@ const useProductImage = () => {
 
     const addCoverImage = async (
         image: MediaAssetsType,
-        category: AvailableCategoryType,
+        category: string,
         variantId: string
     ) => {
         addImage(image, category, "CoverImage", variantId)
@@ -64,7 +63,7 @@ const useProductImage = () => {
 
     const addCarouselImages = async (
         images: MediaAssetsType[],
-        category: AvailableCategoryType,
+        category: string,
         variantId: string,
     ) => {
         addImages(images, category, "CarouselImages", variantId)
@@ -72,7 +71,7 @@ const useProductImage = () => {
 
     const addImageCollection = async (
         images: MediaAssetsType[],
-        category: AvailableCategoryType,
+        category: string,
         variantId: string,
     ) => {
         addImages(images, category, "CollectionImages", variantId)
@@ -80,7 +79,7 @@ const useProductImage = () => {
 
     const getVariantImagesForAnCategory = async (
         variantId: string,
-        category: AvailableCategoryType
+        category: string
     ) => {
         const images = await db.mediaAssets
             .where(["category+variantId"])
@@ -90,7 +89,7 @@ const useProductImage = () => {
     }
 
     const getImageByCategory = async (
-        category: AvailableCategoryType
+        category: string
     ) => {
         const images = await db.mediaAssets
             .where("category")
@@ -101,7 +100,7 @@ const useProductImage = () => {
 
     const deleteVariantImages = async (
         variantId: string,
-        category: AvailableCategoryType
+        category: string
     ) => {
         const images = await db.mediaAssets
             .where(["category+variantId"])

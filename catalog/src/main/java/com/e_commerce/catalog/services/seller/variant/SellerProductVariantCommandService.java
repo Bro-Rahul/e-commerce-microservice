@@ -134,22 +134,6 @@ public class SellerProductVariantCommandService {
         // publish an update event for search service to updates its own copy
     }
 
-    @Transactional
-    public void deleteProductVariant(String variantId) {
-        repo.deleteById(variantId);
-        // publish an update event for search service to updates its own copy
-    }
-
-    @Transactional
-    public void updateVariantStatus(String variantId, ProductStatus status) {
-        Optional<ProductsVariants> optionalVariant = repo.findById(variantId);
-        if(optionalVariant.isEmpty())
-            throw new ProductNotFoundException("No Such Product Variant Exists ","PRODUCT_VARIANT_NOT_FOUND","/seller/product-variant/{id}");
-        ProductsVariants variant = optionalVariant.get();
-        variant.setProductStatus(status);
-        repo.save(variant);
-        // publish an update event for search service to updates its own copy
-    }
 
     @Transactional
     public void updateVariantAssets(

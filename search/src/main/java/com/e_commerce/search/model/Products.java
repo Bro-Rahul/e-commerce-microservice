@@ -1,6 +1,7 @@
 package com.e_commerce.search.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import com.e_commerce.commons.dto.product.ProductMediaAssets;
@@ -33,8 +34,9 @@ public class Products {
 
     private String title;
 
-    @Field(type = FieldType.Keyword)
     private String category;
+
+    private List<String> productCategories;
 
     private String description;
 

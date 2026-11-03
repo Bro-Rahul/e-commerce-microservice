@@ -1,4 +1,3 @@
-import { AvailableCategoryType } from '@/types/inventoryTypes'
 import PhoneProduct from './PhoneProduct'
 import { ProductDataType } from '@/types/ProductDisplayTypes'
 import BookProduct from './BookProduct'
@@ -13,7 +12,7 @@ const ProductRenderer = ({
     variantsData,
     currentVariant
 }: {
-    category: AvailableCategoryType,
+    category: string,
     productData: ProductDataType,
     currentVariant: string,
     variantsData: Record<string, keyValuePairType[]>
@@ -23,10 +22,10 @@ const ProductRenderer = ({
     let content;
 
     switch (category) {
-        case 'phone':
+        case 'phones':
             content = <PhoneProduct productData={productData} />
             break
-        case 'book':
+        case 'books':
             content = <BookProduct productData={productData} />
             break;
     }

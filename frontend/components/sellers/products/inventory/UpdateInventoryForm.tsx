@@ -2,7 +2,7 @@
 import { ProductInventoryResponseType } from '@/types/products/SellerProductListType'
 import InventoryForm from '../../addProducts/inventory/InventoryForm'
 import { InventoryFieldType } from '@/validators/inventoryValidator'
-import { sellerRepository } from '@/repositary/seller/sellerHttp'
+import { sellerRepository } from '@/repositary/seller/sellerRepositary'
 import toast from 'react-hot-toast'
 
 interface UpdateInventoryFormProps {
